@@ -1,11 +1,35 @@
 {
   "name": "freebee.admin",
+  "description": "Admin application to manage freebees and users",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.3.0",
+    "@material-ui/icons": "^3.0.1",
+    "auth0-js": "^9.8.0",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.5"
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.0.5",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.82.0",
+    "flow-typed": "^2.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
