@@ -1,24 +1,33 @@
 import React, { Fragment } from 'react';
-import { CssBaseline } from '@material-ui/core';
 import {
   BrowserRouter as Router,
-  Switch,
+  Redirect,
   Route,
+  Switch,
 } from 'react-router-dom';
-import { Header } from './components';
-import FeedbackManagement from './pages/feedback-management';
+import {
+  CssBaseline,
+} from '@material-ui/core';
+import AppBar from './views/appbar';
+import { dashboard } from './routes';
+
+import './App.css';
+
+const Dashboard = () => (
+  <Fragment>
+    <CssBaseline />
+    <AppBar />
+  </Fragment>
+);
 
 const App = () => {
   return (
     <Fragment>
-      <CssBaseline />
       <Router>
-        <Fragment>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={FeedbackManagement} />
-          </Switch>
-        </Fragment>
+        <Switch>
+          <Route path={dashboard()} component={Dashboard} />
+          <Redirect to={dashboard()} />
+        </Switch>
       </Router>
     </Fragment>
   );
