@@ -63,7 +63,7 @@ class MiniDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              {'Admin'}
+              {'Freebee.Admin'}
             </Typography>
           </Toolbar>
         </AppBar>

@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "immutability-helper": "^2.8.1",
+    "moment": "^2.22.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
@@ -41,6 +42,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "https://localhost:44384",
   "browserslist": [
     ">0.2%",
     "not dead",

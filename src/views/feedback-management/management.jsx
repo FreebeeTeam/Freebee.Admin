@@ -10,7 +10,7 @@ import styles from './styles';
 
 class FeedbackManagement extends PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, data } = this.props;
 
     return (
       <div className={classes.root}>
@@ -19,7 +19,7 @@ class FeedbackManagement extends PureComponent {
             <Typography variant="h5" component="h3">
               {'Feedback managing'}
             </Typography>
-            <Table />
+            <Table data={data} />
           </Grid>
         </Grid>
       </div>

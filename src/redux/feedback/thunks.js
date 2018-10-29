@@ -12,11 +12,15 @@ import {
   removeFeedbackFailure,
 } from './actions';
 
+import { feedbackService } from '../../services';
+
 export const getFeedback = () => async (dispatch) => {
   dispatch(getFeedbackRequest());
 
   try {
-    // TODO
+    const { data } = await feedbackService.getFeedback();
+
+    dispatch(getFeedbackSuccess(data));
   } catch (error) {
     console.error(error);
 
@@ -28,7 +32,9 @@ export const updateFeedback = feedback => async (dispatch) => {
   dispatch(updateFeedbackRequest());
 
   try {
-    // TODO
+    const { data } = await feedbackService.updateFeedback(feedback);
+
+    dispatch(updateFeedbackSuccess(data));
   } catch (error) {
     console.error(error);
 
@@ -40,7 +46,9 @@ export const removeFeedback = id => async (dispatch) => {
   dispatch(removeFeedbackRequest());
 
   try {
-    // TODO
+    const { data } = await feedbackService.removeFeedback(id);
+
+    dispatch(removeFeedbackSuccess(data));
   } catch (error) {
     console.error(error);
 

@@ -44,19 +44,25 @@ class EnhancedTableHead extends PureComponent {
                 padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}
               >
-                <Tooltip
-                  title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
-                >
-                  <TableSortLabel
-                    active={orderBy === row.id}
-                    direction={order}
-                    onClick={this.createSortHandler(row.id)}
-                  >
-                    {row.label}
-                  </TableSortLabel>
-                </Tooltip>
+                {
+                  row.sortable
+                    ? (
+                      <Tooltip
+                        title="Sort"
+                        placement={row.numeric ? 'bottom-end' : 'bottom-start'}
+                        enterDelay={300}
+                      >
+                        <TableSortLabel
+                          active={orderBy === row.id}
+                          direction={order}
+                          onClick={this.createSortHandler(row.id)}
+                        >
+                          {row.label}
+                        </TableSortLabel>
+                      </Tooltip>
+                    )
+                    : row.label
+                }
               </TableCell>
             );
           }, this)}

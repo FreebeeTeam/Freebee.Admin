@@ -19,10 +19,8 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'calories',
     selected: [],
-    data: [
-    ],
     page: 0,
-    rowsPerPage: 5,
+    rowsPerPage: 10,
   };
 
   handleRequestSort = (event, property) => {
@@ -37,8 +35,10 @@ class EnhancedTable extends React.Component {
   };
 
   handleSelectAllClick = (event) => {
+    const { data } = this.props;
+
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -76,9 +76,13 @@ class EnhancedTable extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes } = this.props;
+    const { classes, data } = this.props;
     const {
-      data, order, orderBy, selected, rowsPerPage, page,
+      order,
+      orderBy,
+      selected,
+      rowsPerPage,
+      page,
     } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
@@ -117,7 +121,7 @@ class EnhancedTable extends React.Component {
                         {n.id}
                       </TableCell>
                       <TableCell>{n.address}</TableCell>
-                      <TableCell>{n.type}</TableCell>
+                      <TableCell>{n.type.join(', ')}</TableCell>
                       <TableCell>{n.author}</TableCell>
                       <TableCell>{n.creationDate}</TableCell>
                       <TableCell>{n.description}</TableCell>
@@ -126,7 +130,7 @@ class EnhancedTable extends React.Component {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={7} />
                 </TableRow>
               )}
             </TableBody>

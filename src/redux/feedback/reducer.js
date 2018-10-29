@@ -23,25 +23,37 @@ const defaultState = {
 
 const reducer = handleActions({
   [getFeedbackRequest]: state => update(state, {
-    isFetching: true,
-    error: null,
+    isFetching: {
+      $set: true,
+    },
+    error: {
+      $set: null,
+    },
   }),
   [getFeedbackSuccess]: (state, { payload: { feedback } }) => update(state, {
     list: {
       $set: feedback,
     },
-    isFetching: false,
+    isFetching: {
+      $set: false,
+    },
   }),
   [getFeedbackFailure]: (state, { payload: { error } }) => update(state, {
     error: {
       $set: error,
     },
-    isFetching: false,
+    isFetching: {
+      $set: false,
+    },
   }),
 
   [updateFeedbackRequest]: state => update(state, {
-    isFetching: true,
-    error: null,
+    isFetching: {
+      $set: true,
+    },
+    error: {
+      $set: null,
+    },
   }),
   [updateFeedbackSuccess]: (state, { payload: { feedback } }) => {
     const listWithUpdated = state.list.filter(f => f.id !== feedback.id).push(feedback);
@@ -49,29 +61,43 @@ const reducer = handleActions({
       list: {
         $set: listWithUpdated,
       },
-      isFetching: false,
+      isFetching: {
+        $set: false,
+      },
     });
   },
   [updateFeedbackFailure]: (state, { payload: { error } }) => update(state, {
     error: {
       $set: error,
     },
-    isFetching: false,
+    isFetching: {
+      $set: false,
+    },
   }),
 
   [removeFeedbackRequest]: state => update(state, {
-    isFetching: true,
-    error: null,
+    isFetching: {
+      $set: true,
+    },
+    error: {
+      $set: null,
+    },
   }),
   [removeFeedbackSuccess]: (state, { payload: { feedback } }) => update(state, {
-    feedback: state.list.filter(f => f.id !== feedback.id),
-    isFetching: false,
+    list: {
+      $set: state.list.filter(f => f.id !== feedback.id),
+    },
+    isFetching: {
+      $set: false,
+    },
   }),
   [removeFeedbackFailure]: (state, { payload: { error } }) => update(state, {
     error: {
       $set: error,
     },
-    isFetching: false,
+    isFetching: {
+      $set: false,
+    },
   }),
 }, defaultState);
 
