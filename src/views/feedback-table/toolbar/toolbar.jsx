@@ -15,7 +15,8 @@ import {
 import styles from './styles';
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, classes } = props;
+  const { selected, classes, removeRows } = props;
+  const numSelected = selected.length;
 
   return (
     <Toolbar
@@ -38,7 +39,7 @@ const EnhancedTableToolbar = (props) => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
+            <IconButton onClick={() => removeRows(selected)} aria-label="Delete">
               <DeleteIcon />
             </IconButton>
           </Tooltip>
@@ -53,10 +54,5 @@ const EnhancedTableToolbar = (props) => {
     </Toolbar>
   );
 };
-
-// EnhancedTableToolbar.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   numSelected: PropTypes.number.isRequired,
-// };
 
 export default withStyles(styles)(EnhancedTableToolbar);

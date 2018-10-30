@@ -42,11 +42,11 @@ export const updateFeedback = feedback => async (dispatch) => {
   }
 };
 
-export const removeFeedback = id => async (dispatch) => {
+export const removeFeedback = ids => async (dispatch) => {
   dispatch(removeFeedbackRequest());
 
   try {
-    const { data } = await feedbackService.removeFeedback(id);
+    const { data } = await feedbackService.removeFeedback(ids);
 
     dispatch(removeFeedbackSuccess(data));
   } catch (error) {

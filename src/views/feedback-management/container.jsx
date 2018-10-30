@@ -24,7 +24,7 @@ class ManagementContainer extends Component {
       return null;
     }
 
-    return <Management data={list} remove={removeFeedback} update={updateFeedback} />;
+    return <Management data={list} removeRows={removeFeedback} update={updateFeedback} />;
   }
 }
 

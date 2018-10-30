@@ -76,7 +76,7 @@ class EnhancedTable extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes, data } = this.props;
+    const { classes, data, removeRows } = this.props;
     const {
       order,
       orderBy,
@@ -88,7 +88,7 @@ class EnhancedTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <TableToolbar numSelected={selected.length} />
+        <TableToolbar selected={selected} removeRows={removeRows} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <TableHeader
