@@ -12,6 +12,12 @@ export default theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  title: {
+    flexGrow: 1,
+  },
+  profile: {
+    marginRight: 12,
+  },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,

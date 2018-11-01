@@ -1,5 +1,3 @@
 import Callback from './callback';
 
-export {
-  Callback,
-};
+export default Callback;
