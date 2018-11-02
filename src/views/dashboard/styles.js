@@ -1,4 +1,5 @@
 const drawerWidth = 240;
+const sideMargin = 12;
 
 export default theme => ({
   root: {
@@ -16,7 +17,9 @@ export default theme => ({
     flexGrow: 1,
   },
   profile: {
-    marginRight: 12,
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: sideMargin * 2,
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -27,8 +30,8 @@ export default theme => ({
     }),
   },
   menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
+    marginLeft: sideMargin,
+    marginRight: sideMargin * 3,
   },
   hide: {
     display: 'none',

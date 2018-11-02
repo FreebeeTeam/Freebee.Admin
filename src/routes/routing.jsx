@@ -13,7 +13,7 @@ const handleAuthentication = ({ location, history }) => {
   }
 };
 
-const WrappedDashboard = authInst => () => <Dashboard auth={authInst} />;
+const WrappedDashboard = authObj => props => <Dashboard auth={authObj} {...props} />;
 
 export default class Routing extends Component {
   render() {

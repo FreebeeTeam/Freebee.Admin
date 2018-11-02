@@ -5,6 +5,7 @@ import {
   callbackUrl,
   responseType,
   scope,
+  audience,
 } from '../config/auth0-config';
 
 export default class Auth {
@@ -14,6 +15,7 @@ export default class Auth {
     redirectUri: callbackUrl,
     responseType,
     scope,
+    audience,
   });
 
   login = () => {
@@ -29,6 +31,25 @@ export default class Auth {
         history.replace('/');
       }
     });
+  }
+
+  getUserProfile = (resolve, reject) => {
+    const accessToken = this.getAccessToken();
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(profile);
+      }
+    });
+  }
+
+  getAccessToken = () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No access token found');
+    }
+    return accessToken;
   }
 
   setSession = (authResult, history) => {

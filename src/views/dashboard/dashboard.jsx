@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { Switch, Route, Link } from 'react-router-dom';
 import {
   CssBaseline,
+  Avatar,
   withStyles,
   Drawer,
   AppBar,
@@ -34,6 +35,7 @@ const Dashboard = (props) => {
   const {
     classes,
     theme,
+    profile,
     open,
     anchorEl,
     handleMenuOpen,
@@ -75,13 +77,19 @@ const Dashboard = (props) => {
                 {'Freebee.Admin'}
               </Typography>
               <div className={classes.profile}>
+                <Typography variant="subtitle1" color="inherit" noWrap>
+                  {profile.nickname}
+                </Typography>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
                   onClick={handleMenuOpen}
                   color="inherit"
                 >
-                  <AccountCircleIcon />
+                  {profile.picture
+                    ? <Avatar alt={profile.username} src={profile.picture} />
+                    : <AccountCircleIcon />
+                  }
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -146,6 +154,10 @@ const Dashboard = (props) => {
 
 Dashboard.defaultProps = {
   anchorEl: null,
+  profile: {
+    nickname: '',
+    picture: null,
+  },
 };
 
 export default withStyles(styles, { withTheme: true })(Dashboard);
