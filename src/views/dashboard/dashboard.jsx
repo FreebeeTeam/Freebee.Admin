@@ -27,6 +27,7 @@ import {
   Comment as CommentIcon,
 } from '@material-ui/icons';
 import FeedbackManagement from '../feedback-management';
+import MarkersManagement from '../markers-management';
 
 import { feedback, markers, dashboard } from '../../routes';
 import styles from './styles';
@@ -143,7 +144,7 @@ const Dashboard = (props) => {
             <Switch>
               <Route exact path={dashboard()} component={FeedbackManagement} />
               <Route path={feedback()} component={FeedbackManagement} />
-              <Route path={markers()} component={CommentIcon} />
+              <Route path={markers()} component={MarkersManagement} />
               <Route component={null} />
             </Switch>
           </main>

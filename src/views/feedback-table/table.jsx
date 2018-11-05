@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableHeader from './header';
 import TableToolbar from './toolbar';
 
-import { stableSort, getSorting } from './helpers';
+import { stableSort, getSorting } from '../../lib/table-helpers';
 import styles from './styles';
 
 class EnhancedTable extends React.Component {
