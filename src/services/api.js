@@ -9,6 +9,22 @@ const feedback = {
   removeMany: () => buildUrl('/feedback/delete'),
 };
 
+const wifi = {
+  get: () => buildUrl('/wifi'),
+  create: () => buildUrl('/wifi'),
+  update: () => buildUrl('/wifi'),
+  remove: id => buildUrl(`/wifi/${id}`),
+};
+
+const toilets = {
+  get: () => buildUrl('/toilets'),
+  create: () => buildUrl('/toilets'),
+  update: () => buildUrl('/toilets'),
+  remove: id => buildUrl(`/toilets/${id}`),
+};
+
 export {
   feedback,
+  wifi,
+  toilets,
 };
