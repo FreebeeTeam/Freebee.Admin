@@ -56,7 +56,9 @@ const reducer = handleActions({
     },
   }),
   [updateFeedbackSuccess]: (state, { payload: { feedback } }) => {
-    const listWithUpdated = state.list.filter(f => f.id !== feedback.id).push(feedback);
+    const listWithUpdated = state.list.filter(f => f.id !== feedback.id);
+    listWithUpdated.push(feedback);
+
     return update(state, {
       list: {
         $set: listWithUpdated,
