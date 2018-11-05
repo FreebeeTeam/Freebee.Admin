@@ -17,41 +17,34 @@ import WifiTable from './wifi-table';
 
 import styles from './styles';
 
-class MarkersManagement extends React.Component {
-  state = {
-    value: 0,
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { value } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            scrollable
-            scrollButtons="on"
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab label="Wifi" icon={<WifiIcon />} />
-            <Tab label="Toilets" icon={<ToiletIcon />} />
-            <Tab label="Chargers" icon={<BatteryIcon />} />
-          </Tabs>
-        </AppBar>
-        {value === 0 && <TabContainer><WifiTable /></TabContainer>}
-        {value === 1 && <TabContainer><ToiletsTable /></TabContainer>}
-        {value === 2 && <TabContainer>Chargers</TabContainer>}
-      </div>
-    );
-  }
-}
+const MarkersManagement = ({
+  wifi,
+  toilets,
+  classes,
+  value,
+  handleTabChange,
+}) => {
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={value}
+          onChange={handleTabChange}
+          scrollable
+          scrollButtons="on"
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab label="Wifi" icon={<WifiIcon />} />
+          <Tab label="Toilets" icon={<ToiletIcon />} />
+          <Tab label="Chargers" icon={<BatteryIcon />} />
+        </Tabs>
+      </AppBar>
+      {value === 0 && <TabContainer><WifiTable data={wifi} /></TabContainer>}
+      {value === 1 && <TabContainer><ToiletsTable data={toilets} /></TabContainer>}
+      {value === 2 && <TabContainer>Chargers</TabContainer>}
+    </div>
+  );
+};
 
 export default withStyles(styles)(MarkersManagement);

@@ -9,6 +9,13 @@ const {
   getToilets,
 } = toiletsThunks;
 
+export const getMarkers = () => async (dispatch) => {
+  await Promise.all([
+    dispatch(getWifi()),
+    dispatch(getToilets()),
+  ]);
+};
+
 export {
   getWifi,
   getToilets,

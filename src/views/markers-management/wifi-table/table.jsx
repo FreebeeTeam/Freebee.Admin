@@ -2,13 +2,17 @@ import React from 'react';
 import MuiTable from 'mui-datatables';
 import columns from './columns';
 
-const WifiTable = ({ }) => {
+const options = {
+  download: false,
+  print: false,
+};
+
+const WifiTable = ({ data }) => {
   return (
     <MuiTable
-      download={false}
-      print={false}
       columns={columns}
-      data={[]}
+      data={data}
+      options={options}
     />
   );
 };

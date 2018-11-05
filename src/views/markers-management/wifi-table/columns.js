@@ -1,12 +1,15 @@
 const columns = [
   {
     name: 'Id',
+    field: 'id',
     options: {
       filter: true,
+      sort: false,
     },
   },
   {
     name: 'Title',
+    field: 'title',
     options: {
       filter: true,
       sort: true,
@@ -14,18 +17,21 @@ const columns = [
   },
   {
     name: 'Location',
+    field: 'location',
     options: {
       filter: true,
     },
   },
   {
     name: 'Description',
+    field: 'description',
     options: {
       filter: true,
     },
   },
   {
     name: 'CreationDate',
+    field: 'creationDate',
     options: {
       filter: true,
       sort: true,
@@ -33,6 +39,7 @@ const columns = [
   },
   {
     name: 'Author',
+    field: 'author',
     options: {
       filter: true,
       sort: true,
@@ -40,6 +47,7 @@ const columns = [
   },
   {
     name: 'Address',
+    field: 'address',
     options: {
       filter: true,
       sort: true,
@@ -47,6 +55,7 @@ const columns = [
   },
   {
     name: 'Password',
+    field: 'password',
     options: {
       filter: false,
       sort: false,
