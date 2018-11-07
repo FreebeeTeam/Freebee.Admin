@@ -6,8 +6,17 @@ import Management from './management';
 
 class Container extends Component {
   state = {
-    value: 0,
+    tableType: 0,
+    modalType: null,
   };
+
+  openModal = type => () => {
+    this.setState({ modalType: type });
+  }
+
+  resetModal = () => {
+    this.setState({ modalType: null });
+  }
 
   componentDidMount = () => {
     const { getMarkers } = this.props;
@@ -16,21 +25,21 @@ class Container extends Component {
   }
 
   handleTabChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ tableType: value });
   };
 
   render() {
-    const { value } = this.state;
+    const { tableType, modalType } = this.state;
     const { wifi, toilets } = this.props;
-    console.log('markers')
-    console.log(wifi)
-    console.log(toilets)
 
     return (
       <Management
+        openModal={this.openModal}
+        resetModal={this.resetModal}
+        modalType={modalType}
+        tableType={tableType}
         wifi={wifi}
         toilets={toilets}
-        value={value}
         handleTabChange={this.handleTabChange}
       />
     );

@@ -12,6 +12,8 @@ import {
 } from '@material-ui/icons';
 import TabContainer from './tab-container';
 
+import AddDialog from './add-dialog';
+
 import ToiletsTable from './toilets-table';
 import WifiTable from './wifi-table';
 
@@ -21,14 +23,17 @@ const MarkersManagement = ({
   wifi,
   toilets,
   classes,
-  value,
+  tableType,
   handleTabChange,
+  openModal,
+  resetModal,
+  modalType,
 }) => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          value={value}
+          value={tableType}
           onChange={handleTabChange}
           scrollable
           scrollButtons="on"
@@ -40,9 +45,36 @@ const MarkersManagement = ({
           <Tab label="Chargers" icon={<BatteryIcon />} />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabContainer><WifiTable data={wifi} /></TabContainer>}
-      {value === 1 && <TabContainer><ToiletsTable data={toilets} /></TabContainer>}
-      {value === 2 && <TabContainer>Chargers</TabContainer>}
+      {/* MODALS */}
+      {modalType === 'add'
+        && (
+        <AddDialog
+          isOpen={modalType === 'add'}
+          close={resetModal}
+          type={tableType}
+        />)
+      }
+
+      {/* TABS */}
+      {tableType === 0
+      && (
+      <TabContainer>
+        <WifiTable openModal={openModal} data={wifi} />
+      </TabContainer>
+      )}
+
+      {tableType === 1 && (
+      <TabContainer>
+        <ToiletsTable openModal={openModal} data={toilets} />
+      </TabContainer>
+      )}
+
+      {tableType === 2
+      && (
+      <TabContainer>
+        {'Chargers'}
+      </TabContainer>
+      )}
     </div>
   );
 };

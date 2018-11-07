@@ -25,7 +25,7 @@ const columns = [
     name: 'Description',
     field: 'description',
     options: {
-      filter: true,
+      filter: false,
     },
   },
   {
