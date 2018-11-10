@@ -1,12 +1,12 @@
 const columns = [
-  {
-    name: 'Id',
-    field: 'id',
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
+  // {
+  //   name: 'Id',
+  //   field: 'id',
+  //   options: {
+  //     filter: true,
+  //     sort: false,
+  //   },
+  // },
   {
     name: 'Title',
     field: 'title',
@@ -29,14 +29,14 @@ const columns = [
       filter: false,
     },
   },
-  {
-    name: 'CreationDate',
-    field: 'creationDate',
-    options: {
-      filter: true,
-      sort: true,
-    },
-  },
+  // {
+  //   name: 'CreationDate',
+  //   field: 'creationDate',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  // },
   {
     name: 'Author',
     field: 'author',
