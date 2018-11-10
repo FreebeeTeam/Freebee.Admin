@@ -63,7 +63,7 @@ const reducer = handleActions({
       $set: false,
     },
     list: {
-      $push: toilet,
+      $push: [toilet],
     },
   }),
   [createToiletFailure]: (state, { payload: { error } }) => update(state, {

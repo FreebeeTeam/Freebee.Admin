@@ -16,6 +16,13 @@ const defaultState = props => ({
     address: null,
     password: null,
   },
+  toilet: {
+    title: null,
+    location: null,
+    description: null,
+    author: null,
+    address: null,
+  },
 });
 
 
@@ -68,15 +75,16 @@ class Container extends Component {
 
   handleSubmit = () => {
     const { type, createWifi, close } = this.props;
-    const { entityName } = types[type];
+    const { entityName, createFunc } = types[type];
     const { [entityName]: entity } = this.state;
+    const { [createFunc]: create } = this.props;
 
     if (!entity.location) {
       alert('Необходимо установить маркер');
       return;
     }
 
-    createWifi(entity);
+    create(entity);
     close();
   }
 
@@ -104,10 +112,14 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => {
-  const { wifiThunks: { createWifi } } = thunks;
+  const {
+    wifiThunks: { createWifi },
+    toiletsThunks: { createToilet },
+  } = thunks;
 
   return bindActionCreators({
     createWifi,
+    createToilet,
   }, dispatch);
 };
 
