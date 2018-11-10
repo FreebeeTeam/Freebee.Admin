@@ -34,6 +34,7 @@ const AddDialog = (props) => {
         <Grid container spacing={24}>
           <Grid item xs={6}>
             <TextField
+              required
               onChange={handleChange('title')}
               id="created-title"
               label="Title"
@@ -43,6 +44,7 @@ const AddDialog = (props) => {
           </Grid>
           <Grid item xs={6}>
             <TextField
+              required
               onChange={handleChange('address')}
               id="created-address"
               label="Address"

@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { thunks } from '../../../redux/markers';
 import Dialog from './dialog';
 
 import types from './types';
 
-const defaultState = {
+const defaultState = props => ({
+  isOpen: props.isOpen || false,
   wifi: {
     title: null,
     location: null,
@@ -12,11 +16,22 @@ const defaultState = {
     address: null,
     password: null,
   },
-};
+});
 
 
-export default class Container extends Component {
-  state = defaultState;
+class Container extends Component {
+  state = defaultState(this.props);
+
+  componentDidUpdate = (prevProps) => {
+    if (!prevProps.isOpen) {
+      this.setState(defaultState());
+    }
+  }
+
+  componentWillReceiveProps = ({ isOpen }) => {
+    this.setState({ isOpen });
+  }
+
 
   handleChange = name => (e) => {
     const { type } = this.props;
@@ -30,9 +45,15 @@ export default class Container extends Component {
     });
   }
 
+  handleClose = () => {
+    const { close } = this.props;
+
+    this.setState({ isOpen: false });
+    close();
+  };
+
+
   handleCoordinatesChange = (e) => {
-    console.log('change')
-    console.log(e)
     const { latlng: { lat, lng } } = e;
     const { type } = this.props;
     const { entityName } = types[type];
@@ -45,26 +66,29 @@ export default class Container extends Component {
     });
   }
 
-
   handleSubmit = () => {
-    const { type } = this.props;
+    const { type, createWifi, close } = this.props;
     const { entityName } = types[type];
     const { [entityName]: entity } = this.state;
 
-    console.log('submit');
-    console.log(entity);
-    console.log(this.state);
+    if (!entity.location) {
+      alert('Необходимо установить маркер');
+      return;
+    }
+
+    createWifi(entity);
+    close();
   }
 
   render() {
-    const { isOpen, type, close } = this.props;
+    const { type } = this.props;
     const { entityName } = types[type];
-    const { [entityName]: entity } = this.state;
+    const { [entityName]: entity, isOpen } = this.state;
 
     return (
       <Dialog
         isOpen={isOpen}
-        close={close}
+        close={this.handleClose}
         entity={entity}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
@@ -73,3 +97,18 @@ export default class Container extends Component {
     );
   }
 }
+
+const mapState = (state) => {
+  return {
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  const { wifiThunks: { createWifi } } = thunks;
+
+  return bindActionCreators({
+    createWifi,
+  }, dispatch);
+};
+
+export default connect(mapState, mapDispatch)(Container);

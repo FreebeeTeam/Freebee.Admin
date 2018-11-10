@@ -63,7 +63,7 @@ const reducer = handleActions({
       $set: false,
     },
     list: {
-      $push: wifi,
+      $push: [wifi],
     },
   }),
   [createWifiFailure]: (state, { payload: { error } }) => update(state, {
