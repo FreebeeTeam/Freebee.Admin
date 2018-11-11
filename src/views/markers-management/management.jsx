@@ -13,6 +13,7 @@ import {
 import TabContainer from './tab-container';
 
 import AddDialog from './add-dialog';
+import EditDialog from './edit-dialog';
 
 import ToiletsTable from './toilets-table';
 import WifiTable from './wifi-table';
@@ -25,11 +26,11 @@ const MarkersManagement = ({
   classes,
   tableType,
   handleTabChange,
-  openModal,
+  openAddModal,
+  openEditModal,
   resetModal,
   modalType,
   deleteEntities,
-  updateEntity,
 }) => {
   return (
     <div className={classes.root}>
@@ -56,13 +57,22 @@ const MarkersManagement = ({
           type={tableType}
         />)
       }
+      {modalType === 'edit' && (
+        <EditDialog
+          isOpen={modalType === 'edit'}
+          close={resetModal}
+          type={tableType}
+        />)
+
+      }
 
       {/* TABS */}
       {tableType === 0
       && (
       <TabContainer>
         <WifiTable
-          openModal={openModal}
+          openAddModal={openAddModal}
+          openEditModal={openEditModal}
           deleteEntities={deleteEntities}
           data={wifi}
         />
@@ -72,7 +82,8 @@ const MarkersManagement = ({
       {tableType === 1 && (
       <TabContainer>
         <ToiletsTable
-          openModal={openModal}
+          openAddModal={openAddModal}
+          openEditModal={openEditModal}
           deleteEntities={deleteEntities}
           data={toilets}
         />

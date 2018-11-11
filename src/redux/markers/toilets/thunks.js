@@ -8,6 +8,10 @@ import {
   createToiletSuccess,
   createToiletFailure,
 
+  updateToiletRequest,
+  updateToiletSuccess,
+  updateToiletFailure,
+
   removeToiletsRequest,
   removeToiletsSuccess,
   removeToiletsFailure,
@@ -39,6 +43,20 @@ export const createToilet = toilet => async (dispatch) => {
     console.error(error);
 
     dispatch(createToiletFailure(error));
+  }
+};
+
+export const editToilet = toilet => async (dispatch) => {
+  dispatch(updateToiletRequest());
+
+  try {
+    const { data } = await markersService.updateToilet(toilet);
+
+    dispatch(updateToiletSuccess(data));
+  } catch (error) {
+    console.error(error);
+
+    dispatch(updateToiletFailure(error));
   }
 };
 

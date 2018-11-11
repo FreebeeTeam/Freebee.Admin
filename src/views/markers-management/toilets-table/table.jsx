@@ -14,15 +14,20 @@ const extendedOptions = (handleAddClick, deleteToilets) => ({
   },
 });
 
-const ToiletsTable = ({ data, openModal, deleteEntities }) => {
+const ToiletsTable = ({
+  data,
+  openAddModal,
+  openEditModal,
+  deleteEntities,
+}) => {
   const tableOptions = extendedOptions(
-    openModal('add'),
+    openAddModal,
     deleteEntities,
   );
 
   return (
     <MuiTable
-      columns={getColumns(openModal('edit'))}
+      columns={getColumns(openEditModal)}
       data={data}
       options={tableOptions}
     />

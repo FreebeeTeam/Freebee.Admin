@@ -2,11 +2,15 @@ import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 
-const renderEditButton = handleEdit => () => (
-  <IconButton onClick={handleEdit}>
-    <EditIcon />
-  </IconButton>
-);
+const renderEditButton = handleEdit => (value, { rowData }) => {
+  const id = rowData && rowData[0];
+
+  return (
+    <IconButton onClick={handleEdit(id)}>
+      <EditIcon />
+    </IconButton>
+  );
+};
 
 export const columns = [
   {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { thunks, selectors } from '../../redux/markers';
+import { thunks, selectors, actions } from '../../redux/markers';
 import { getMarkersIdsByIndexes } from './helpers';
 import Management from './management';
 
@@ -11,18 +11,25 @@ class Container extends Component {
     modalType: null,
   };
 
-  openModal = type => () => {
-    this.setState({ modalType: type });
-  }
-
-  resetModal = () => {
-    this.setState({ modalType: null });
-  }
-
   componentDidMount = () => {
     const { getMarkers } = this.props;
 
     getMarkers();
+  }
+
+  openAddModal = () => {
+    this.setState({ modalType: 'add' });
+  }
+
+  openEditModal = id => () => {
+    const { setMarkerIdToEdit } = this.props;
+    this.setState({ modalType: 'edit' });
+
+    setMarkerIdToEdit(id);
+  }
+
+  resetModal = () => {
+    this.setState({ modalType: null });
   }
 
   handleTabChange = (event, value) => {
@@ -60,7 +67,8 @@ class Container extends Component {
 
     return (
       <Management
-        openModal={this.openModal}
+        openAddModal={this.openAddModal}
+        openEditModal={this.openEditModal}
         resetModal={this.resetModal}
         deleteEntities={this.deleteEntities}
         modalType={modalType}
@@ -90,11 +98,13 @@ const mapDispatch = (dispatch) => {
     toiletsThunks: { removeToilets },
     wifiThunks: { removeWifi },
   } = thunks;
+  const { setMarkerIdToEdit } = actions;
 
   return bindActionCreators({
     getMarkers,
     removeToilets,
     removeWifi,
+    setMarkerIdToEdit,
   }, dispatch);
 };
 

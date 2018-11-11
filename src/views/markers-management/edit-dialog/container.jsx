@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { thunks } from '../../../redux/markers';
+import { thunks, selectors } from '../../../redux/markers';
 import Dialog from './dialog';
 
 import types from './types';
 
 const defaultState = props => ({
   isOpen: props.isOpen || false,
-  wifi: {
-    title: null,
-    location: null,
-    description: null,
-    author: null,
-    address: null,
-    password: null,
-  },
-  toilet: {
-    title: null,
-    location: null,
-    description: null,
-    author: null,
-    address: null,
-  },
+  [types[props.type].entityName]: props.entityToEdit,
 });
 
 
@@ -73,16 +59,16 @@ class Container extends Component {
 
   handleSubmit = () => {
     const { type, close } = this.props;
-    const { entityName, createFunc } = types[type];
+    const { entityName, editFunc } = types[type];
     const { [entityName]: entity } = this.state;
-    const { [createFunc]: create } = this.props;
+    const { [editFunc]: edit } = this.props;
 
     if (!entity.location) {
       alert('Необходимо установить маркер');
       return;
     }
 
-    create(entity);
+    edit(entity);
     close();
   }
 
@@ -104,20 +90,27 @@ class Container extends Component {
   }
 }
 
-const mapState = (state) => {
+const mapState = (state, props) => {
+  const { selectedToEditEntityFactory } = selectors;
+  const { type } = props;
+  const { storeName } = types[type];
+
+  const selectSelectedToEditEntity = selectedToEditEntityFactory(storeName);
+
   return {
+    entityToEdit: selectSelectedToEditEntity(state),
   };
 };
 
 const mapDispatch = (dispatch) => {
   const {
-    wifiThunks: { createWifi },
-    toiletsThunks: { createToilet },
+    wifiThunks: { editWifi },
+    toiletsThunks: { editToilet },
   } = thunks;
 
   return bindActionCreators({
-    createWifi,
-    createToilet,
+    editWifi,
+    editToilet,
   }, dispatch);
 };
 

@@ -10,7 +10,7 @@ export const removeWifi = ids => (ids.length === 1
 
 export const getToilets = () => axios.get(toilets.get());
 export const createToilet = createdToilet => axios.post(toilets.create(), createdToilet);
-export const updateToilets = updatedToilet => axios.put(toilets.update(), updatedToilet);
+export const updateToilet = updatedToilet => axios.put(toilets.update(), updatedToilet);
 export const removeToilets = ids => (ids.length === 1
   ? axios.delete(toilets.remove(ids[0]))
   : axios.post(toilets.removeMany(), ids));

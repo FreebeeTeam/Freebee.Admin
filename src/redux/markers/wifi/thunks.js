@@ -8,12 +8,15 @@ import {
   createWifiSuccess,
   createWifiFailure,
 
+  updateWifiRequest,
+  updateWifiSuccess,
+  updateWifiFailure,
+
   removeWifiRequest,
   removeWifiSuccess,
   removeWifiFailure,
 } from './actions';
 
-// eslint-disable-next-line import/prefer-default-export
 export const getWifi = () => async (dispatch) => {
   dispatch(getWifiRequest());
 
@@ -42,6 +45,20 @@ export const createWifi = wifi => async (dispatch) => {
   }
 };
 
+export const editWifi = wifi => async (dispatch) => {
+  dispatch(updateWifiRequest());
+
+  try {
+    const { data } = await markersService.updateWifi(wifi);
+
+    dispatch(updateWifiSuccess(data));
+  } catch (error) {
+    console.error(error);
+
+    dispatch(updateWifiFailure(error));
+  }
+};
+
 export const removeWifi = (ids = []) => async (dispatch) => {
   dispatch(removeWifiRequest());
 
@@ -52,6 +69,6 @@ export const removeWifi = (ids = []) => async (dispatch) => {
   } catch (error) {
     console.error(error);
 
-    dispatch(removeWifiFailure());
+    dispatch(removeWifiFailure(error));
   }
 };
