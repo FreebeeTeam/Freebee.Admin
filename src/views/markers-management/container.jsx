@@ -38,14 +38,9 @@ class Container extends Component {
       rawToilets,
     } = this.props;
 
-    console.log('delete')
-    console.log(indexesToDelete)
-
     switch (tableType) {
       case 0: {
         const ids = getMarkersIdsByIndexes(indexesToDelete, rawWifi);
-        console.log('ids')
-        console.log(ids)
         removeWifi(ids);
         break;
       }

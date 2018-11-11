@@ -29,6 +29,7 @@ const MarkersManagement = ({
   resetModal,
   modalType,
   deleteEntities,
+  updateEntity,
 }) => {
   return (
     <div className={classes.root}>
@@ -60,13 +61,21 @@ const MarkersManagement = ({
       {tableType === 0
       && (
       <TabContainer>
-        <WifiTable openModal={openModal} deleteEntities={deleteEntities} data={wifi} />
+        <WifiTable
+          openModal={openModal}
+          deleteEntities={deleteEntities}
+          data={wifi}
+        />
       </TabContainer>
       )}
 
       {tableType === 1 && (
       <TabContainer>
-        <ToiletsTable openModal={openModal} deleteEntities={deleteEntities} data={toilets} />
+        <ToiletsTable
+          openModal={openModal}
+          deleteEntities={deleteEntities}
+          data={toilets}
+        />
       </TabContainer>
       )}
 

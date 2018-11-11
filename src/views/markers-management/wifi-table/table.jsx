@@ -2,7 +2,7 @@ import React from 'react';
 import MuiTable from 'mui-datatables';
 import Toolbar from '../toolbar';
 import { options } from '../table-options';
-import columns from './columns';
+import getColumns from './columns';
 
 const extendedOptions = (handleAddClick, deleteWifi) => ({
   ...options,
@@ -14,14 +14,19 @@ const extendedOptions = (handleAddClick, deleteWifi) => ({
   },
 });
 
-const WifiTable = ({ data, openModal, deleteEntities }) => {
+const WifiTable = ({
+  data,
+  openModal,
+  deleteEntities,
+}) => {
   const tableOptions = extendedOptions(
     openModal('add'),
     deleteEntities,
   );
+
   return (
     <MuiTable
-      columns={columns}
+      columns={getColumns(openModal('edit'))}
       data={data}
       options={tableOptions}
     />

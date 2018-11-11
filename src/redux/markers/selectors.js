@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../config/format';
-import wifiColumns from '../../views/markers-management/wifi-table/columns';
-import toiletsColumns from '../../views/markers-management/toilets-table/columns';
+import { columns as wifiColumns } from '../../views/markers-management/wifi-table/columns';
+import { columns as toiletsColumns } from '../../views/markers-management/toilets-table/columns';
 
 const createMarkersSelector = (initialSelect, columns) => createSelector(
   initialSelect,
@@ -14,7 +14,7 @@ const createMarkersSelector = (initialSelect, columns) => createSelector(
       if (col.field === 'creationDate') {
         return moment(item[col.field]).format(DATE_FORMAT);
       }
-      return item[col.field];
+      return item[col.field] ? item[col.field] : null;
     });
 
     return itemAsArray;
