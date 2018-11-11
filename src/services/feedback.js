@@ -8,12 +8,6 @@ export const updateFeedback = updatedFeedback => axios.put(
   feedback.update(updatedFeedback.id),
   updatedFeedback,
 );
-export const removeFeedback = (ids = []) => {
-  const isOneItem = ids.length === 1;
-
-  if (isOneItem) {
-    return axios.delete(feedback.remove(ids[0]));
-  }
-
-  return axios.post(feedback.removeMany(), ids);
-};
+export const removeFeedback = (ids = []) => (ids.length === 1
+  ? axios.delete(feedback.remove(ids[0]))
+  : axios.post(feedback.removeMany(), ids));

@@ -36,7 +36,7 @@ const {
       UPDATE_WIFI_FAILURE: error => ({ error }),
 
       REMOVE_WIFI_REQUEST: () => {},
-      REMOVE_WIFI_SUCCESS: wifi => ({ wifi }),
+      REMOVE_WIFI_SUCCESS: ids => ({ ids }),
       REMOVE_WIFI_FAILURE: error => ({ error }),
     },
   },

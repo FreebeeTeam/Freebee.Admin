@@ -4,17 +4,26 @@ import Toolbar from '../toolbar';
 import { options } from '../table-options';
 import columns from './columns';
 
-const extendedOptions = handleAddClick => ({
+const extendedOptions = (handleAddClick, deleteWifis) => ({
   ...options,
   customToolbar: () => <Toolbar handleAddClick={handleAddClick} />,
+  onRowsDelete: (deletedRows) => {
+    const { data } = deletedRows;
+    const indexesToDelete = data.map(item => item.dataIndex);
+    deleteWifis(indexesToDelete);
+  },
 });
 
-const WifiTable = ({ data, openModal }) => {
+const WifiTable = ({ data, openModal, deleteEntities }) => {
+  const tableOptions = extendedOptions(
+    openModal('add'),
+    deleteEntities,
+  );
   return (
     <MuiTable
       columns={columns}
       data={data}
-      options={extendedOptions(openModal('add'))}
+      options={tableOptions}
     />
   );
 };

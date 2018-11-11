@@ -113,12 +113,12 @@ const reducer = handleActions({
       $set: null,
     },
   }),
-  [removeWifiSuccess]: (state, { payload: { wifi } }) => update(state, {
+  [removeWifiSuccess]: (state, { payload: { ids } }) => update(state, {
     isFetching: {
       $set: false,
     },
     list: {
-      $set: state.list.filter(w => w.id !== wifi.id),
+      $set: state.list.filter(w => !ids.includes(w.id)),
     },
   }),
   [removeWifiFailure]: (state, { payload: { error } }) => update(state, {

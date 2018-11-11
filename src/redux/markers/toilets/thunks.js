@@ -7,6 +7,10 @@ import {
   createToiletRequest,
   createToiletSuccess,
   createToiletFailure,
+
+  removeToiletsRequest,
+  removeToiletsSuccess,
+  removeToiletsFailure,
 } from './actions';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -35,5 +39,19 @@ export const createToilet = toilet => async (dispatch) => {
     console.error(error);
 
     dispatch(createToiletFailure(error));
+  }
+};
+
+export const removeToilets = (ids = []) => async (dispatch) => {
+  dispatch(removeToiletsRequest());
+
+  try {
+    await markersService.removeToilets(ids);
+
+    dispatch(removeToiletsSuccess(ids));
+  } catch (error) {
+    console.error(error);
+
+    dispatch(removeToiletsFailure());
   }
 };

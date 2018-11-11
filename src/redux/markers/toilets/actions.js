@@ -15,9 +15,9 @@ const {
       updateToiletSuccess,
       updateToiletFailure,
 
-      removeToiletRequest,
-      removeToiletSuccess,
-      removeToiletFailure,
+      removeToiletsRequest,
+      removeToiletsSuccess,
+      removeToiletsFailure,
     },
   },
 } = createActions({
@@ -35,9 +35,9 @@ const {
       UPDATE_TOILET_SUCCESS: toilet => ({ toilet }),
       UPDATE_TOILET_FAILURE: error => ({ error }),
 
-      REMOVE_TOILET_REQUEST: () => {},
-      REMOVE_TOILET_SUCCESS: toilet => ({ toilet }),
-      REMOVE_TOILET_FAILURE: error => ({ error }),
+      REMOVE_TOILETS_REQUEST: () => {},
+      REMOVE_TOILETS_SUCCESS: ids => ({ ids }),
+      REMOVE_TOILETS_FAILURE: error => ({ error }),
     },
   },
 });
@@ -56,7 +56,7 @@ export {
   updateToiletSuccess,
   updateToiletFailure,
 
-  removeToiletRequest,
-  removeToiletSuccess,
-  removeToiletFailure,
+  removeToiletsRequest,
+  removeToiletsSuccess,
+  removeToiletsFailure,
 };

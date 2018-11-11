@@ -13,9 +13,9 @@ import {
   updateToiletSuccess,
   updateToiletFailure,
 
-  removeToiletRequest,
-  removeToiletSuccess,
-  removeToiletFailure,
+  removeToiletsRequest,
+  removeToiletsSuccess,
+  removeToiletsFailure,
 } from './actions';
 
 const defaultState = {
@@ -105,7 +105,7 @@ const reducer = handleActions({
     },
   }),
 
-  [removeToiletRequest]: state => update(state, {
+  [removeToiletsRequest]: state => update(state, {
     isFetching: {
       $set: true,
     },
@@ -113,15 +113,15 @@ const reducer = handleActions({
       $set: null,
     },
   }),
-  [removeToiletSuccess]: (state, { payload: { toilet } }) => update(state, {
+  [removeToiletsSuccess]: (state, { payload: { ids } }) => update(state, {
     isFetching: {
       $set: false,
     },
     list: {
-      $set: state.list.filter(t => t.id !== toilet.id),
+      $set: state.list.filter(t => !ids.includes(t.id)),
     },
   }),
-  [removeToiletFailure]: (state, { payload: { error } }) => update(state, {
+  [removeToiletsFailure]: (state, { payload: { error } }) => update(state, {
     isFetching: {
       $set: false,
     },

@@ -14,6 +14,7 @@ const wifi = {
   create: () => buildUrl('/wifi'),
   update: () => buildUrl('/wifi'),
   remove: id => buildUrl(`/wifi/${id}`),
+  removeMany: () => buildUrl('/wifi/delete'),
 };
 
 const toilets = {
