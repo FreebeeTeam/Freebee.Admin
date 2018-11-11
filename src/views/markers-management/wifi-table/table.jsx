@@ -4,13 +4,13 @@ import Toolbar from '../toolbar';
 import { options } from '../table-options';
 import columns from './columns';
 
-const extendedOptions = (handleAddClick, deleteWifis) => ({
+const extendedOptions = (handleAddClick, deleteWifi) => ({
   ...options,
   customToolbar: () => <Toolbar handleAddClick={handleAddClick} />,
   onRowsDelete: (deletedRows) => {
     const { data } = deletedRows;
     const indexesToDelete = data.map(item => item.dataIndex);
-    deleteWifis(indexesToDelete);
+    deleteWifi(indexesToDelete);
   },
 });
 

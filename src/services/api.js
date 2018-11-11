@@ -22,6 +22,7 @@ const toilets = {
   create: () => buildUrl('/toilets'),
   update: () => buildUrl('/toilets'),
   remove: id => buildUrl(`/toilets/${id}`),
+  removeMany: () => buildUrl('/toilets/delete'),
 };
 
 export {
