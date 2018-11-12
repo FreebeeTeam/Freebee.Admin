@@ -85,9 +85,9 @@ const reducer = handleActions({
       $set: null,
     },
   }),
-  [removeFeedbackSuccess]: (state, { payload: { feedback } }) => update(state, {
+  [removeFeedbackSuccess]: (state, { payload: { ids } }) => update(state, {
     list: {
-      $set: state.list.filter(f => f.id !== feedback.id),
+      $set: state.list.filter(f => !ids.includes(f.id)),
     },
     isFetching: {
       $set: false,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { thunks, selectors, actions } from '../../redux/markers';
-import { getMarkersIdsByIndexes } from './helpers';
+import { getIdsByIndexes } from '../../lib/table-helpers';
 import Management from './management';
 
 class Container extends Component {
@@ -47,12 +47,12 @@ class Container extends Component {
 
     switch (tableType) {
       case 0: {
-        const ids = getMarkersIdsByIndexes(indexesToDelete, rawWifi);
+        const ids = getIdsByIndexes(indexesToDelete, rawWifi);
         removeWifi(ids);
         break;
       }
       case 1: {
-        const ids = getMarkersIdsByIndexes(indexesToDelete, rawToilets);
+        const ids = getIdsByIndexes(indexesToDelete, rawToilets);
         removeToilets(ids);
         break;
       }

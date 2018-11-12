@@ -21,3 +21,7 @@ export const stableSort = (array, cmp) => {
 export const getSorting = (order, orderBy) => {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 };
+
+export const getIdsByIndexes = (indexes, entities) => indexes.map(
+  i => entities[i].id,
+);

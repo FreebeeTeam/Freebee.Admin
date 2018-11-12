@@ -46,9 +46,9 @@ export const removeFeedback = ids => async (dispatch) => {
   dispatch(removeFeedbackRequest());
 
   try {
-    const { data } = await feedbackService.removeFeedback(ids);
+    await feedbackService.removeFeedback(ids);
 
-    dispatch(removeFeedbackSuccess(data));
+    dispatch(removeFeedbackSuccess(ids));
   } catch (error) {
     console.error(error);
 

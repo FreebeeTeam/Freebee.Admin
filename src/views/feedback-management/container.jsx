@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { thunks } from '../../redux/feedback';
+import { thunks, selectors } from '../../redux/feedback';
+import { getIdsByIndexes } from '../../lib/table-helpers';
 import Management from './management';
 
 class ManagementContainer extends Component {
@@ -11,26 +12,37 @@ class ManagementContainer extends Component {
     getFeedback();
   }
 
+  deleteFeedback = (indexesToDelete) => {
+    const { rawFeedback, removeFeedback } = this.props;
+
+    const ids = getIdsByIndexes(indexesToDelete, rawFeedback);
+
+    removeFeedback(ids);
+  }
+
   render() {
     const {
       removeFeedback,
       updateFeedback,
-      list,
-      isFetching,
-      error,
+      data
     } = this.props;
 
-    if (isFetching) {
-      return null;
-    }
-
-    return <Management data={list} removeRows={removeFeedback} update={updateFeedback} />;
+    return (
+      <Management
+        data={data}
+        deleteFeedback={this.deleteFeedback}
+        update={updateFeedback}
+      />
+    );
   }
 }
 
 const mapState = (state) => {
+  const { selectFeedbackAsArray } = selectors;
+
   return {
-    ...state.feedback,
+    data: selectFeedbackAsArray(state),
+    rawFeedback: state.feedback.list,
   };
 };
 

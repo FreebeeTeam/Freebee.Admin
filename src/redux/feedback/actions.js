@@ -25,7 +25,7 @@ const {
     UPDATE_FEEDBACK_FAILURE: error => ({ error }),
 
     REMOVE_FEEDBACK_REQUEST: () => {},
-    REMOVE_FEEDBACK_SUCCESS: feedback => ({ feedback }),
+    REMOVE_FEEDBACK_SUCCESS: ids => ({ ids }),
     REMOVE_FEEDBACK_FAILURE: error => ({ error }),
   },
 });
