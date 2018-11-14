@@ -1,20 +1,35 @@
 import React, { PureComponent } from 'react';
 import { withStyles, Grid } from '@material-ui/core';
 import FeedbackTable from './feedback-table';
+import EditDialog from './edit-dialog';
 
 import styles from './styles';
 
 class FeedbackManagement extends PureComponent {
   render() {
-    const { classes, data, removeRows, deleteFeedback } = this.props;
+    const {
+      classes,
+      data,
+      isOpen,
+      handleOpen,
+      handleClose,
+      deleteFeedback,
+      setFeedbackToEdit,
+    } = this.props;
 
     return (
       <div className={classes.root}>
         <Grid container>
           <Grid item xs={12}>
-            <FeedbackTable data={data} deleteFeedback={deleteFeedback} />
+            <FeedbackTable
+              setFeedbackToEdit={setFeedbackToEdit}
+              data={data}
+              handleOpen={handleOpen}
+              deleteFeedback={deleteFeedback}
+            />
           </Grid>
         </Grid>
+        <EditDialog isOpen={isOpen} handleClose={handleClose} />
       </div>
     );
   }

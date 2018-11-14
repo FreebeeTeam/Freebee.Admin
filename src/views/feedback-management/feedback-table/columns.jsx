@@ -1,13 +1,13 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { Edit as EditIcon } from '@material-ui/icons';
+import { InfoRounded as InfoRoundedIcon } from '@material-ui/icons';
 
-const renderEditButton = handleEdit => (value, { rowData }) => {
+const renderEditButton = handleShowDetails => (value, { rowData }) => {
   const id = rowData && rowData[0];
 
   return (
-    <IconButton onClick={handleEdit(id)}>
-      <EditIcon />
+    <IconButton onClick={handleShowDetails(id)}>
+      <InfoRoundedIcon />
     </IconButton>
   );
 };
@@ -20,6 +20,14 @@ export const columns = [
       display: false,
       filter: true,
       sort: false,
+    },
+  },
+  {
+    name: 'Title',
+    field: 'title',
+    options: {
+      filter: true,
+      sort: true,
     },
   },
   {
@@ -39,6 +47,13 @@ export const columns = [
     },
   },
   {
+    name: 'Location',
+    field: 'location',
+    options: {
+      filter: true,
+    },
+  },
+  {
     name: 'Type',
     field: 'type',
     options: {
@@ -50,6 +65,15 @@ export const columns = [
     name: 'Description',
     field: 'description',
     options: {
+      filter: false,
+      sort: false,
+    },
+  },
+  {
+    name: 'Password',
+    field: 'password',
+    options: {
+      display: false,
       filter: false,
       sort: false,
     },
@@ -71,12 +95,12 @@ export const columns = [
   },
 ];
 
-export default (handleRowEdit) => {
+export default (handleShowDetails) => {
   return columns.map((column) => {
     if (column.name === 'Actions') {
       const newColumn = { ...column };
 
-      newColumn.options.customBodyRender = renderEditButton(handleRowEdit);
+      newColumn.options.customBodyRender = renderEditButton(handleShowDetails);
 
       return newColumn;
     }

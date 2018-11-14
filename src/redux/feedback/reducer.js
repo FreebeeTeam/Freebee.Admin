@@ -12,16 +12,25 @@ import {
   removeFeedbackRequest,
   removeFeedbackSuccess,
   removeFeedbackFailure,
+
+  setFeedbackToEdit,
 } from './actions';
 
 
 const defaultState = {
+  selectedFeedbackToEdit: null,
   list: [],
   isFetching: true,
   error: null,
 };
 
 const reducer = handleActions({
+  [setFeedbackToEdit]: (state, { payload: { id } }) => update(state, {
+    selectedFeedbackToEdit: {
+      $set: id,
+    },
+  }),
+
   [getFeedbackRequest]: state => update(state, {
     isFetching: {
       $set: true,

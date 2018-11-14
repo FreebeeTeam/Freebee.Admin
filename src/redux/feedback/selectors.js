@@ -4,7 +4,6 @@ import { DATE_FORMAT } from '../../config/format';
 import { columns } from '../../views/feedback-management/feedback-table/columns';
 
 const selectFeedbackList = state => state.feedback.list;
-// eslint-disable-next-line import/prefer-default-export
 export const selectFeedbackAsArray = createSelector(
   selectFeedbackList,
   list => list.map((item) => {
@@ -18,4 +17,21 @@ export const selectFeedbackAsArray = createSelector(
 
     return itemAsArray;
   }),
+);
+
+const selectSelectedToEditId = state => state.feedback.selectedFeedbackToEdit;
+const selectFeedback = state => state.feedback.list;
+export const selectSelectedToEditFeedback = createSelector(
+  [selectSelectedToEditId, selectFeedback],
+  (id, feedback) => {
+    const entity = feedback.find(e => e.id === id);
+
+    if (!entity) {
+      return null;
+    }
+
+    const selectedFeedback = { ...entity };
+
+    return selectedFeedback;
+  },
 );

@@ -2,9 +2,18 @@ import React, { PureComponent } from 'react';
 import Table from './table';
 
 export default class Container extends PureComponent {
+  handleShowDetails = id => () => {
+    const { setFeedbackToEdit, handleOpen } = this.props;
+
+    setFeedbackToEdit(id);
+    handleOpen();
+  }
+
   render() {
+    const { setFeedbackToEdit, handleOpen, ...rest } = this.props;
+
     return (
-      <Table {...this.props} />
+      <Table {...rest} handleShowDetails={this.handleShowDetails} />
     );
   }
 }

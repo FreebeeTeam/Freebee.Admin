@@ -14,14 +14,14 @@ const extendedOptions = (deleteFeedback) => ({
   },
 });
 
-const FeedbackTable = ({ data, deleteFeedback }) => {
+const FeedbackTable = ({ data, deleteFeedback, handleShowDetails }) => {
   const tableOptions = extendedOptions(
     deleteFeedback,
   );
 
   return (
     <MuiTable
-      columns={getColumns(() => {})}
+      columns={getColumns(handleShowDetails)}
       data={data}
       options={tableOptions}
     />

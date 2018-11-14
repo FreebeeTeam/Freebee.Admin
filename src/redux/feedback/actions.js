@@ -13,6 +13,8 @@ const {
     removeFeedbackRequest,
     removeFeedbackSuccess,
     removeFeedbackFailure,
+
+    setFeedbackToEdit,
   },
 } = createActions({
   FEEDBACK: {
@@ -27,6 +29,8 @@ const {
     REMOVE_FEEDBACK_REQUEST: () => {},
     REMOVE_FEEDBACK_SUCCESS: ids => ({ ids }),
     REMOVE_FEEDBACK_FAILURE: error => ({ error }),
+
+    SET_FEEDBACK_TO_EDIT: id => ({ id }),
   },
 });
 
@@ -42,4 +46,6 @@ export {
   removeFeedbackRequest,
   removeFeedbackSuccess,
   removeFeedbackFailure,
+
+  setFeedbackToEdit,
 };
