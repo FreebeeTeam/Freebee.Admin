@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Map, Marker, Popup, TileLayer,
-} from 'react-leaflet';
+import { Map, Popup, TileLayer } from 'react-leaflet';
 import {
   Dialog,
   DialogActions,
@@ -12,6 +10,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
+import { Marker } from '../../../components';
 import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
 
 import styles from './styles';
