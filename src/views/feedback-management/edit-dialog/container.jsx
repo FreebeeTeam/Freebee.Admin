@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { selectors } from '../../../redux/feedback';
+import { selectors, thunks } from '../../../redux/feedback';
 import Dialog from './dialog';
 
 const defaultState = props => ({
   isOpen: props.isOpen || false,
   feedback: props.feedbackToEdit || {
+    id: null,
     title: null,
     address: null,
     author: null,
@@ -19,8 +21,12 @@ const defaultState = props => ({
 class DialogContainer extends Component {
   state = defaultState(this.props)
 
-  componentWillReceiveProps = ({ isOpen }) => {
+  componentWillReceiveProps = ({ isOpen, feedbackToEdit }) => {
     this.setState({ isOpen });
+
+    if (feedbackToEdit !== this.props.feedbackToEdit) {
+      this.setState({ feedback: feedbackToEdit });
+    }
   }
 
   handleChange = name => (e) => {
@@ -39,27 +45,39 @@ class DialogContainer extends Component {
     this.setState({ feedback });
   }
 
-  handleClose = () => {
-    const { handleClose } = this.props;
+  handleDecline = () => {
+    const { handleClose, declineFeedback } = this.props;
+    const { feedback: { id } } = this.state;
 
     this.setState({ isOpen: false });
+
     handleClose();
+    declineFeedback([id]);
+  }
+
+  handleApprove = () => {
+    const { approveFeedback } = this.props;
+    const { feedback } = this.state;
+    console.log(feedback);
+    approveFeedback(feedback);
   }
 
   render() {
     const { feedback, isOpen } = this.state;
-    const { feedbackToEdit } = this.props;
+    const { handleClose } = this.props;
 
-    if (!feedbackToEdit) {
+    if (!feedback) {
       return null;
     }
 
     return (
       <Dialog
         isOpen={isOpen}
-        feedback={feedbackToEdit}
+        feedback={feedback}
+        handleClose={handleClose}
         handleChange={this.handleChange}
-        handleClose={this.handleClose}
+        handleDecline={this.handleDecline}
+        handleApprove={this.handleApprove}
         handleCoordinatesChange={this.handleCoordinatesChange}
       />
     );
@@ -74,4 +92,13 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, null)(DialogContainer);
+const mapDispatch = (dispatch) => {
+  const { approveFeedback, removeFeedback } = thunks;
+
+  return bindActionCreators({
+    declineFeedback: removeFeedback,
+    approveFeedback,
+  }, dispatch);
+};
+
+export default connect(mapState, mapDispatch)(DialogContainer);

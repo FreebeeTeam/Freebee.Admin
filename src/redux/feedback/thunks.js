@@ -10,6 +10,10 @@ import {
   removeFeedbackRequest,
   removeFeedbackSuccess,
   removeFeedbackFailure,
+
+  approveFeedbackRequest,
+  approveFeedbackSuccess,
+  approveFeedbackFailure,
 } from './actions';
 
 import { feedbackService } from '../../services';
@@ -53,5 +57,19 @@ export const removeFeedback = ids => async (dispatch) => {
     console.error(error);
 
     dispatch(removeFeedbackFailure(error));
+  }
+};
+
+export const approveFeedback = feedback => async (dispatch) => {
+  dispatch(approveFeedbackRequest());
+
+  try {
+    await feedbackService.approveFeedback(feedback);
+
+    dispatch(approveFeedbackSuccess(feedback));
+  } catch (error) {
+    console.error(error);
+
+    dispatch(approveFeedbackFailure(error));
   }
 };

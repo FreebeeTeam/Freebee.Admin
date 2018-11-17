@@ -20,11 +20,12 @@ const EditDialog = (props) => {
   const {
     isOpen,
     feedback,
+    handleApprove,
+    handleDecline,
     handleClose,
-    classes,
-    handleSubmit,
     handleChange,
     handleCoordinatesChange,
+    classes,
   } = props;
 
   return (
@@ -63,6 +64,7 @@ const EditDialog = (props) => {
           </Grid>
           <Grid item xs={6}>
             <TextField
+              required
               onChange={handleChange('type')}
               id="created-author"
               label="Type"
@@ -110,8 +112,8 @@ const EditDialog = (props) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={handleClose}>Cancel</Button>
-        <Button color="secondary" onClick={handleSubmit}>Update</Button>
+        <Button color="primary" onClick={handleDecline}>Decline</Button>
+        <Button color="secondary" onClick={handleApprove}>Approve</Button>
       </DialogActions>
     </Dialog>
   );

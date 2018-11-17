@@ -15,6 +15,10 @@ const {
     removeFeedbackFailure,
 
     setFeedbackToEdit,
+
+    approveFeedbackRequest,
+    approveFeedbackSuccess,
+    approveFeedbackFailure,
   },
 } = createActions({
   FEEDBACK: {
@@ -31,6 +35,10 @@ const {
     REMOVE_FEEDBACK_FAILURE: error => ({ error }),
 
     SET_FEEDBACK_TO_EDIT: id => ({ id }),
+
+    APPROVE_FEEDBACK_REQUEST: () => {},
+    APPROVE_FEEDBACK_SUCCESS: feedback => ({ feedback }),
+    APPROVE_FEEDBACK_FAILURE: error => ({ error }),
   },
 });
 
@@ -48,4 +56,8 @@ export {
   removeFeedbackFailure,
 
   setFeedbackToEdit,
+
+  approveFeedbackRequest,
+  approveFeedbackSuccess,
+  approveFeedbackFailure,
 };

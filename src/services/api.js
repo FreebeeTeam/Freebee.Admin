@@ -4,6 +4,7 @@ const buildUrl = url => `${base}${url}`;
 
 const feedback = {
   get: () => buildUrl('/feedback'),
+  approve: () => buildUrl('/feedback/approve'),
   update: id => buildUrl(`/feedback/${id}`),
   remove: id => buildUrl(`/feedback/${id}`),
   removeMany: () => buildUrl('/feedback/delete'),

@@ -13,6 +13,10 @@ import {
   removeFeedbackSuccess,
   removeFeedbackFailure,
 
+  approveFeedbackRequest,
+  approveFeedbackSuccess,
+  approveFeedbackFailure,
+
   setFeedbackToEdit,
 } from './actions';
 
@@ -108,6 +112,31 @@ const reducer = handleActions({
     },
     isFetching: {
       $set: false,
+    },
+  }),
+
+  [approveFeedbackRequest]: state => update(state, {
+    isFetching: {
+      $set: true,
+    },
+    error: {
+      $set: null,
+    },
+  }),
+  [approveFeedbackSuccess]: (state, { payload: { feedback } }) => update(state, {
+    isFetching: {
+      $set: false,
+    },
+    list: {
+      $set: state.list.filter(f => f.id !== feedback.id),
+    },
+  }),
+  [approveFeedbackFailure]: (state, { payload: { error } }) => update(state, {
+    isFetching: {
+      $set: false,
+    },
+    error: {
+      $set: error,
     },
   }),
 }, defaultState);
