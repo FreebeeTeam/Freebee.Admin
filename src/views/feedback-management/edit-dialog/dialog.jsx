@@ -10,7 +10,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { Marker } from '../../../components';
+import { Marker, FreebeeTypeDropdown } from '../../../components';
 import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
 
 import styles from './styles';
@@ -62,13 +62,9 @@ const EditDialog = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              required
+            <FreebeeTypeDropdown
               onChange={handleChange('type')}
-              id="created-author"
-              label="Type"
               value={feedback.type}
-              fullWidth
             />
           </Grid>
           <Grid item xs={6}>
@@ -80,11 +76,12 @@ const EditDialog = (props) => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextField
               onChange={handleChange('description')}
               id="created-description"
               label="Description"
+              multiline
               value={feedback.description}
               fullWidth
             />

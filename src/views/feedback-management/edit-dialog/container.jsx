@@ -58,7 +58,6 @@ class DialogContainer extends Component {
   handleApprove = () => {
     const { approveFeedback } = this.props;
     const { feedback } = this.state;
-    console.log(feedback);
     approveFeedback(feedback);
   }
 

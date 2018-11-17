@@ -72,6 +72,7 @@ const EditDialog = (props) => {
           <Grid item xs={12}>
             <TextField
               onChange={handleChange('description')}
+              multiline
               id="created-description"
               label="Description"
               value={entity.description}
