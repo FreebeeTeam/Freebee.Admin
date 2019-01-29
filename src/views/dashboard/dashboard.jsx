@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import cn from 'classcat';
 import { Switch, Route, Link } from 'react-router-dom';
 import {
   CssBaseline,

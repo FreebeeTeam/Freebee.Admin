@@ -102,7 +102,7 @@ const EditDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={close}>Cancel</Button>
-        <Button color="secondary" onClick={handleSubmit}>Create</Button>
+        <Button color="secondary" onClick={handleSubmit}>Update</Button>
       </DialogActions>
     </Dialog>
   );

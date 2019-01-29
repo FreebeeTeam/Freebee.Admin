@@ -9,7 +9,7 @@ const markersSelectorFactory = (initialSelect, columns) => createSelector(
   list => list.map((item) => {
     const itemAsArray = columns.map((col) => {
       if (col.field === 'location') {
-        return item[col.field].values.toString();
+        return item[col.field].coordinates.toString();
       }
       if (col.field === 'creationDate') {
         return moment(item[col.field]).format(DATE_FORMAT);
@@ -41,6 +41,6 @@ export const selectedToEditEntityFactory = type => createSelector(
     const { [type]: { list } } = markers;
     const entity = list.find(e => e.id === id);
 
-    return { ...entity, location: entity.location.values };
+    return { ...entity, location: entity.location.coordinates };
   },
 );
