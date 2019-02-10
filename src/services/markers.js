@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { wifi, toilets } from './api';
+import { wifi, toilets, markerTypes } from './api';
 
 export const getWifi = () => axios.get(wifi.get());
 export const createWifi = createdWifi => axios.post(wifi.create(), createdWifi);
@@ -14,3 +14,5 @@ export const updateToilet = updatedToilet => axios.put(toilets.update(), updated
 export const removeToilets = ids => (ids.length === 1
   ? axios.delete(toilets.remove(ids[0]))
   : axios.post(toilets.removeMany(), ids));
+
+export const getMarkerTypes = () => axios.get(markerTypes.get());

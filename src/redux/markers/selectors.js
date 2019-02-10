@@ -4,13 +4,15 @@ import { DATE_FORMAT } from '../../config/format';
 import { columns as wifiColumns } from '../../views/markers-management/wifi-table/columns';
 import { columns as toiletsColumns } from '../../views/markers-management/toilets-table/columns';
 
+export const selectMarkerTypes = state => state.markers.shared.markerTypes;
 const markersSelectorFactory = (initialSelect, columns) => createSelector(
-  initialSelect,
-  list => list.map((item) => {
+  [initialSelect],
+  (list) => list.map((item) => {
     const itemAsArray = columns.map((col) => {
       if (col.field === 'location') {
         return item[col.field].coordinates.toString();
       }
+
       if (col.field === 'creationDate') {
         return moment(item[col.field]).format(DATE_FORMAT);
       }

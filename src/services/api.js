@@ -2,7 +2,7 @@ const base = process.env.REACT_APP_FREEBEE_API;
 
 const buildUrl = url => `${base}${url}`;
 
-const feedback = {
+export const feedback = {
   get: () => buildUrl('/feedback'),
   approve: () => buildUrl('/feedback/approve'),
   update: id => buildUrl(`/feedback/${id}`),
@@ -10,7 +10,7 @@ const feedback = {
   removeMany: () => buildUrl('/feedback/delete'),
 };
 
-const wifi = {
+export const wifi = {
   get: () => buildUrl('/wifi'),
   create: () => buildUrl('/wifi'),
   update: () => buildUrl('/wifi'),
@@ -18,7 +18,7 @@ const wifi = {
   removeMany: () => buildUrl('/wifi/delete'),
 };
 
-const toilets = {
+export const toilets = {
   get: () => buildUrl('/toilets'),
   create: () => buildUrl('/toilets'),
   update: () => buildUrl('/toilets'),
@@ -26,8 +26,6 @@ const toilets = {
   removeMany: () => buildUrl('/toilets/delete'),
 };
 
-export {
-  feedback,
-  wifi,
-  toilets,
+export const markerTypes = {
+  get: () => buildUrl('/markers/types'),
 };

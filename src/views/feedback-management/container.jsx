@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { thunks, selectors, actions } from '../../redux/feedback';
+import { thunks as markersThunks } from '../../redux/markers';
 import { getIdsByIndexes } from '../../lib/table-helpers';
 import Management from './management';
 
 class ManagementContainer extends Component {
   state = {
     isOpen: false,
-  }
+  };
 
-  componentDidMount = () => {
-    const { getFeedback } = this.props;
+  componentDidMount() {
+    const { getFeedback, getMarkerTypes } = this.props;
 
     getFeedback();
+    getMarkerTypes();
   }
 
   handleOpen = () => {
     this.setState({ isOpen: true });
-  }
+  };
 
   handleClose = () => {
     this.setState({ isOpen: false });
@@ -30,14 +31,13 @@ class ManagementContainer extends Component {
     const ids = getIdsByIndexes(indexesToDelete, rawFeedback);
 
     removeFeedback(ids);
-  }
+  };
 
   render() {
     const {
-      removeFeedback,
       updateFeedback,
       setFeedbackToEdit,
-      data
+      data,
     } = this.props;
 
     const { isOpen } = this.state;
@@ -65,16 +65,16 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
-  const { getFeedback, removeFeedback, updateFeedback } = thunks;
-  const { setFeedbackToEdit } = actions;
+const { getFeedback, removeFeedback, updateFeedback } = thunks;
+const { getMarkerTypes } = markersThunks
+const { setFeedbackToEdit } = actions;
 
-  return bindActionCreators({
-    getFeedback,
-    removeFeedback,
-    updateFeedback,
-    setFeedbackToEdit,
-  }, dispatch);
+const mapDispatch = {
+  getFeedback,
+  getMarkerTypes,
+  removeFeedback,
+  updateFeedback,
+  setFeedbackToEdit,
 };
 
 export default connect(mapState, mapDispatch)(ManagementContainer);
