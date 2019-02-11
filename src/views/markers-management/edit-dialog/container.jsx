@@ -15,14 +15,14 @@ const defaultState = props => ({
 class Container extends Component {
   state = defaultState(this.props);
 
-  componentDidUpdate = (prevProps) => {
+  componentWillReceiveProps({ isOpen }) {
+    this.setState({ isOpen });
+  }
+
+  componentDidUpdate(prevProps) {
     if (!prevProps.isOpen) {
       this.setState(defaultState());
     }
-  }
-
-  componentWillReceiveProps = ({ isOpen }) => {
-    this.setState({ isOpen });
   }
 
   handleChange = name => (e) => {
@@ -35,7 +35,7 @@ class Container extends Component {
     this.setState({
       [entityName]: entity,
     });
-  }
+  };
 
   handleClose = () => {
     const { close } = this.props;
@@ -55,7 +55,7 @@ class Container extends Component {
     this.setState({
       [entityName]: entity,
     });
-  }
+  };
 
   handleSubmit = () => {
     const { type, close } = this.props;
@@ -68,14 +68,20 @@ class Container extends Component {
       return;
     }
 
+    console.log('entity')
+    console.log(entity)
+
     edit(entity);
     close();
-  }
+  };
 
   render() {
     const { type } = this.props;
     const { entityName } = types[type];
     const { [entityName]: entity, isOpen } = this.state;
+
+    console.log('entity')
+    console.log(entity)
 
     return (
       <Dialog

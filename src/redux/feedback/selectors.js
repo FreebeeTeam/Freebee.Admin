@@ -47,7 +47,10 @@ export const selectSelectedToEditFeedback = createSelector(
       return null;
     }
 
-    const selectedFeedback = { ...entity };
+    const selectedFeedback = {
+      ...entity,
+      location: entity.location.coordinates,
+    };
 
     return selectedFeedback;
   },

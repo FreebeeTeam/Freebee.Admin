@@ -19,6 +19,7 @@ const EditDialog = (props) => {
   const {
     isOpen,
     feedback,
+    markerTypes,
     handleApprove,
     handleDecline,
     handleClose,
@@ -65,6 +66,7 @@ const EditDialog = (props) => {
             <FreebeeTypeDropdown
               onChange={handleChange('type')}
               value={feedback.type}
+              types={markerTypes}
             />
           </Grid>
           <Grid item xs={6}>

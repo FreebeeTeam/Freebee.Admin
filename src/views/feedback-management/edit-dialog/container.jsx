@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { selectors, thunks } from '../../../redux/feedback';
+import { selectors as markersSelectors } from '../../../redux/markers';
 import Dialog from './dialog';
 
 const defaultState = props => ({
@@ -19,9 +20,9 @@ const defaultState = props => ({
 });
 
 class DialogContainer extends Component {
-  state = defaultState(this.props)
+  state = defaultState(this.props);
 
-  componentWillReceiveProps = ({ isOpen, feedbackToEdit }) => {
+  componentWillReceiveProps({ isOpen, feedbackToEdit }) {
     this.setState({ isOpen });
 
     if (feedbackToEdit !== this.props.feedbackToEdit) {
@@ -34,7 +35,7 @@ class DialogContainer extends Component {
     feedback[name] = e.target.value;
 
     this.setState({ feedback });
-  }
+  };
 
   handleCoordinatesChange = (e) => {
     const { latlng: { lat, lng } } = e;
@@ -43,7 +44,7 @@ class DialogContainer extends Component {
     feedback.location = [lat, lng];
 
     this.setState({ feedback });
-  }
+  };
 
   handleDecline = () => {
     const { handleClose, declineFeedback } = this.props;
@@ -53,17 +54,17 @@ class DialogContainer extends Component {
 
     handleClose();
     declineFeedback([id]);
-  }
+  };
 
   handleApprove = () => {
     const { approveFeedback } = this.props;
     const { feedback } = this.state;
     approveFeedback(feedback);
-  }
+  };
 
   render() {
     const { feedback, isOpen } = this.state;
-    const { handleClose } = this.props;
+    const { handleClose, markerTypes } = this.props;
 
     if (!feedback) {
       return null;
@@ -73,6 +74,7 @@ class DialogContainer extends Component {
       <Dialog
         isOpen={isOpen}
         feedback={feedback}
+        markerTypes={markerTypes}
         handleClose={handleClose}
         handleChange={this.handleChange}
         handleDecline={this.handleDecline}
@@ -88,6 +90,7 @@ const mapState = (state) => {
 
   return {
     feedbackToEdit: selectSelectedToEditFeedback(state),
+    markerTypes: markersSelectors.selectMarkerTypes(state),
   };
 };
 

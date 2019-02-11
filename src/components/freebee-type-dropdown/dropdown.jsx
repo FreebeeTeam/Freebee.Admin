@@ -5,9 +5,8 @@ import {
   FormControl,
   InputLabel,
 } from '@material-ui/core';
-import { FREEBEE_TYPES } from './consts';
 
-const Dropdown = ({ value, onChange }) => {
+const Dropdown = ({ value, onChange, types }) => {
   return (
     <FormControl fullWidth>
       <InputLabel htmlFor="type">Type</InputLabel>
@@ -17,7 +16,7 @@ const Dropdown = ({ value, onChange }) => {
         onChange={onChange}
         fullWidth
       >
-        {Object.values(FREEBEE_TYPES).map(type => (
+        {types.map(type => (
           <MenuItem key={type.value} value={type.value}>
             {type.label}
           </MenuItem>
@@ -25,10 +24,6 @@ const Dropdown = ({ value, onChange }) => {
       </Select>
     </FormControl>
   );
-};
-
-Dropdown.defaultProps = {
-  value: FREEBEE_TYPES.Wifi,
 };
 
 export default Dropdown;

@@ -66,7 +66,7 @@ const mapState = (state) => {
 };
 
 const { getFeedback, removeFeedback, updateFeedback } = thunks;
-const { getMarkerTypes } = markersThunks
+const { getMarkerTypes } = markersThunks;
 const { setFeedbackToEdit } = actions;
 
 const mapDispatch = {

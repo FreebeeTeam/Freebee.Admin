@@ -11,7 +11,7 @@ class Container extends Component {
     modalType: null,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { getMarkers } = this.props;
 
     getMarkers();
@@ -19,18 +19,18 @@ class Container extends Component {
 
   openAddModal = () => {
     this.setState({ modalType: 'add' });
-  }
+  };
 
   openEditModal = id => () => {
     const { setMarkerIdToEdit } = this.props;
     this.setState({ modalType: 'edit' });
 
     setMarkerIdToEdit(id);
-  }
+  };
 
   resetModal = () => {
     this.setState({ modalType: null });
-  }
+  };
 
   handleTabChange = (event, value) => {
     this.setState({ tableType: value });
@@ -59,7 +59,7 @@ class Container extends Component {
       default:
         break;
     }
-  }
+  };
 
   render() {
     const { tableType, modalType } = this.state;

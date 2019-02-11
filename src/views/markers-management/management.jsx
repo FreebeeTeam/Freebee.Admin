@@ -38,7 +38,7 @@ const MarkersManagement = ({
         <Tabs
           value={tableType}
           onChange={handleTabChange}
-          scrollable
+          variant="scrollable"
           scrollButtons="on"
           indicatorColor="primary"
           textColor="primary"
