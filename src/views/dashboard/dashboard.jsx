@@ -75,7 +75,7 @@ const Dashboard = (props) => {
                 color="inherit"
                 noWrap
               >
-                {'Freebee.Admin'}
+                {'Finds.Admin'}
               </Typography>
               <div className={classes.profile}>
                 <Typography variant="subtitle1" color="inherit" noWrap>

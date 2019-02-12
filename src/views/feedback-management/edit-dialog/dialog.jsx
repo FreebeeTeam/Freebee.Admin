@@ -10,7 +10,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { Marker, FreebeeTypeDropdown } from '../../../components';
+import { Marker, FreeOpportunityTypeDropdown } from '../../../components';
 import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
 
 import styles from './styles';
@@ -63,7 +63,7 @@ const EditDialog = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <FreebeeTypeDropdown
+            <FreeOpportunityTypeDropdown
               onChange={handleChange('type')}
               value={feedback.type}
               types={markerTypes}
