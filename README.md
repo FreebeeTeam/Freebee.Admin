@@ -1,4 +1,4 @@
-# Application to manage freebees and users
+# Application to manage freebies and users
 
 .env
 ```
