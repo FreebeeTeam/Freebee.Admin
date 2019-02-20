@@ -24,13 +24,16 @@
     "redux-actions": "^2.6.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "serve": "10.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "production": "serve -s build",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "yarn run production"
   },
   "eslintConfig": {
     "extends": "react-app"
