@@ -4,6 +4,7 @@ const sideMargin = 12;
 export default theme => ({
   root: {
     display: 'flex',
+    flexFlow: 'column',
     height: '100%',
   },
   appBar: {
@@ -63,8 +64,9 @@ export default theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
+  inner: {
+  },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
   },
 });

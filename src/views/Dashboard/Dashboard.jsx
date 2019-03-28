@@ -4,24 +4,18 @@ import { Switch, Route, Link } from 'react-router-dom';
 import {
   CssBaseline,
   Avatar,
-  withStyles,
-  Drawer,
-  AppBar,
-  Toolbar,
-  List,
-  Menu,
-  MenuItem,
   Typography,
+  withStyles,
+  SwipeableDrawer as Drawer,
+  AppBar, Toolbar,
+  Menu, MenuItem,
   Divider,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  List, ListItem, ListItemIcon, ListItemText,
 } from '@material-ui/core';
 import {
   Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
+  ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon,
   AccountCircle as AccountCircleIcon,
   Map as MapIcon,
   Comment as CommentIcon,
@@ -49,74 +43,76 @@ const Dashboard = (props) => {
   const isMenuOpen = Boolean(anchorEl);
 
   return (
-      <>
-        <CssBaseline />
-        <div className={classes.root}>
-          <AppBar
-            position="absolute"
-            className={cn(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-          >
-            <Toolbar disableGutters={!open}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={handleDrawerOpen}
-                className={cn(classes.menuButton, {
-                  [classes.hide]: open,
-                })}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                className={classes.title}
-                variant="h6"
-                color="inherit"
-                noWrap
-              >
-                {'Finds.Admin'}
+    <>
+      <CssBaseline />
+      <div className={classes.root}>
+        <AppBar
+          position="sticky"
+          className={cn(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={handleDrawerOpen}
+              className={cn(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
+              {'Finds.Admin'}
+            </Typography>
+            <div className={classes.profile}>
+              <Typography variant="subtitle1" color="inherit" noWrap>
+                {profile.nickname}
               </Typography>
-              <div className={classes.profile}>
-                <Typography variant="subtitle1" color="inherit" noWrap>
-                  {profile.nickname}
-                </Typography>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={handleMenuOpen}
-                  color="inherit"
-                >
-                  {profile.picture
-                    ? <Avatar alt={profile.username} src={profile.picture} />
-                    : <AccountCircleIcon />
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : undefined}
+                aria-haspopup="true"
+                onClick={handleMenuOpen}
+                color="inherit"
+              >
+                {profile.picture
+                  ? <Avatar alt={profile.username} src={profile.picture} />
+                  : <AccountCircleIcon />
                   }
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={isMenuOpen}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
-                </Menu>
-              </div>
-            </Toolbar>
-          </AppBar>
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+              </Menu>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <section className={classes.inner}>
           <Drawer
-            variant="permanent"
             classes={{
               paper: cn(classes.drawerPaper, !open && classes.drawerPaperClose),
             }}
             open={open}
+            onClose={handleDrawerClose}
+            onOpen={handleDrawerOpen}
           >
             <div className={classes.Toolbar}>
               <IconButton onClick={handleDrawerClose}>
@@ -148,8 +144,9 @@ const Dashboard = (props) => {
               <Route component={null} />
             </Switch>
           </main>
-        </div>
-      </>
+        </section>
+      </div>
+    </>
   );
 };
 
