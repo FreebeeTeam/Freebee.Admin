@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../config/format';
-import { columns as wifiColumns } from '../../views/markers-management/wifi-table/columns';
-import { columns as toiletsColumns } from '../../views/markers-management/toilets-table/columns';
+import { columns as wifiColumns } from '../../views/MarkersManagement/WifiTable/columns';
+import { columns as toiletsColumns } from '../../views/MarkersManagement/ToiletsTable/columns';
 
 export const selectMarkerTypes = state => state.markers.shared.markerTypes;
 const markersSelectorFactory = (initialSelect, columns) => createSelector(

@@ -1,4 +1,4 @@
-const base = process.env.REACT_APP_FREEBEE_API;
+const base = process.env.REACT_APP_API;
 
 const buildUrl = url => `${base}${url}`;
 

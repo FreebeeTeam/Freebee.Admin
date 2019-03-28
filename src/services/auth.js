@@ -6,7 +6,7 @@ import {
   responseType,
   scope,
   audience,
-} from '../config/auth0-config';
+} from '../config/auth0Config';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
