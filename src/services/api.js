@@ -1,4 +1,4 @@
-const base = process.env.REACT_APP_FREEBEE_API;
+const base = process.env.REACT_APP_API;
 
 const buildUrl = url => `${base}${url}`;
 
@@ -24,6 +24,14 @@ export const toilets = {
   update: () => buildUrl('/toilets'),
   remove: id => buildUrl(`/toilets/${id}`),
   removeMany: () => buildUrl('/toilets/delete'),
+};
+
+export const sockets = {
+  get: () => buildUrl('/sockets'),
+  create: () => buildUrl('/sockets'),
+  update: () => buildUrl('/sockets'),
+  remove: id => buildUrl(`/sockets/${id}`),
+  removeMany: () => buildUrl('/sockets/delete'),
 };
 
 export const markerTypes = {

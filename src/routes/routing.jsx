@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Auth } from '../services';
 import { callback, index, dashboard } from './index';
-import { Callback } from '../components';
-import Dashboard from '../views/dashboard';
+import { PageLoading } from '../components';
+import Dashboard from '../views/Dashboard';
 
 const auth = new Auth();
 
@@ -38,7 +38,7 @@ export default class Routing extends Component {
             path={callback()}
             render={(props) => {
               handleAuthentication(props);
-              return <Callback {...props} />;
+              return <PageLoading {...props} />;
             }}
           />
         </Switch>

@@ -6,7 +6,7 @@ import {
   responseType,
   scope,
   audience,
-} from '../config/auth0-config';
+} from '../config/auth0Config';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -20,7 +20,7 @@ export default class Auth {
 
   login = () => {
     this.auth0.authorize();
-  }
+  };
 
   handleAuthentication = (history) => {
     this.auth0.parseHash((err, authResult) => {
@@ -31,7 +31,7 @@ export default class Auth {
         history.replace('/');
       }
     });
-  }
+  };
 
   getUserProfile = (resolve, reject) => {
     const accessToken = this.getAccessToken();
@@ -42,7 +42,7 @@ export default class Auth {
         resolve(profile);
       }
     });
-  }
+  };
 
   getAccessToken = () => {
     const accessToken = localStorage.getItem('access_token');
@@ -50,7 +50,7 @@ export default class Auth {
       throw new Error('No access token found');
     }
     return accessToken;
-  }
+  };
 
   setSession = (authResult, history) => {
     // Set the time that the Access Token will expire at
@@ -60,7 +60,7 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     history.replace('/');
-  }
+  };
 
   logout = (redirect) => {
     // Clear Access Token and ID Token from local storage
@@ -69,7 +69,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     // navigate to the home route
     redirect();
-  }
+  };
 
   isAuthenticated = () => {
     // Check whether the current time is past the
