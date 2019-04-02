@@ -21,6 +21,7 @@ const FeedbackTable = ({ data, deleteFeedback, handleShowDetails }) => {
 
   return (
     <MuiTable
+      title="Feedback"
       columns={getColumns(handleShowDetails)}
       data={data}
       options={tableOptions}

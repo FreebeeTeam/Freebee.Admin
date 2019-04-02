@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { thunks, selectors } from '../../../redux/markers';
 import Dialog from './EditDialog';
+import { thunks, selectors } from '../../../redux/markers';
+import { getTableType } from '../helpers';
 
-import types from './types';
+const defaultState = (props) => {
+  const { entityName } = getTableType(props.type);
 
-const defaultState = props => ({
-  isOpen: props.isOpen || false,
-  [types[props.type].entityName]: props.entityToEdit,
-});
+  return {
+    isOpen: props.isOpen || false,
+    [entityName]: props.entityToEdit,
+  };
+};
 
 
 class Container extends Component {
@@ -27,7 +29,7 @@ class Container extends Component {
 
   handleChange = name => (e) => {
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
 
     const { [entityName]: entity } = this.state;
     entity[name] = e.target.value;
@@ -47,7 +49,7 @@ class Container extends Component {
   handleCoordinatesChange = (e) => {
     const { latlng: { lat, lng } } = e;
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
 
     const { [entityName]: entity } = this.state;
     entity.location = [lat, lng];
@@ -59,7 +61,7 @@ class Container extends Component {
 
   handleSubmit = () => {
     const { type, close } = this.props;
-    const { entityName, editFunc } = types[type];
+    const { entityName, editFunc } = getTableType(type);
     const { [entityName]: entity } = this.state;
     const { [editFunc]: edit } = this.props;
 
@@ -68,20 +70,14 @@ class Container extends Component {
       return;
     }
 
-    console.log('entity')
-    console.log(entity)
-
     edit(entity);
     close();
   };
 
   render() {
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
     const { [entityName]: entity, isOpen } = this.state;
-
-    console.log('entity')
-    console.log(entity)
 
     return (
       <Dialog
@@ -99,7 +95,7 @@ class Container extends Component {
 const mapState = (state, props) => {
   const { selectedToEditEntityFactory } = selectors;
   const { type } = props;
-  const { storeName } = types[type];
+  const { storeName } = getTableType(type);
 
   const selectSelectedToEditEntity = selectedToEditEntityFactory(storeName);
 
@@ -108,16 +104,16 @@ const mapState = (state, props) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
-  const {
-    wifiThunks: { editWifi },
-    toiletsThunks: { editToilet },
-  } = thunks;
+const {
+  wifiThunks: { editWifi },
+  toiletsThunks: { editToilet },
+  socketsThunks: { editSocket },
+} = thunks;
 
-  return bindActionCreators({
-    editWifi,
-    editToilet,
-  }, dispatch);
+const mapDispatch = {
+  editWifi,
+  editToilet,
+  editSocket,
 };
 
 export default connect(mapState, mapDispatch)(Container);

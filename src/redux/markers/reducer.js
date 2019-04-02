@@ -10,6 +10,7 @@ import {
 } from './actions';
 import toilets from './toilets';
 import wifi from './wifi';
+import sockets from './sockets';
 
 const defaultState = {
   selectedMarkerToEdit: null,
@@ -55,4 +56,5 @@ export default combineReducers({
   shared: reducer,
   toilets,
   wifi,
+  sockets,
 });

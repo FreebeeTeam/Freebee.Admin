@@ -14,7 +14,7 @@ const extendedOptions = (handleAddClick, deleteToilets) => ({
   },
 });
 
-const ToiletsTable = ({
+const SocketsTable = ({
   title,
   data,
   openAddModal,
@@ -36,4 +36,4 @@ const ToiletsTable = ({
   );
 };
 
-export default ToiletsTable;
+export default SocketsTable;

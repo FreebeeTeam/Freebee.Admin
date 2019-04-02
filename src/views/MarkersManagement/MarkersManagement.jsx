@@ -17,19 +17,17 @@ import EditDialog from './EditDialog';
 
 import ToiletsTable from './ToiletsTable';
 import WifiTable from './WifiTable';
+import SocketsTable from './SocketsTable';
+
+import { MODAL_TYPES, TABLE_TYPES } from './const';
 
 import styles from './styles';
 
 const MarkersManagement = ({
-  wifi,
-  toilets,
   classes,
-  tableType,
-  handleTabChange,
-  openAddModal,
-  openEditModal,
-  resetModal,
-  modalType,
+  wifi, toilets, sockets,
+  tableType, handleTabChange,
+  openAddModal, openEditModal, resetModal, modalType,
   deleteEntities,
 }) => {
   return (
@@ -43,57 +41,64 @@ const MarkersManagement = ({
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Wifi" icon={<WifiIcon />} />
-          <Tab label="Toilets" icon={<ToiletIcon />} />
-          <Tab label="Chargers" icon={<BatteryIcon />} />
+          <Tab label={TABLE_TYPES.wifi.label} icon={<WifiIcon />} />
+          <Tab label={TABLE_TYPES.toilets.label} icon={<ToiletIcon />} />
+          <Tab label={TABLE_TYPES.sockets.label} icon={<BatteryIcon />} />
         </Tabs>
       </AppBar>
       {/* MODALS */}
-      {modalType === 'add'
+      {modalType === MODAL_TYPES.add.value
         && (
         <AddDialog
-          isOpen={modalType === 'add'}
+          isOpen={modalType === MODAL_TYPES.add.value}
           close={resetModal}
           type={tableType}
-        />)
+        />
+        )
       }
-      {modalType === 'edit' && (
-        <EditDialog
-          isOpen={modalType === 'edit'}
-          close={resetModal}
-          type={tableType}
-        />)
 
-      }
+      {modalType === MODAL_TYPES.edit.value && (
+        <EditDialog
+          isOpen={modalType === MODAL_TYPES.edit.value}
+          close={resetModal}
+          type={tableType}
+        />
+      )}
 
       {/* TABS */}
-      {tableType === 0
-      && (
+      {tableType === TABLE_TYPES.wifi.value && (
       <TabContainer>
         <WifiTable
           openAddModal={openAddModal}
           openEditModal={openEditModal}
           deleteEntities={deleteEntities}
+          title={TABLE_TYPES.wifi.label}
           data={wifi}
         />
       </TabContainer>
       )}
 
-      {tableType === 1 && (
+      {tableType === TABLE_TYPES.toilets.value && (
       <TabContainer>
         <ToiletsTable
           openAddModal={openAddModal}
           openEditModal={openEditModal}
           deleteEntities={deleteEntities}
+          title={TABLE_TYPES.toilets.label}
           data={toilets}
         />
       </TabContainer>
       )}
 
-      {tableType === 2
-      && (
+      {tableType === TABLE_TYPES.sockets.value && (
       <TabContainer>
-        {'Chargers'}
+        <SocketsTable
+          openAddModal={openAddModal}
+          openEditModal={openEditModal}
+          deleteEntities={deleteEntities}
+          title={TABLE_TYPES.sockets.label}
+          data={sockets}
+        />
       </TabContainer>
       )}
     </div>

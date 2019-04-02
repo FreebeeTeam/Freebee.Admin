@@ -26,6 +26,14 @@ export const toilets = {
   removeMany: () => buildUrl('/toilets/delete'),
 };
 
+export const sockets = {
+  get: () => buildUrl('/sockets'),
+  create: () => buildUrl('/sockets'),
+  update: () => buildUrl('/sockets'),
+  remove: id => buildUrl(`/sockets/${id}`),
+  removeMany: () => buildUrl('/sockets/delete'),
+};
+
 export const markerTypes = {
   get: () => buildUrl('/markers/types'),
 };

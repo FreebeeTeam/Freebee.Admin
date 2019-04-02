@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { thunks } from '../../../redux/markers';
 import Dialog from './AddDialog';
-
-import types from './types';
+import { thunks } from '../../../redux/markers';
+import { getTableType } from '../helpers';
 
 const defaultState = props => ({
   isOpen: props.isOpen || false,
@@ -23,6 +21,13 @@ const defaultState = props => ({
     author: null,
     address: null,
   },
+  socket: {
+    title: null,
+    location: null,
+    description: null,
+    author: null,
+    address: null,
+  },
 });
 
 
@@ -33,15 +38,15 @@ class Container extends Component {
     if (!prevProps.isOpen) {
       this.setState(defaultState());
     }
-  }
+  };
 
   componentWillReceiveProps = ({ isOpen }) => {
     this.setState({ isOpen });
-  }
+  };
 
   handleChange = name => (e) => {
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
 
     const { [entityName]: entity } = this.state;
     entity[name] = e.target.value;
@@ -49,7 +54,7 @@ class Container extends Component {
     this.setState({
       [entityName]: entity,
     });
-  }
+  };
 
   handleClose = () => {
     const { close } = this.props;
@@ -61,7 +66,7 @@ class Container extends Component {
   handleCoordinatesChange = (e) => {
     const { latlng: { lat, lng } } = e;
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
 
     const { [entityName]: entity } = this.state;
     entity.location = [lat, lng];
@@ -69,11 +74,11 @@ class Container extends Component {
     this.setState({
       [entityName]: entity,
     });
-  }
+  };
 
   handleSubmit = () => {
     const { type, close } = this.props;
-    const { entityName, createFunc } = types[type];
+    const { entityName, createFunc } = getTableType(type);
     const { [entityName]: entity } = this.state;
     const { [createFunc]: create } = this.props;
 
@@ -84,11 +89,11 @@ class Container extends Component {
 
     create(entity);
     close();
-  }
+  };
 
   render() {
     const { type } = this.props;
-    const { entityName } = types[type];
+    const { entityName } = getTableType(type);
     const { [entityName]: entity, isOpen } = this.state;
 
     return (
@@ -104,21 +109,16 @@ class Container extends Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-  };
+const {
+  wifiThunks: { createWifi },
+  toiletsThunks: { createToilet },
+  socketsThunks: { createSocket },
+} = thunks;
+
+const mapDispatch = {
+  createWifi,
+  createToilet,
+  createSocket,
 };
 
-const mapDispatch = (dispatch) => {
-  const {
-    wifiThunks: { createWifi },
-    toiletsThunks: { createToilet },
-  } = thunks;
-
-  return bindActionCreators({
-    createWifi,
-    createToilet,
-  }, dispatch);
-};
-
-export default connect(mapState, mapDispatch)(Container);
+export default connect(null, mapDispatch)(Container);

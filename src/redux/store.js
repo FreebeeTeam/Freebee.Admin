@@ -7,7 +7,6 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './rootReducer';
 
-
 export default () => {
   const middleware = applyMiddleware(
     thunk,

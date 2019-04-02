@@ -15,6 +15,7 @@ const extendedOptions = (handleAddClick, deleteWifi) => ({
 });
 
 const WifiTable = ({
+  title,
   data,
   openAddModal,
   openEditModal,
@@ -27,6 +28,7 @@ const WifiTable = ({
 
   return (
     <MuiTable
+      title={title}
       columns={getColumns(openEditModal)}
       data={data}
       options={tableOptions}
