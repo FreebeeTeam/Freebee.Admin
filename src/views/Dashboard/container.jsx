@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { thunks } from '../../redux/user';
-import { index } from '../../routes';
+import { routes } from '../../routes';
 import Dashboard from './Dashboard';
 
 class Container extends Component {
@@ -38,7 +38,7 @@ class Container extends Component {
     const { auth, history } = this.props;
 
     this.setState({ anchorEl: null });
-    auth.logout(() => history.replace(index()));
+    auth.logout(() => history.replace(routes.index()));
   };
 
   render() {

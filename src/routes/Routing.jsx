@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Auth } from '../services';
-import { callback, index, dashboard } from './index';
+import { callback, index, dashboard } from './routes';
 import { PageLoading } from '../components';
 import Dashboard from '../views/Dashboard';
 
