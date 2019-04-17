@@ -1,20 +1,20 @@
-import axios from 'axios';
+import http from './http';
 import { feedback } from './api';
 
-export const getFeedback = () => axios.get(
+export const getFeedback = () => http.get(
   feedback.get(),
 );
 
-export const approveFeedback = approvedFeedback => axios.post(
+export const approveFeedback = approvedFeedback => http.post(
   feedback.approve(),
   approvedFeedback,
 );
 
-export const updateFeedback = updatedFeedback => axios.put(
+export const updateFeedback = updatedFeedback => http.put(
   feedback.update(updatedFeedback.id),
   updatedFeedback,
 );
 
 export const removeFeedback = (ids = []) => (ids.length === 1
-  ? axios.delete(feedback.remove(ids[0]))
-  : axios.post(feedback.removeMany(), { ids }));
+  ? http.delete(feedback.remove(ids[0]))
+  : http.post(feedback.removeMany(), { ids }));

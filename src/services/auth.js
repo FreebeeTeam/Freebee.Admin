@@ -78,3 +78,7 @@ export default class Auth {
     return new Date().getTime() < expiresAt;
   }
 }
+
+export const getToken = () => {
+  return localStorage.getItem('id_token');
+};
