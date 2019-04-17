@@ -23,7 +23,7 @@ import {
 import FeedbackManagement from '../FeedbackManagement';
 import MarkersManagement from '../MarkersManagement';
 
-import { feedback, markers, dashboard } from '../../routes';
+import { routes } from '../../routes';
 import styles from './styles';
 
 const Dashboard = (props) => {
@@ -121,13 +121,13 @@ const Dashboard = (props) => {
             </div>
             <Divider />
             <List>
-              <ListItem component={Link} to={feedback()} button key="Feedback">
+              <ListItem component={Link} to={routes.feedback()} button key="Feedback">
                 <ListItemIcon>
                   <CommentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Feedback" />
               </ListItem>
-              <ListItem component={Link} to={markers()} button key="Markers">
+              <ListItem component={Link} to={routes.markers()} button key="Markers">
                 <ListItemIcon>
                   <MapIcon />
                 </ListItemIcon>
@@ -138,9 +138,9 @@ const Dashboard = (props) => {
           <main className={classes.content}>
             <div className={classes.Toolbar} />
             <Switch>
-              <Route exact path={dashboard()} component={FeedbackManagement} />
-              <Route path={feedback()} component={FeedbackManagement} />
-              <Route path={markers()} component={MarkersManagement} />
+              <Route exact path={routes.dashboard()} component={FeedbackManagement} />
+              <Route path={routes.feedback()} component={FeedbackManagement} />
+              <Route path={routes.markers()} component={MarkersManagement} />
               <Route component={null} />
             </Switch>
           </main>

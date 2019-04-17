@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Management from './MarkersManagement';
 import { thunks, selectors, actions } from '../../redux/markers';
 import { getIdsByIndexes } from '../../lib/tableHelpers';
 
+import { getTableObjectFromPathname } from './helpers';
+import { routes } from '../../routes';
 import { MODAL_TYPES, TABLE_TYPES } from './const';
 
 class Container extends Component {
@@ -13,9 +16,29 @@ class Container extends Component {
   };
 
   componentDidMount() {
-    const { getMarkers } = this.props;
+    const { getMarkers, history, location: { pathname } } = this.props;
 
     getMarkers();
+    const tableObject = getTableObjectFromPathname(pathname);
+    if (!tableObject) {
+      history.push(routes.wifi());
+      return;
+    }
+
+    this.setState({
+      tableType: tableObject.value,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location: { pathname } } = this.props;
+
+    if (prevProps.location.pathname !== pathname) {
+      const tableObject = getTableObjectFromPathname(pathname);
+      this.setState({
+        tableType: tableObject.value,
+      });
+    }
   }
 
   openAddModal = () => {
@@ -129,4 +152,4 @@ const mapDispatch = {
   setMarkerIdToEdit,
 };
 
-export default connect(mapState, mapDispatch)(Container);
+export default withRouter(connect(mapState, mapDispatch)(Container));
