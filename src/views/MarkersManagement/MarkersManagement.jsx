@@ -11,9 +11,10 @@ import {
   BatteryCharging20 as BatteryIcon,
 } from '@material-ui/icons';
 import {
-  Link, BrowserRouter, Switch, Route, Redirect,
+  Link, Switch, Route, Redirect,
 } from 'react-router-dom';
 import TabContainer from './TabContainer';
+import { routes } from '../../routes'
 
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
@@ -29,103 +30,104 @@ import styles from './styles';
 const MarkersManagement = ({
   classes,
   wifi, toilets, sockets,
-  tableType, handleTabChange,
+  tableType, onTabChange,
   openAddModal, openEditModal, resetModal, modalType,
   deleteEntities,
+  match, location,
 }) => {
   return (
     <div className={classes.root}>
-      <BrowserRouter basename="/dashboard/markers">
-        <AppBar position="static" color="default">
-          <Tabs
-            value={tableType}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="on"
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab
-              label={TABLE_TYPES.wifi.label}
-              icon={<WifiIcon />}
-              component={Link}
-              to="/wifi"
-            />
-            <Tab
-              label={TABLE_TYPES.toilets.label}
-              icon={<ToiletIcon />}
-              component={Link}
-              to="/toilets"
-            />
-            <Tab
-              label={TABLE_TYPES.sockets.label}
-              icon={<BatteryIcon />}
-              component={Link}
-              to="/sockets"
-            />
-          </Tabs>
-        </AppBar>
 
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => {
-              return <Redirect to="/wifi" />;
-            }}
+      <AppBar position="static" color="default">
+        <Tabs
+          value={tableType}
+          onChange={onTabChange}
+          variant="scrollable"
+          scrollButtons="on"
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          <Tab
+            label={TABLE_TYPES.wifi.label}
+            icon={<WifiIcon />}
+            component={Link}
+            to={`${match.url}${routes.wifi()}`}
           />
-          <Route
-            path="/wifi"
-            render={() => {
-              return (
-                <TabContainer>
-                  <WifiTable
-                    openAddModal={openAddModal}
-                    openEditModal={openEditModal}
-                    deleteEntities={deleteEntities}
-                    title={TABLE_TYPES.wifi.label}
-                    data={wifi}
-                  />
-                </TabContainer>
-              );
-            }}
+          <Tab
+            label={TABLE_TYPES.toilets.label}
+            icon={<ToiletIcon />}
+            component={Link}
+            to={`${match.url}${routes.toilets()}`}
           />
-          <Route
-            path="/toilets"
-            render={() => {
-              return (
-                <TabContainer>
-                  <ToiletsTable
-                    openAddModal={openAddModal}
-                    openEditModal={openEditModal}
-                    deleteEntities={deleteEntities}
-                    title={TABLE_TYPES.toilets.label}
-                    data={toilets}
-                  />
-                </TabContainer>
-              );
-            }}
+          <Tab
+            label={TABLE_TYPES.sockets.label}
+            icon={<BatteryIcon />}
+            component={Link}
+            to={`${match.url}${routes.sockets()}`}
           />
-          <Route
-            path="/sockets"
-            render={() => {
-              return (
-                <TabContainer>
-                  <SocketsTable
-                    openAddModal={openAddModal}
-                    openEditModal={openEditModal}
-                    deleteEntities={deleteEntities}
-                    title={TABLE_TYPES.sockets.label}
-                    data={sockets}
-                  />
-                </TabContainer>
-              );
-            }}
-          />
-        </Switch>
+        </Tabs>
+      </AppBar>
 
-        {/* MODALS */}
-        {modalType === MODAL_TYPES.add.value
+      <Switch location={location}>
+        <Route
+          exact
+          path={`${match.path}`}
+          render={({ match }) => {
+            return <Redirect to={`${match.path}${routes.wifi()}`} />;
+          }}
+        />
+        <Route
+          path={`${match.path}${routes.wifi()}`}
+          render={() => {
+            return (
+              <TabContainer>
+                <WifiTable
+                  openAddModal={openAddModal}
+                  openEditModal={openEditModal}
+                  deleteEntities={deleteEntities}
+                  title={TABLE_TYPES.wifi.label}
+                  data={wifi}
+                />
+              </TabContainer>
+            );
+          }}
+        />
+        <Route
+          path={`${match.path}${routes.toilets()}`}
+          render={() => {
+            return (
+              <TabContainer>
+                <ToiletsTable
+                  openAddModal={openAddModal}
+                  openEditModal={openEditModal}
+                  deleteEntities={deleteEntities}
+                  title={TABLE_TYPES.toilets.label}
+                  data={toilets}
+                />
+              </TabContainer>
+            );
+          }}
+        />
+        <Route
+          path={`${match.path}${routes.sockets()}`}
+          render={() => {
+            return (
+              <TabContainer>
+                <SocketsTable
+                  openAddModal={openAddModal}
+                  openEditModal={openEditModal}
+                  deleteEntities={deleteEntities}
+                  title={TABLE_TYPES.sockets.label}
+                  data={sockets}
+                />
+              </TabContainer>
+            );
+          }}
+        />
+      </Switch>
+
+      {/* MODALS */}
+      {modalType === MODAL_TYPES.add.value
         && (
           <AddDialog
             isOpen={modalType === MODAL_TYPES.add.value}
@@ -135,14 +137,14 @@ const MarkersManagement = ({
         )
         }
 
-        {modalType === MODAL_TYPES.edit.value && (
-          <EditDialog
-            isOpen={modalType === MODAL_TYPES.edit.value}
-            close={resetModal}
-            type={tableType}
-          />
-        )}
-      </BrowserRouter>
+      {modalType === MODAL_TYPES.edit.value && (
+      <EditDialog
+        isOpen={modalType === MODAL_TYPES.edit.value}
+        close={resetModal}
+        type={tableType}
+      />
+      )}
+
     </div>
   );
 };

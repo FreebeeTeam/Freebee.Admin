@@ -1,11 +1,13 @@
 export const index = () => '/';
+export const login = () => '/login';
+export const logout = () => '/logout';
 export const dashboard = () => '/dashboard';
 
-export const feedback = () => `${dashboard()}/feedback`;
+export const feedback = () => '/feedback';
 
-export const markers = () => `${dashboard()}/markers`;
-export const wifi = () => `${markers()}/wifi`;
-export const toilets = () => `${markers()}/toilets`;
-export const sockets = () => `${markers()}/sockets`;
+export const markers = () => '/markers';
+export const wifi = () => `/wifi`;
+export const toilets = () => `/toilets`;
+export const sockets = () => `/sockets`;
 
 export const callback = () => '/callback';

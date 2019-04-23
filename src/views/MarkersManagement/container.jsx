@@ -6,7 +6,6 @@ import { thunks, selectors, actions } from '../../redux/markers';
 import { getIdsByIndexes } from '../../lib/tableHelpers';
 
 import { getTableObjectFromPathname } from './helpers';
-import { routes } from '../../routes';
 import { MODAL_TYPES, TABLE_TYPES } from './const';
 
 class Container extends Component {
@@ -16,12 +15,11 @@ class Container extends Component {
   };
 
   componentDidMount() {
-    const { getMarkers, history, location: { pathname } } = this.props;
+    const { getMarkers, location: { pathname } } = this.props;
 
     getMarkers();
     const tableObject = getTableObjectFromPathname(pathname);
     if (!tableObject) {
-      history.push(routes.wifi());
       return;
     }
 
@@ -35,6 +33,7 @@ class Container extends Component {
 
     if (prevProps.location.pathname !== pathname) {
       const tableObject = getTableObjectFromPathname(pathname);
+      if (!tableObject) return;
       this.setState({
         tableType: tableObject.value,
       });
@@ -96,7 +95,7 @@ class Container extends Component {
 
   render() {
     const { tableType, modalType } = this.state;
-    const { wifi, toilets, sockets } = this.props;
+    const { wifi, toilets, sockets, match, location } = this.props;
 
     return (
       <Management
@@ -108,11 +107,14 @@ class Container extends Component {
 
         modalType={modalType}
         tableType={tableType}
-        handleTabChange={this.handleTabChange}
+        onTabChange={this.handleTabChange}
 
         wifi={wifi}
         toilets={toilets}
         sockets={sockets}
+
+        match={match}
+        location={location}
       />
     );
   }

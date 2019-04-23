@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { thunks } from '../../redux/user';
 import { routes } from '../../routes';
@@ -35,15 +34,15 @@ class Container extends Component {
   };
 
   handleLogout = () => {
-    const { auth, history } = this.props;
+    const { history } = this.props;
 
     this.setState({ anchorEl: null });
-    auth.logout(() => history.replace(routes.index()));
+    history.replace(routes.logout());
   };
 
   render() {
     const { open, anchorEl } = this.state;
-    const { profile } = this.props;
+    const { profile, match, location } = this.props;
 
     return (
       <Dashboard
@@ -55,6 +54,8 @@ class Container extends Component {
         handleDrawerOpen={this.handleDrawerOpen}
         handleDrawerClose={this.handleDrawerClose}
         handleLogout={this.handleLogout}
+        match={match}
+        location={location}
       />
     );
   }
@@ -68,8 +69,8 @@ const mapState = (state) => {
 
 const { getUserProfile } = thunks;
 
-const mapDispatch = dispatch => bindActionCreators({
+const mapDispatch = {
   getUserProfile,
-}, dispatch);
+};
 
 export default withRouter(connect(mapState, mapDispatch)(Container));

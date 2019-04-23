@@ -1,11 +1,32 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch, Route, Redirect,
+} from 'react-router-dom';
+import { PageLoading } from './components';
+import Dashboard from './views/Dashboard';
+
+import {
+  callback, dashboard, index, login, logout,
+} from './routes/routes';
+import { Auth } from './services';
 import { createStore } from './redux';
-import Routing from './routes';
 
 import 'leaflet/dist/leaflet.css';
 import './App.css';
+
+const auth = new Auth();
+
+const handleAuthentication = ({ location, history }) => {
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication(history);
+  }
+};
+
+const WrappedDashboard = authObj => (props) => {
+  return <Dashboard auth={authObj} {...props} />;
+};
 
 
 const App = () => {
@@ -13,7 +34,46 @@ const App = () => {
     <>
       <Provider store={createStore()}>
         <Router>
-          <Routing />
+          <>
+            <Switch>
+              <Route
+                exact
+                path={index()}
+                render={() => {
+                  if (!auth.isAuthenticated()) {
+                    return <Redirect to={login()} />;
+                  }
+
+                  return <Redirect to={dashboard()} />;
+                }}
+              />
+              <Route
+                exact
+                path={login()}
+                render={() => {
+                  auth.login();
+                  return null;
+                }}
+              />
+              <Route
+                exact
+                path={logout()}
+                render={() => {
+                  auth.logout();
+                  return null;
+                }}
+              />
+              <Route
+                exact
+                path={callback()}
+                render={(props) => {
+                  handleAuthentication(props);
+                  return <PageLoading {...props} />;
+                }}
+              />
+              <Route path={dashboard()} component={WrappedDashboard(auth)} />
+            </Switch>
+          </>
         </Router>
       </Provider>
     </>

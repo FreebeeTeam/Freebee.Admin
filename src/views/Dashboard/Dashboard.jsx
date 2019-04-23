@@ -1,6 +1,9 @@
 import React from 'react';
 import cn from 'classcat';
-import { Switch, Route, Link } from 'react-router-dom';
+import {
+  Switch, Route, Link, Redirect,
+  BrowserRouter,
+} from 'react-router-dom';
 import {
   CssBaseline,
   Avatar,
@@ -38,6 +41,8 @@ const Dashboard = (props) => {
     handleDrawerOpen,
     handleDrawerClose,
     handleLogout,
+    match,
+    location,
   } = props;
 
   const isMenuOpen = Boolean(anchorEl);
@@ -121,13 +126,13 @@ const Dashboard = (props) => {
             </div>
             <Divider />
             <List>
-              <ListItem component={Link} to={routes.feedback()} button key="Feedback">
+              <ListItem component={Link} to={`${match.url}${routes.feedback()}`} button key="Feedback">
                 <ListItemIcon>
                   <CommentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Feedback" />
               </ListItem>
-              <ListItem component={Link} to={routes.markers()} button key="Markers">
+              <ListItem component={Link} to={`${match.url}${routes.markers()}`} button key="Markers">
                 <ListItemIcon>
                   <MapIcon />
                 </ListItemIcon>
@@ -137,11 +142,27 @@ const Dashboard = (props) => {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.Toolbar} />
-            <Switch>
-              <Route exact path={routes.dashboard()} component={FeedbackManagement} />
-              <Route path={routes.feedback()} component={FeedbackManagement} />
-              <Route path={routes.markers()} component={MarkersManagement} />
-              <Route component={null} />
+
+            <Switch location={location}>
+              <Route
+                exact
+                path={`${match.path}`}
+                render={({ match }) => {
+                  return <Redirect to={`${match.path}${routes.feedback()}`} />;
+                }}
+              />
+              <Route
+                path={`${match.path}${routes.feedback()}`}
+                render={() => {
+                  return <FeedbackManagement />;
+                }}
+              />
+              <Route
+                path={`${match.path}${routes.markers()}`}
+                render={() => {
+                  return <MarkersManagement />;
+                }}
+              />
             </Switch>
           </main>
         </section>
