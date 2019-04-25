@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch, Route, Redirect,
 } from 'react-router-dom';
-import { PageLoading } from './components';
+import { Spinner } from './components';
 import Dashboard from './views/Dashboard';
 
 import {
@@ -68,10 +68,11 @@ const App = () => {
                 path={callback()}
                 render={(props) => {
                   handleAuthentication(props);
-                  return <PageLoading {...props} />;
+                  return <Spinner {...props} />;
                 }}
               />
               <Route path={dashboard()} component={WrappedDashboard(auth)} />
+              <Route path={'/load'} component={Spinner} />
             </Switch>
           </>
         </Router>

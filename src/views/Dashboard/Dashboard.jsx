@@ -2,7 +2,6 @@ import React from 'react';
 import cn from 'classcat';
 import {
   Switch, Route, Link, Redirect,
-  BrowserRouter,
 } from 'react-router-dom';
 import {
   CssBaseline,
