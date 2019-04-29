@@ -4,30 +4,20 @@ import {
   BrowserRouter as Router,
   Switch, Route, Redirect,
 } from 'react-router-dom';
-import { Spinner } from './components';
+
 import Dashboard from './views/Dashboard';
+import Logout from './views/Logout';
+import Login from './views/Login';
 
 import {
   callback, dashboard, index, login, logout,
 } from './routes/routes';
-import { Auth } from './services';
+import { isAuthenticated } from './services/auth';
 import { createStore } from './redux';
 
 import 'leaflet/dist/leaflet.css';
 import './App.css';
-
-const auth = new Auth();
-
-const handleAuthentication = ({ location, history }) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication(history);
-  }
-};
-
-const WrappedDashboard = authObj => (props) => {
-  return <Dashboard auth={authObj} {...props} />;
-};
-
+import LoginCallback from './views/LoginCallback/LoginCallback';
 
 const App = () => {
   return (
@@ -40,7 +30,7 @@ const App = () => {
                 exact
                 path={index()}
                 render={() => {
-                  if (!auth.isAuthenticated()) {
+                  if (!isAuthenticated()) {
                     return <Redirect to={login()} />;
                   }
 
@@ -51,28 +41,29 @@ const App = () => {
                 exact
                 path={login()}
                 render={() => {
-                  auth.login();
-                  return null;
+                  return <Login />;
                 }}
               />
               <Route
                 exact
                 path={logout()}
                 render={() => {
-                  auth.logout();
-                  return null;
+                  return <Logout />;
                 }}
               />
               <Route
                 exact
                 path={callback()}
                 render={(props) => {
-                  handleAuthentication(props);
-                  return <Spinner {...props} />;
+                  return (
+                    <LoginCallback
+                      location={props.location}
+                      history={props.history}
+                    />
+                  );
                 }}
               />
-              <Route path={dashboard()} component={WrappedDashboard(auth)} />
-              <Route path={'/load'} component={Spinner} />
+              <Route path={dashboard()} component={Dashboard} />
             </Switch>
           </>
         </Router>

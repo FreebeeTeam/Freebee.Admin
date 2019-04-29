@@ -8,7 +8,7 @@ import {
   audience,
   returnAfterLogoutUrl,
 } from '../config/auth0Config';
-import { routes } from '../routes';
+import { appendTokenToRequests } from './http';
 
 const options = {
   domain,
@@ -32,13 +32,13 @@ export default class Auth {
     this.auth0.authorize();
   };
 
-  handleAuthentication = (history) => {
+  handleAuthentication = (successCb, failureCb) => {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult, history);
-        history.replace(routes.index());
+        this.setSession(authResult);
+        successCb();
       } else if (err) {
-        history.replace(routes.login());
+        failureCb();
       }
     });
   };
@@ -62,14 +62,12 @@ export default class Auth {
     return accessToken;
   };
 
-  setSession = (authResult, history) => {
-    // Set the time that the Access Token will expire at
+  setSession = (authResult) => {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-
-    history.replace('/');
+    appendTokenToRequests();
   };
 
   logout = () => {
@@ -80,21 +78,21 @@ export default class Auth {
       clientID: options.clientID,
     });
   };
-
-  isAuthenticated = () => {
-    const accessToken = localStorage.getItem('access_token');
-    const idToken = localStorage.getItem('id_token');
-    const expiresDate = localStorage.getItem('expires_at');
-
-    if (!accessToken || !idToken || !expiresDate) {
-      return false;
-    }
-
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
-  }
 }
 
 export const getToken = () => {
   return localStorage.getItem('id_token');
+};
+
+export const isAuthenticated = () => {
+  const accessToken = localStorage.getItem('access_token');
+  const idToken = localStorage.getItem('id_token');
+  const expiresDate = localStorage.getItem('expires_at');
+
+  if (!accessToken || !idToken || !expiresDate) {
+    return false;
+  }
+
+  const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+  return new Date().getTime() < expiresAt;
 };

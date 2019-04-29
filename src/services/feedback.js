@@ -1,9 +1,11 @@
 import http from './http';
 import { feedback } from './api';
 
-export const getFeedback = () => http.get(
-  feedback.get(),
-);
+export const getFeedback = () => {
+  return http.get(
+    feedback.get(),
+  );
+};
 
 export const approveFeedback = approvedFeedback => http.post(
   feedback.approve(),

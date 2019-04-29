@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import { Spinner } from '../../components';
+
 import { thunks } from '../../redux/user';
 import { routes } from '../../routes';
-import Dashboard from './Dashboard';
 
 class Container extends Component {
   state = {
@@ -11,11 +13,11 @@ class Container extends Component {
     anchorEl: null,
   };
 
-  componentDidMount = () => {
-    const { auth, getUserProfile } = this.props;
+  componentDidMount() {
+    const { getUserProfile } = this.props;
 
-    getUserProfile(auth);
-  };
+    getUserProfile();
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -42,7 +44,13 @@ class Container extends Component {
 
   render() {
     const { open, anchorEl } = this.state;
-    const { profile, match, location } = this.props;
+    const {
+      profile, match, location, isFetchingProfile,
+    } = this.props;
+
+    if (isFetchingProfile) {
+      return <Spinner />;
+    }
 
     return (
       <Dashboard
@@ -63,7 +71,7 @@ class Container extends Component {
 
 const mapState = (state) => {
   return {
-    profile: state.user.profile,
+    ...state.user,
   };
 };
 
