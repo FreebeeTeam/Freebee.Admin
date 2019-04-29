@@ -1,9 +1,9 @@
-import Callback from './callback';
-import Marker from './marker';
+import Spinner from './Spinner';
+import MapMarker from './MapMarker';
 import FreeOpportunityTypeDropdown from './FreeOpportunityTypeDropdown';
 
 export {
-  Callback,
-  Marker,
+  Spinner,
+  MapMarker,
   FreeOpportunityTypeDropdown,
 };

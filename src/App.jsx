@@ -1,19 +1,71 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch, Route, Redirect,
+} from 'react-router-dom';
+
+import Dashboard from './views/Dashboard';
+import Logout from './views/Logout';
+import Login from './views/Login';
+
+import {
+  callback, dashboard, index, login, logout,
+} from './routes/routes';
+import { isAuthenticated } from './services/auth';
 import { createStore } from './redux';
-import Routing from './routes';
 
 import 'leaflet/dist/leaflet.css';
 import './App.css';
-
+import LoginCallback from './views/LoginCallback/LoginCallback';
 
 const App = () => {
   return (
     <>
       <Provider store={createStore()}>
         <Router>
-          <Routing />
+          <>
+            <Switch>
+              <Route
+                exact
+                path={index()}
+                render={() => {
+                  if (!isAuthenticated()) {
+                    return <Redirect to={login()} />;
+                  }
+
+                  return <Redirect to={dashboard()} />;
+                }}
+              />
+              <Route
+                exact
+                path={login()}
+                render={() => {
+                  return <Login />;
+                }}
+              />
+              <Route
+                exact
+                path={logout()}
+                render={() => {
+                  return <Logout />;
+                }}
+              />
+              <Route
+                exact
+                path={callback()}
+                render={(props) => {
+                  return (
+                    <LoginCallback
+                      location={props.location}
+                      history={props.history}
+                    />
+                  );
+                }}
+              />
+              <Route path={dashboard()} component={Dashboard} />
+            </Switch>
+          </>
         </Router>
       </Provider>
     </>

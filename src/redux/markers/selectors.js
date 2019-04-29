@@ -1,13 +1,14 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../config/format';
-import { columns as wifiColumns } from '../../views/markers-management/wifi-table/columns';
-import { columns as toiletsColumns } from '../../views/markers-management/toilets-table/columns';
+import { columns as wifiColumns } from '../../views/MarkersManagement/WifiTable/columns';
+import { columns as toiletsColumns } from '../../views/MarkersManagement/ToiletsTable/columns';
+import { columns as socketsColumns } from '../../views/MarkersManagement/SocketsTable/columns';
 
 export const selectMarkerTypes = state => state.markers.shared.markerTypes;
 const markersSelectorFactory = (initialSelect, columns) => createSelector(
   [initialSelect],
-  (list) => list.map((item) => {
+  list => list.map((item) => {
     const itemAsArray = columns.map((col) => {
       if (col.field === 'location') {
         return item[col.field].coordinates.toString();
@@ -33,6 +34,12 @@ const selectToilets = state => state.markers.toilets.list;
 export const selectToiletsAsArray = markersSelectorFactory(
   selectToilets,
   toiletsColumns,
+);
+
+const selectSockets = state => state.markers.sockets.list;
+export const selectSocketsAsArray = markersSelectorFactory(
+  selectSockets,
+  socketsColumns,
 );
 
 const selectSelectedToEditId = state => state.markers.shared.selectedMarkerToEdit;

@@ -5,8 +5,7 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import rootReducer from './rootReducer';
-
+import appReducer from './appReducer';
 
 export default () => {
   const middleware = applyMiddleware(
@@ -18,7 +17,7 @@ export default () => {
     middleware,
   );
 
-  const store = createStore(rootReducer, enhancer);
+  const store = createStore(appReducer, enhancer);
 
   return store;
 };

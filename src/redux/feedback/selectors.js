@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../config/format';
 import { selectMarkerTypes } from '../markers/selectors';
-import { columns } from '../../views/feedback-management/feedback-table/columns';
+import { columns } from '../../views/FeedbackManagement/FeedbackTable/columns';
 
 const selectFeedbackList = state => state.feedback.list;
 export const selectFeedbackAsArray = createSelector(

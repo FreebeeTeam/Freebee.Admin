@@ -6,32 +6,42 @@ import {
   responseType,
   scope,
   audience,
-} from '../config/auth0-config';
+  returnAfterLogoutUrl,
+} from '../config/auth0Config';
+import { appendTokenToRequests } from './http';
+
+const options = {
+  domain,
+  clientID,
+  redirectUri: callbackUrl,
+  responseType,
+  scope,
+  audience,
+};
+
+const clearAuthInfo = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('expires_at');
+};
 
 export default class Auth {
-  auth0 = new auth0.WebAuth({
-    domain,
-    clientID,
-    redirectUri: callbackUrl,
-    responseType,
-    scope,
-    audience,
-  });
+  auth0 = new auth0.WebAuth(options);
 
   login = () => {
     this.auth0.authorize();
-  }
+  };
 
-  handleAuthentication = (history) => {
+  handleAuthentication = (successCb, failureCb) => {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult, history);
-        history.replace('/');
+        this.setSession(authResult);
+        successCb();
       } else if (err) {
-        history.replace('/');
+        failureCb();
       }
     });
-  }
+  };
 
   getUserProfile = (resolve, reject) => {
     const accessToken = this.getAccessToken();
@@ -42,7 +52,7 @@ export default class Auth {
         resolve(profile);
       }
     });
-  }
+  };
 
   getAccessToken = () => {
     const accessToken = localStorage.getItem('access_token');
@@ -50,31 +60,39 @@ export default class Auth {
       throw new Error('No access token found');
     }
     return accessToken;
-  }
+  };
 
-  setSession = (authResult, history) => {
-    // Set the time that the Access Token will expire at
+  setSession = (authResult) => {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    history.replace('/');
-  }
+    appendTokenToRequests();
+  };
 
-  logout = (redirect) => {
-    // Clear Access Token and ID Token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    // navigate to the home route
-    redirect();
-  }
+  logout = () => {
+    clearAuthInfo();
 
-  isAuthenticated = () => {
-    // Check whether the current time is past the
-    // Access Token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
-  }
+    this.auth0.logout({
+      returnTo: returnAfterLogoutUrl,
+      clientID: options.clientID,
+    });
+  };
 }
+
+export const getToken = () => {
+  return localStorage.getItem('id_token');
+};
+
+export const isAuthenticated = () => {
+  const accessToken = localStorage.getItem('access_token');
+  const idToken = localStorage.getItem('id_token');
+  const expiresDate = localStorage.getItem('expires_at');
+
+  if (!accessToken || !idToken || !expiresDate) {
+    return false;
+  }
+
+  const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+  return new Date().getTime() < expiresAt;
+};
