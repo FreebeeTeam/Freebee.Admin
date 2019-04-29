@@ -1,39 +1,35 @@
-const base = process.env.REACT_APP_API;
-
-const buildUrl = url => `${base}${url}`;
-
 export const feedback = {
-  get: () => buildUrl('/feedback'),
-  approve: () => buildUrl('/feedback/approve'),
-  update: id => buildUrl(`/feedback/${id}`),
-  remove: id => buildUrl(`/feedback/${id}`),
-  removeMany: () => buildUrl('/feedback/delete'),
+  get: () => '/feedback',
+  approve: () => '/feedback/approve',
+  update: id => `/feedback/${id}`,
+  remove: id => `/feedback/${id}`,
+  removeMany: () => '/feedback/delete',
 };
 
 export const wifi = {
-  get: () => buildUrl('/wifi'),
-  create: () => buildUrl('/wifi'),
-  update: () => buildUrl('/wifi'),
-  remove: id => buildUrl(`/wifi/${id}`),
-  removeMany: () => buildUrl('/wifi/delete'),
+  get: () => '/wifi',
+  create: () => '/wifi',
+  update: () => '/wifi',
+  remove: id => `/wifi/${id}`,
+  removeMany: () => '/wifi/delete',
 };
 
 export const toilets = {
-  get: () => buildUrl('/toilets'),
-  create: () => buildUrl('/toilets'),
-  update: () => buildUrl('/toilets'),
-  remove: id => buildUrl(`/toilets/${id}`),
-  removeMany: () => buildUrl('/toilets/delete'),
+  get: () => '/toilets',
+  create: () => '/toilets',
+  update: () => '/toilets',
+  remove: id => `/toilets/${id}`,
+  removeMany: () => '/toilets/delete',
 };
 
 export const sockets = {
-  get: () => buildUrl('/sockets'),
-  create: () => buildUrl('/sockets'),
-  update: () => buildUrl('/sockets'),
-  remove: id => buildUrl(`/sockets/${id}`),
-  removeMany: () => buildUrl('/sockets/delete'),
+  get: () => '/sockets',
+  create: () => '/sockets',
+  update: () => '/sockets',
+  remove: id => `/sockets/${id}`,
+  removeMany: () => '/sockets/delete',
 };
 
 export const markerTypes = {
-  get: () => buildUrl('/markers/types'),
+  get: () => '/markers/types',
 };

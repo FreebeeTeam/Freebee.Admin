@@ -11,32 +11,32 @@ const defaultState = {
     nickname: '',
     picture: null,
   },
-  isFetching: true,
-  error: null,
+  isFetchingProfile: true,
+  profileError: null,
 };
 
 const reducer = handleActions({
   [getUserProfileRequest]: state => update(state, {
-    isFetching: {
+    isFetchingProfile: {
       $set: true,
     },
-    error: {
-      $set: null,
+    profileError: {
+      $set: defaultState.profileError,
     },
   }),
   [getUserProfileSuccess]: (state, { payload: { profile } }) => update(state, {
     profile: {
       $set: profile,
     },
-    isFetching: {
+    isFetchingProfile: {
       $set: false,
     },
   }),
   [getUserProfileFailure]: (state, { payload: { error } }) => update(state, {
-    error: {
+    profileError: {
       $set: error,
     },
-    isFetching: {
+    isFetchingProfile: {
       $set: false,
     },
   }),

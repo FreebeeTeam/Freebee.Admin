@@ -1,9 +1,9 @@
-import PageLoading from './PageLoading';
+import Spinner from './Spinner';
 import MapMarker from './MapMarker';
 import FreeOpportunityTypeDropdown from './FreeOpportunityTypeDropdown';
 
 export {
-  PageLoading,
+  Spinner,
   MapMarker,
   FreeOpportunityTypeDropdown,
 };
