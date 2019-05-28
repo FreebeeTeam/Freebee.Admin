@@ -5,7 +5,7 @@ import {
   Switch, Route, Redirect,
 } from 'react-router-dom';
 
-import Dashboard from './views/Dashboard';
+import Dashboard from './views/dashboard';
 import Logout from './views/Logout';
 import Login from './views/Login';
 
