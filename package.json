@@ -2,6 +2,9 @@
   "name": "finds.admin",
   "description": "Admin application to manage freebies and users",
   "version": "0.1.0",
+  "engines": {
+    "node": "11.3.0"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
