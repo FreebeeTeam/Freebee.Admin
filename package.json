@@ -43,7 +43,7 @@
     "test": "react-scripts test",
     "production": "serve -s build",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "yarn run production"
+    "heroku-postbuild": "react-scripts build && yarn run production"
   },
   "browserslist": [
     ">0.2%",
