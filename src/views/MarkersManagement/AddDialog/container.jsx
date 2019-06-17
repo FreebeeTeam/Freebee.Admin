@@ -28,6 +28,13 @@ const defaultState = props => ({
     author: null,
     address: null,
   },
+  water: {
+    title: null,
+    location: null,
+    description: null,
+    author: null,
+    address: null,
+  },
 });
 
 
@@ -113,12 +120,14 @@ const {
   wifiThunks: { createWifi },
   toiletsThunks: { createToilet },
   socketsThunks: { createSocket },
+  waterThunks: { createWater },
 } = thunks;
 
 const mapDispatch = {
   createWifi,
   createToilet,
   createSocket,
+  createWater,
 };
 
 export default connect(null, mapDispatch)(Container);

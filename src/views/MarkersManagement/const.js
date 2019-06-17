@@ -28,4 +28,12 @@ export const TABLE_TYPES = {
     editFunc: 'editSocket',
     createFunc: 'createSocket',
   },
+  water: {
+    label: 'Water',
+    value: 3,
+    entityName: 'water',
+    storeName: 'water',
+    editFunc: 'editWater',
+    createFunc: 'createWater',
+  },
 };
