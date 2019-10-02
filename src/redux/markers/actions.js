@@ -1,6 +1,8 @@
 import { createActions } from 'redux-actions';
 import { actions as toiletsActions } from './toilets';
 import { actions as wifiActions } from './wifi';
+import { actions as socketsActions } from './sockets';
+import { actions as waterActions } from './water';
 
 const {
   markers: {
@@ -29,6 +31,6 @@ export {
 
   toiletsActions,
   wifiActions,
-
-
+  socketsActions,
+  waterActions,
 };

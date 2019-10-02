@@ -1,6 +1,7 @@
 import { thunks as toiletsThunks } from './toilets';
 import { thunks as wifiThunks } from './wifi';
 import { thunks as socketsThunks } from './sockets';
+import { thunks as waterThunks } from './water';
 import * as markersService from '../../services/markers';
 
 import {
@@ -12,12 +13,14 @@ import {
 const { getWifi } = wifiThunks;
 const { getToilets } = toiletsThunks;
 const { getSockets } = socketsThunks;
+const { getWater } = waterThunks;
 
 export const getMarkers = () => async (dispatch) => {
   await Promise.all([
     dispatch(getWifi()),
     dispatch(getToilets()),
     dispatch(getSockets()),
+    dispatch(getWater()),
   ]);
 };
 
@@ -38,4 +41,5 @@ export {
   wifiThunks,
   toiletsThunks,
   socketsThunks,
+  waterThunks,
 };

@@ -108,12 +108,14 @@ const {
   wifiThunks: { editWifi },
   toiletsThunks: { editToilet },
   socketsThunks: { editSocket },
+  waterThunks: { editWater },
 } = thunks;
 
 const mapDispatch = {
   editWifi,
   editToilet,
   editSocket,
+  editWater,
 };
 
 export default connect(mapState, mapDispatch)(Container);

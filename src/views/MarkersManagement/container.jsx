@@ -70,6 +70,9 @@ class Container extends Component {
 
       rawSockets,
       removeSockets,
+
+      rawWater,
+      removeWater,
     } = this.props;
 
     switch (tableType) {
@@ -88,6 +91,11 @@ class Container extends Component {
         removeSockets(ids);
         break;
       }
+      case TABLE_TYPES.water.value: {
+        const ids = getIdsByIndexes(indexesToDelete, rawWater);
+        removeWater(ids);
+        break;
+      }
       default:
         break;
     }
@@ -95,7 +103,10 @@ class Container extends Component {
 
   render() {
     const { tableType, modalType } = this.state;
-    const { wifi, toilets, sockets, match, location } = this.props;
+    const {
+      wifi, toilets, sockets, water,
+      match, location,
+    } = this.props;
 
     return (
       <Management
@@ -112,6 +123,7 @@ class Container extends Component {
         wifi={wifi}
         toilets={toilets}
         sockets={sockets}
+        water={water}
 
         match={match}
         location={location}
@@ -121,7 +133,10 @@ class Container extends Component {
 }
 
 const mapState = (state) => {
-  const { selectWifiAsArray, selectToiletsAsArray, selectSocketsAsArray } = selectors;
+  const {
+    selectWifiAsArray, selectToiletsAsArray,
+    selectSocketsAsArray, selectWaterAsArray,
+  } = selectors;
 
   return {
     rawWifi: state.markers.wifi.list,
@@ -132,6 +147,9 @@ const mapState = (state) => {
 
     rawSockets: state.markers.sockets.list,
     sockets: selectSocketsAsArray(state),
+
+    rawWater: state.markers.water.list,
+    water: selectWaterAsArray(state),
   };
 };
 
@@ -140,6 +158,7 @@ const {
   wifiThunks: { removeWifi },
   toiletsThunks: { removeToilets },
   socketsThunks: { removeSockets },
+  waterThunks: { removeWater },
 } = thunks;
 
 const { setMarkerIdToEdit } = actions;
@@ -150,6 +169,7 @@ const mapDispatch = {
   removeWifi,
   removeToilets,
   removeSockets,
+  removeWater,
 
   setMarkerIdToEdit,
 };

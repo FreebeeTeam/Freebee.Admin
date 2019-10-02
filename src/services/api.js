@@ -30,6 +30,14 @@ export const sockets = {
   removeMany: () => '/sockets/delete',
 };
 
+export const water = {
+  get: () => '/water',
+  create: () => '/water',
+  update: () => '/water',
+  remove: id => `/water/${id}`,
+  removeMany: () => '/water/delete',
+};
+
 export const markerTypes = {
   get: () => '/markers/types',
 };
