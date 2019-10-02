@@ -1,6 +1,6 @@
 import http from './http';
 import {
-  wifi, toilets, sockets,
+  wifi, toilets, sockets, water,
   markerTypes,
 } from './api';
 
@@ -24,5 +24,12 @@ export const updateSocket = updatedSocket => http.put(sockets.update(), updatedS
 export const removeSockets = ids => (ids.length === 1
   ? http.delete(sockets.remove(ids[0]))
   : http.post(sockets.removeMany(), { ids }));
+
+export const getWater = () => http.get(water.get());
+export const createWater = createdWater => http.post(water.create(), createdWater);
+export const updateWater = updatedWater => http.put(water.update(), updatedWater);
+export const removeWater = ids => (ids.length === 1
+  ? http.delete(water.remove(ids[0]))
+  : http.post(water.removeMany(), { ids }));
 
 export const getMarkerTypes = () => http.get(markerTypes.get());

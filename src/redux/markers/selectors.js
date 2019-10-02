@@ -4,6 +4,7 @@ import { DATE_FORMAT } from '../../config/format';
 import { columns as wifiColumns } from '../../views/MarkersManagement/WifiTable/columns';
 import { columns as toiletsColumns } from '../../views/MarkersManagement/ToiletsTable/columns';
 import { columns as socketsColumns } from '../../views/MarkersManagement/SocketsTable/columns';
+import { columns as waterColumns } from '../../views/MarkersManagement/WaterTable/columns';
 
 export const selectMarkerTypes = state => state.markers.shared.markerTypes;
 const markersSelectorFactory = (initialSelect, columns) => createSelector(
@@ -40,6 +41,12 @@ const selectSockets = state => state.markers.sockets.list;
 export const selectSocketsAsArray = markersSelectorFactory(
   selectSockets,
   socketsColumns,
+);
+
+const selectWater = state => state.markers.water.list;
+export const selectWaterAsArray = markersSelectorFactory(
+  selectWater,
+  waterColumns,
 );
 
 const selectSelectedToEditId = state => state.markers.shared.selectedMarkerToEdit;

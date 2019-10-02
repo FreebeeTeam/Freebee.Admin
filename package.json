@@ -2,6 +2,9 @@
   "name": "finds.admin",
   "description": "Admin application to manage freebies and users",
   "version": "0.1.0",
+  "engines": {
+    "node": "11.3.0"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
@@ -43,7 +46,7 @@
     "test": "react-scripts test",
     "production": "serve -s build",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "yarn run production"
+    "heroku-postbuild": "react-scripts build && yarn run production"
   },
   "browserslist": [
     ">0.2%",

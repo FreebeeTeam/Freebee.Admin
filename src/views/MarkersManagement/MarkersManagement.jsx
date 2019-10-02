@@ -9,12 +9,13 @@ import {
   Wifi as WifiIcon,
   Wc as ToiletIcon,
   BatteryCharging20 as BatteryIcon,
+  Waves as WaterIcon,
 } from '@material-ui/icons';
 import {
   Link, Switch, Route, Redirect,
 } from 'react-router-dom';
 import TabContainer from './TabContainer';
-import { routes } from '../../routes'
+import { routes } from '../../routes';
 
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
@@ -22,6 +23,7 @@ import EditDialog from './EditDialog';
 import ToiletsTable from './ToiletsTable';
 import WifiTable from './WifiTable';
 import SocketsTable from './SocketsTable';
+import WaterTable from './WaterTable';
 
 import { MODAL_TYPES, TABLE_TYPES } from './const';
 
@@ -29,7 +31,7 @@ import styles from './styles';
 
 const MarkersManagement = ({
   classes,
-  wifi, toilets, sockets,
+  wifi, toilets, sockets, water,
   tableType, onTabChange,
   openAddModal, openEditModal, resetModal, modalType,
   deleteEntities,
@@ -64,6 +66,12 @@ const MarkersManagement = ({
             icon={<BatteryIcon />}
             component={Link}
             to={`${match.url}${routes.sockets()}`}
+          />
+          <Tab
+            label={TABLE_TYPES.water.label}
+            icon={<WaterIcon />}
+            component={Link}
+            to={`${match.url}${routes.water()}`}
           />
         </Tabs>
       </AppBar>
@@ -119,6 +127,22 @@ const MarkersManagement = ({
                   deleteEntities={deleteEntities}
                   title={TABLE_TYPES.sockets.label}
                   data={sockets}
+                />
+              </TabContainer>
+            );
+          }}
+        />
+        <Route
+          path={`${match.path}${routes.water()}`}
+          render={() => {
+            return (
+              <TabContainer>
+                <WaterTable
+                  openAddModal={openAddModal}
+                  openEditModal={openEditModal}
+                  deleteEntities={deleteEntities}
+                  title={TABLE_TYPES.water.label}
+                  data={water}
                 />
               </TabContainer>
             );
