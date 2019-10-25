@@ -1,8 +1,8 @@
 export const feedback = {
   get: () => '/feedback',
   approve: () => '/feedback/approve',
-  update: id => `/feedback/${id}`,
-  remove: id => `/feedback/${id}`,
+  update: (id) => `/feedback/${id}`,
+  remove: (id) => `/feedback/${id}`,
   removeMany: () => '/feedback/delete',
 };
 
@@ -10,7 +10,7 @@ export const wifi = {
   get: () => '/wifi',
   create: () => '/wifi',
   update: () => '/wifi',
-  remove: id => `/wifi/${id}`,
+  remove: (id) => `/wifi/${id}`,
   removeMany: () => '/wifi/delete',
 };
 
@@ -18,7 +18,7 @@ export const toilets = {
   get: () => '/toilets',
   create: () => '/toilets',
   update: () => '/toilets',
-  remove: id => `/toilets/${id}`,
+  remove: (id) => `/toilets/${id}`,
   removeMany: () => '/toilets/delete',
 };
 
@@ -26,7 +26,7 @@ export const sockets = {
   get: () => '/sockets',
   create: () => '/sockets',
   update: () => '/sockets',
-  remove: id => `/sockets/${id}`,
+  remove: (id) => `/sockets/${id}`,
   removeMany: () => '/sockets/delete',
 };
 
@@ -34,7 +34,7 @@ export const water = {
   get: () => '/water',
   create: () => '/water',
   update: () => '/water',
-  remove: id => `/water/${id}`,
+  remove: (id) => `/water/${id}`,
   removeMany: () => '/water/delete',
 };
 

@@ -1,3 +1,3 @@
-import FeedbackManagement from './container';
+import FeedbackManagement from './FeedbackManagementContainer';
 
 export default FeedbackManagement;

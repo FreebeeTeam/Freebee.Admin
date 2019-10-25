@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import feedback from './feedback';
-import user, { actions as userActions } from './user';
+import user, { userActions } from './user';
 import markers from './markers';
 
 const appReducer = combineReducers({

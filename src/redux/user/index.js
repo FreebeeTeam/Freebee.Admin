@@ -1,13 +1,13 @@
-import * as actions from './actions';
-import reducer from './reducer';
-import * as selectors from './selectors';
-import * as thunks from './thunks';
+import * as userActions from './actions';
+import userReducer from './reducer';
+import * as userSelectors from './selectors';
+import * as userThunks from './thunks';
 
 export {
-  actions,
-  reducer,
-  selectors,
-  thunks,
+  userActions,
+  userReducer,
+  userSelectors,
+  userThunks,
 };
 
-export default reducer;
+export default userReducer;

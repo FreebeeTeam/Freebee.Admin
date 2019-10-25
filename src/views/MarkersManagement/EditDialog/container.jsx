@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dialog from './EditDialog';
-import { thunks, selectors } from '../../../redux/markers';
+import { markersSelectors, markersThunks } from '../../../redux/markers';
 import { getTableType } from '../helpers';
 
 const defaultState = (props) => {
@@ -93,7 +93,7 @@ class Container extends Component {
 }
 
 const mapState = (state, props) => {
-  const { selectedToEditEntityFactory } = selectors;
+  const { selectedToEditEntityFactory } = markersSelectors;
   const { type } = props;
   const { storeName } = getTableType(type);
 
@@ -109,7 +109,7 @@ const {
   toiletsThunks: { editToilet },
   socketsThunks: { editSocket },
   waterThunks: { editWater },
-} = thunks;
+} = markersThunks;
 
 const mapDispatch = {
   editWifi,

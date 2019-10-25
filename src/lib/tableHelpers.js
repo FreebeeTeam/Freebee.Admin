@@ -15,13 +15,9 @@ export const stableSort = (array, cmp) => {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 };
 
 export const getSorting = (order, orderBy) => {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 };
-
-export const getIdsByIndexes = (indexes, entities) => indexes.map(
-  i => entities[i].id,
-);

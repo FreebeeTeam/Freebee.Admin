@@ -1,21 +1,18 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import {
-  getToiletsRequest,
-  getToiletsSuccess,
-  getToiletsFailure,
-
+  createToiletFailure,
   createToiletRequest,
   createToiletSuccess,
-  createToiletFailure,
-
-  updateToiletRequest,
-  updateToiletSuccess,
-  updateToiletFailure,
-
+  getToiletsFailure,
+  getToiletsRequest,
+  getToiletsSuccess,
+  removeToiletsFailure,
   removeToiletsRequest,
   removeToiletsSuccess,
-  removeToiletsFailure,
+  updateToiletFailure,
+  updateToiletRequest,
+  updateToiletSuccess,
 } from './actions';
 
 const defaultState = {

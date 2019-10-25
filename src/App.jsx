@@ -1,17 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Switch, Route, Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom';
 
 import Dashboard from './views/Dashboard';
 import Logout from './views/Logout';
 import Login from './views/Login';
 
-import {
-  callback, dashboard, index, login, logout,
-} from './routes/routes';
+import { callback, dashboard, index, login, logout, } from './routes/routes';
 import { isAuthenticated } from './services/auth';
 import { createStore } from './redux';
 

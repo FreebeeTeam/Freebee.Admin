@@ -1,37 +1,25 @@
 import React from 'react';
-import MuiTable from 'mui-datatables';
-import Toolbar from '../Toolbar';
-import { options } from '../tableOptions';
-import getColumns from './columns';
-
-const extendedOptions = (handleAddClick, deleteWifi) => ({
-  ...options,
-  customToolbar: () => <Toolbar handleAddClick={handleAddClick} />,
-  onRowsDelete: (deletedRows) => {
-    const { data } = deletedRows;
-    const indexesToDelete = data.map(item => item.dataIndex);
-    deleteWifi(indexesToDelete);
-  },
-});
+import { Table } from 'components';
+import { Edit as EditIcon } from '@material-ui/icons';
+import { columns } from './columns';
 
 const WifiTable = ({
-  title,
   data,
-  openAddModal,
-  openEditModal,
+  onAddClick,
+  onActionButtonClick,
   deleteEntities,
+  loadData,
 }) => {
-  const tableOptions = extendedOptions(
-    openAddModal,
-    deleteEntities,
-  );
-
   return (
-    <MuiTable
-      title={title}
-      columns={getColumns(openEditModal)}
+    <Table
+      title="Wifi"
       data={data}
-      options={tableOptions}
+      loadData={loadData}
+      columns={columns}
+      onRowsDelete={deleteEntities}
+      onActionButtonClick={onActionButtonClick}
+      onAddClick={onAddClick}
+      ActionIcon={EditIcon}
     />
   );
 };

@@ -1,13 +1,13 @@
-import * as actions from './actions';
-import reducer from './reducer';
-import * as selectors from './selectors';
-import * as thunks from './thunks';
+import * as markersActions from './actions';
+import markersReducer from './reducer';
+import * as markersSelectors from './selectors';
+import * as markersThunks from './thunks';
 
 export {
-  actions,
-  reducer,
-  selectors,
-  thunks,
+  markersActions,
+  markersReducer,
+  markersSelectors,
+  markersThunks,
 };
 
-export default reducer;
+export default markersReducer;

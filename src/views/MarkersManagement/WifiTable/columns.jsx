@@ -1,17 +1,3 @@
-import React from 'react';
-import { IconButton } from '@material-ui/core';
-import { Edit as EditIcon } from '@material-ui/icons';
-
-const renderEditButton = handleEdit => (value, { rowData }) => {
-  const id = rowData && rowData[0];
-
-  return (
-    <IconButton onClick={handleEdit(id)}>
-      <EditIcon />
-    </IconButton>
-  );
-};
-
 export const columns = [
   {
     name: 'Id',
@@ -78,24 +64,11 @@ export const columns = [
     },
   },
   {
-    name: 'Actions',
+    name: '',
+    isAction: true,
     options: {
       filter: false,
       sort: false,
     },
   },
 ];
-
-export default (handleRowEdit) => {
-  return columns.map((column) => {
-    if (column.name === 'Actions') {
-      const newColumn = { ...column };
-
-      newColumn.options.customBodyRender = renderEditButton(handleRowEdit);
-
-      return newColumn;
-    }
-
-    return column;
-  });
-};

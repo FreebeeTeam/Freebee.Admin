@@ -6,14 +6,12 @@ const base = process.env.REACT_APP_API;
 const http = axios.create({
   baseURL: base,
   timeout: 3000,
-  headers: { Authorization: `Bearer ${getToken()}` },
 });
 
-export const appendTokenToRequests = () => {
-  http.defaults.common = {
-    ...http.defaults.common,
-    Authorization: `Bearer ${getToken()}`,
-  };
-};
+http.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${getToken()}`;
+
+  return config;
+});
 
 export default http;

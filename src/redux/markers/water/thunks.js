@@ -1,20 +1,17 @@
 import { markersService } from '../../../services';
 import {
-  getWaterRequest,
-  getWaterSuccess,
-  getWaterFailure,
-
+  createWaterFailure,
   createWaterRequest,
   createWaterSuccess,
-  createWaterFailure,
-
-  updateWaterRequest,
-  updateWaterSuccess,
-  updateWaterFailure,
-
+  getWaterFailure,
+  getWaterRequest,
+  getWaterSuccess,
+  removeWaterFailure,
   removeWaterRequest,
   removeWaterSuccess,
-  removeWaterFailure,
+  updateWaterFailure,
+  updateWaterRequest,
+  updateWaterSuccess,
 } from './actions';
 
 export const getWater = () => async (dispatch) => {

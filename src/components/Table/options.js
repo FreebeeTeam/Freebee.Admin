@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const options = {
+export default {
   download: false,
   print: false,
   filter: true,

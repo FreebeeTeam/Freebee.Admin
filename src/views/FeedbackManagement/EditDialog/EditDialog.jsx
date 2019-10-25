@@ -1,53 +1,36 @@
 import React from 'react';
 import { Map, Popup, TileLayer } from 'react-leaflet';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import {
-  Dialog, DialogActions, DialogTitle, DialogContent,
-  Button, TextField,
-  Grid,
-  withStyles,
+  Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField,
 } from '@material-ui/core';
-
-import { MapMarker, FreeOpportunityTypeDropdown } from '../../../components';
-import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
-
-import styles from './styles';
+import { FreeOpportunityTypeDropdown, MapMarker } from 'components';
+import { INITIAL_POSITION, INITIAL_ZOOM } from 'config/geolocation';
+import useStyles from './styles';
 
 const EditDialog = (props) => {
   const {
     isOpen,
     feedback,
     markerTypes,
-    handleApprove,
-    handleDecline,
-    handleClose,
-    handleChange,
-    handleCoordinatesChange,
-    classes,
+    onApprove,
+    onDecline,
+    onClose,
+    onChange,
+    onCoordinatesChange,
   } = props;
+
+  const classes = useStyles();
 
   return (
     <Formik
       initialValues={{ ...feedback }}
-      onSubmit={(values, actions) => {
-        console.log('submit');
-        console.log(values);
-        console.log(actions);
-      }}
       render={({
         errors, status, touched, isSubmitting,
       }) => {
-        console.log('render');
-        console.log('errors');
-        console.log(errors);
-        console.log('status');
-        console.log(status);
-        console.log('touched');
-        console.log(touched);
-
         return (
           <Form>
-            <Dialog open={isOpen} onClose={handleClose}>
+            <Dialog open={isOpen} onClose={onClose}>
 
               <DialogTitle> Edit feedback </DialogTitle>
 
@@ -56,7 +39,7 @@ const EditDialog = (props) => {
                   <Grid item xs={6}>
                     <TextField
                       required
-                      onChange={handleChange('title')}
+                      onChange={onChange('title')}
                       id="created-title"
                       label="Title"
                       value={feedback.title}
@@ -67,7 +50,7 @@ const EditDialog = (props) => {
                   <Grid item xs={6}>
                     <TextField
                       required
-                      onChange={handleChange('address')}
+                      onChange={onChange('address')}
                       id="created-address"
                       label="Address"
                       value={feedback.address}
@@ -77,7 +60,7 @@ const EditDialog = (props) => {
 
                   <Grid item xs={6}>
                     <TextField
-                      onChange={handleChange('author')}
+                      onChange={onChange('author')}
                       id="created-author"
                       label="Author"
                       value={feedback.author}
@@ -87,7 +70,7 @@ const EditDialog = (props) => {
 
                   <Grid item xs={6}>
                     <FreeOpportunityTypeDropdown
-                      onChange={handleChange('type')}
+                      onChange={onChange('type')}
                       value={feedback.type}
                       types={markerTypes}
                     />
@@ -95,7 +78,7 @@ const EditDialog = (props) => {
 
                   <Grid item xs={6}>
                     <TextField
-                      onChange={handleChange('password')}
+                      onChange={onChange('password')}
                       id="created-password"
                       label="Password"
                       value={feedback.password}
@@ -105,7 +88,7 @@ const EditDialog = (props) => {
 
                   <Grid item xs={12}>
                     <TextField
-                      onChange={handleChange('description')}
+                      onChange={onChange('description')}
                       id="created-description"
                       label="Description"
                       multiline
@@ -119,7 +102,7 @@ const EditDialog = (props) => {
                       center={INITIAL_POSITION}
                       zoom={INITIAL_ZOOM}
                       className={classes.map}
-                      onDblClick={handleCoordinatesChange}
+                      onDblClick={onCoordinatesChange}
                       doubleClickZoom={false}
                     >
                       <TileLayer
@@ -138,17 +121,16 @@ const EditDialog = (props) => {
               </DialogContent>
 
               <DialogActions>
-                <Button color="primary" onClick={handleDecline}>Decline</Button>
-                <Button color="secondary" onClick={handleApprove}>Approve</Button>
+                <Button color="primary" onClick={onDecline}>Decline</Button>
+                <Button color="secondary" onClick={onApprove}>Approve</Button>
               </DialogActions>
 
             </Dialog>
           </Form>
         );
-      }
-      }
+      }}
     />
   );
 };
 
-export default withStyles(styles)(EditDialog);
+export default EditDialog;

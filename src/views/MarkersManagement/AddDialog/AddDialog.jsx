@@ -1,17 +1,17 @@
 import React from 'react';
 import { Map, Popup, TileLayer } from 'react-leaflet';
 import {
+  Button,
   Dialog,
   DialogActions,
-  DialogTitle,
   DialogContent,
-  Button,
-  TextField,
+  DialogTitle,
   Grid,
+  TextField,
   withStyles,
 } from '@material-ui/core';
 import { MapMarker } from '../../../components';
-import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
+import { INITIAL_POSITION, INITIAL_ZOOM } from '../../../config/geolocation';
 
 import styles from './styles';
 

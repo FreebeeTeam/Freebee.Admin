@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { markersActions, markersSelectors, markersThunks } from 'redux/markers';
 import Management from './MarkersManagement';
-import { thunks, selectors, actions } from '../../redux/markers';
-import { getIdsByIndexes } from '../../lib/tableHelpers';
-
 import { getTableObjectFromPathname } from './helpers';
 import { MODAL_TYPES, TABLE_TYPES } from './const';
 
-class Container extends Component {
+class MarkersManagementContainer extends Component {
   state = {
     tableType: TABLE_TYPES.wifi.value,
     modalType: null,
   };
 
   componentDidMount() {
-    const { getMarkers, location: { pathname } } = this.props;
+    const { location: { pathname } } = this.props;
 
-    getMarkers();
     const tableObject = getTableObjectFromPathname(pathname);
     if (!tableObject) {
       return;
@@ -44,7 +41,7 @@ class Container extends Component {
     this.setState({ modalType: MODAL_TYPES.add.value });
   };
 
-  openEditModal = id => () => {
+  openEditModal = (id) => {
     const { setMarkerIdToEdit } = this.props;
     this.setState({ modalType: MODAL_TYPES.edit.value });
 
@@ -59,40 +56,29 @@ class Container extends Component {
     this.setState({ tableType: value });
   };
 
-  deleteEntities = (indexesToDelete) => {
+  deleteEntities = (ids) => {
     const { tableType } = this.state;
     const {
-      rawWifi,
       removeWifi,
-
-      rawToilets,
       removeToilets,
-
-      rawSockets,
       removeSockets,
-
-      rawWater,
       removeWater,
     } = this.props;
 
     switch (tableType) {
       case TABLE_TYPES.wifi.value: {
-        const ids = getIdsByIndexes(indexesToDelete, rawWifi);
         removeWifi(ids);
         break;
       }
       case TABLE_TYPES.toilets.value: {
-        const ids = getIdsByIndexes(indexesToDelete, rawToilets);
         removeToilets(ids);
         break;
       }
       case TABLE_TYPES.sockets.value: {
-        const ids = getIdsByIndexes(indexesToDelete, rawSockets);
         removeSockets(ids);
         break;
       }
       case TABLE_TYPES.water.value: {
-        const ids = getIdsByIndexes(indexesToDelete, rawWater);
         removeWater(ids);
         break;
       }
@@ -106,6 +92,7 @@ class Container extends Component {
     const {
       wifi, toilets, sockets, water,
       match, location,
+      getWifi, getToilets, getSockets, getWater,
     } = this.props;
 
     return (
@@ -125,6 +112,11 @@ class Container extends Component {
         sockets={sockets}
         water={water}
 
+        getWifi={getWifi}
+        getToilets={getToilets}
+        getSockets={getSockets}
+        getWater={getWater}
+
         match={match}
         location={location}
       />
@@ -136,42 +128,51 @@ const mapState = (state) => {
   const {
     selectWifiAsArray, selectToiletsAsArray,
     selectSocketsAsArray, selectWaterAsArray,
-  } = selectors;
+  } = markersSelectors;
 
   return {
-    rawWifi: state.markers.wifi.list,
     wifi: selectWifiAsArray(state),
-
-    rawToilets: state.markers.toilets.list,
     toilets: selectToiletsAsArray(state),
-
-    rawSockets: state.markers.sockets.list,
     sockets: selectSocketsAsArray(state),
-
-    rawWater: state.markers.water.list,
     water: selectWaterAsArray(state),
   };
 };
 
 const {
-  getMarkers,
-  wifiThunks: { removeWifi },
-  toiletsThunks: { removeToilets },
-  socketsThunks: { removeSockets },
-  waterThunks: { removeWater },
-} = thunks;
+  wifiThunks: {
+    getWifi,
+    removeWifi,
+  },
+  toiletsThunks: {
+    getToilets,
+    removeToilets,
+  },
+  socketsThunks: {
+    getSockets,
+    removeSockets,
+  },
+  waterThunks: {
+    getWater,
+    removeWater,
+  },
+} = markersThunks;
 
-const { setMarkerIdToEdit } = actions;
+const { setMarkerIdToEdit } = markersActions;
 
 const mapDispatch = {
-  getMarkers,
-
+  getWifi,
   removeWifi,
+
+  getToilets,
   removeToilets,
+
+  getSockets,
   removeSockets,
+
+  getWater,
   removeWater,
 
   setMarkerIdToEdit,
 };
 
-export default withRouter(connect(mapState, mapDispatch)(Container));
+export default withRouter(connect(mapState, mapDispatch)(MarkersManagementContainer));

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectors, thunks } from '../../../redux/feedback';
-import { selectors as markersSelectors } from '../../../redux/markers';
+import { feedbackSelectors, feedbackThunks } from 'redux/feedback';
+import { markersSelectors } from 'redux/markers';
 import Dialog from './EditDialog';
 
-const defaultState = props => ({
+const defaultState = (props) => ({
   isOpen: props.isOpen || false,
   feedback: props.feedbackToEdit || {
     id: null,
@@ -29,7 +29,7 @@ class DialogContainer extends Component {
     }
   }
 
-  handleChange = name => (e) => {
+  handleChange = (name) => (e) => {
     const { feedback } = this.state;
     feedback[name] = e.target.value;
 
@@ -64,7 +64,7 @@ class DialogContainer extends Component {
 
   render() {
     const { feedback, isOpen } = this.state;
-    const { handleClose, markerTypes } = this.props;
+    const { onClose, markerTypes } = this.props;
 
     if (!feedback || !feedback.id) {
       return null;
@@ -75,18 +75,18 @@ class DialogContainer extends Component {
         isOpen={isOpen}
         feedback={feedback}
         markerTypes={markerTypes}
-        handleClose={handleClose}
-        handleChange={this.handleChange}
-        handleDecline={this.handleDecline}
-        handleApprove={this.handleApprove}
-        handleCoordinatesChange={this.handleCoordinatesChange}
+        onClose={onClose}
+        onChange={this.handleChange}
+        onDecline={this.handleDecline}
+        onApprove={this.handleApprove}
+        onCoordinatesChange={this.handleCoordinatesChange}
       />
     );
   }
 }
 
 const mapState = (state) => {
-  const { selectSelectedToEditFeedback } = selectors;
+  const { selectSelectedToEditFeedback } = feedbackSelectors;
 
   return {
     feedbackToEdit: selectSelectedToEditFeedback(state),
@@ -95,8 +95,8 @@ const mapState = (state) => {
 };
 
 const mapDispatch = {
-  declineFeedback: thunks.removeFeedback,
-  approveFeedback: thunks.approveFeedback,
+  declineFeedback: feedbackThunks.removeFeedback,
+  approveFeedback: feedbackThunks.approveFeedback,
 };
 
 export default connect(mapState, mapDispatch)(DialogContainer);

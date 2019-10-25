@@ -1,10 +1,6 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
-import {
-  getUserProfileRequest,
-  getUserProfileSuccess,
-  getUserProfileFailure,
-} from './actions';
+import { getUserProfileFailure, getUserProfileRequest, getUserProfileSuccess, } from './actions';
 
 const defaultState = {
   profile: {

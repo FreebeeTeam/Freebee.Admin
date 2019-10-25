@@ -1,20 +1,17 @@
 import { markersService } from '../../../services';
 import {
-  getToiletsRequest,
-  getToiletsSuccess,
-  getToiletsFailure,
-
+  createToiletFailure,
   createToiletRequest,
   createToiletSuccess,
-  createToiletFailure,
-
-  updateToiletRequest,
-  updateToiletSuccess,
-  updateToiletFailure,
-
+  getToiletsFailure,
+  getToiletsRequest,
+  getToiletsSuccess,
+  removeToiletsFailure,
   removeToiletsRequest,
   removeToiletsSuccess,
-  removeToiletsFailure,
+  updateToiletFailure,
+  updateToiletRequest,
+  updateToiletSuccess,
 } from './actions';
 
 // eslint-disable-next-line import/prefer-default-export

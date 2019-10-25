@@ -1,17 +1,3 @@
-import React from 'react';
-import { IconButton } from '@material-ui/core';
-import { InfoRounded as InfoRoundedIcon } from '@material-ui/icons';
-
-const renderEditButton = handleShowDetails => (value, { rowData }) => {
-  const id = rowData && rowData[0];
-
-  return (
-    <IconButton onClick={handleShowDetails(id)}>
-      <InfoRoundedIcon />
-    </IconButton>
-  );
-};
-
 export const columns = [
   {
     name: 'Id',
@@ -87,24 +73,11 @@ export const columns = [
     },
   },
   {
-    name: 'Actions',
+    name: '',
+    isAction: true,
     options: {
       filter: false,
       sort: false,
     },
   },
 ];
-
-export default (handleShowDetails) => {
-  return columns.map((column) => {
-    if (column.name === 'Actions') {
-      const newColumn = { ...column };
-
-      newColumn.options.customBodyRender = renderEditButton(handleShowDetails);
-
-      return newColumn;
-    }
-
-    return column;
-  });
-};

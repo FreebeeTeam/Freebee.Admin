@@ -1,5 +1,5 @@
 import http from './http';
-import { feedback } from './api';
+import { feedback } from './endpoints';
 
 export const getFeedback = () => {
   return http.get(
@@ -7,12 +7,12 @@ export const getFeedback = () => {
   );
 };
 
-export const approveFeedback = approvedFeedback => http.post(
+export const approveFeedback = (approvedFeedback) => http.post(
   feedback.approve(),
   approvedFeedback,
 );
 
-export const updateFeedback = updatedFeedback => http.put(
+export const updateFeedback = (updatedFeedback) => http.put(
   feedback.update(updatedFeedback.id),
   updatedFeedback,
 );

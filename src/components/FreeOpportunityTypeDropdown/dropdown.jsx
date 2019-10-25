@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, } from '@material-ui/core';
 
 const Dropdown = ({ value, onChange, types }) => {
   return (

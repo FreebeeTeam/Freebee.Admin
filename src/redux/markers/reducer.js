@@ -1,13 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
-import {
-  setMarkerIdToEdit,
-
-  getMarkerTypesRequest,
-  getMarkerTypesSuccess,
-  getMarkerTypesFailure,
-} from './actions';
+import { getMarkerTypesFailure, getMarkerTypesRequest, getMarkerTypesSuccess, setMarkerIdToEdit, } from './actions';
 import toilets from './toilets';
 import wifi from './wifi';
 import sockets from './sockets';

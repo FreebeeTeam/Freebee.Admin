@@ -1,3 +1,3 @@
-import Dialog from './container';
+import Dialog from './EditDialogContainer';
 
 export default Dialog;

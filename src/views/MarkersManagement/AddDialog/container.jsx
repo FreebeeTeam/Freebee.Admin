@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dialog from './AddDialog';
-import { thunks } from '../../../redux/markers';
+import { markersThunks } from '../../../redux/markers';
 import { getTableType } from '../helpers';
 
 const defaultState = props => ({
@@ -121,7 +121,7 @@ const {
   toiletsThunks: { createToilet },
   socketsThunks: { createSocket },
   waterThunks: { createWater },
-} = thunks;
+} = markersThunks;
 
 const mapDispatch = {
   createWifi,

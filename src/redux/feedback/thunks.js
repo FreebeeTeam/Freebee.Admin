@@ -1,19 +1,16 @@
 import {
-  getFeedbackRequest,
-  getFeedbackSuccess,
-  getFeedbackFailure,
-
-  updateFeedbackRequest,
-  updateFeedbackSuccess,
-  updateFeedbackFailure,
-
-  removeFeedbackRequest,
-  removeFeedbackSuccess,
-  removeFeedbackFailure,
-
+  approveFeedbackFailure,
   approveFeedbackRequest,
   approveFeedbackSuccess,
-  approveFeedbackFailure,
+  getFeedbackFailure,
+  getFeedbackRequest,
+  getFeedbackSuccess,
+  removeFeedbackFailure,
+  removeFeedbackRequest,
+  removeFeedbackSuccess,
+  updateFeedbackFailure,
+  updateFeedbackRequest,
+  updateFeedbackSuccess,
 } from './actions';
 
 import { feedbackService } from '../../services';
