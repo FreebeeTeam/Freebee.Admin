@@ -29,35 +29,16 @@ class DialogContainer extends Component {
     }
   }
 
-  handleChange = (name) => (e) => {
-    const { feedback } = this.state;
-    feedback[name] = e.target.value;
-
-    this.setState({ feedback });
-  };
-
-  handleCoordinatesChange = (e) => {
-    const { latlng: { lat, lng } } = e;
-
-    const { feedback } = this.state;
-    feedback.location = [lat, lng];
-
-    this.setState({ feedback });
-  };
-
-  handleDecline = () => {
-    const { handleClose, declineFeedback } = this.props;
-    const { feedback: { id } } = this.state;
+  handleDecline = (id) => {
+    const { declineFeedback } = this.props;
 
     this.setState({ isOpen: false });
 
-    handleClose();
     declineFeedback([id]);
   };
 
-  handleApprove = () => {
+  handleApprove = (feedback) => {
     const { approveFeedback } = this.props;
-    const { feedback } = this.state;
 
     approveFeedback(feedback);
   };
@@ -73,13 +54,12 @@ class DialogContainer extends Component {
     return (
       <Dialog
         isOpen={isOpen}
+        title="Edit feedback"
         feedback={feedback}
         markerTypes={markerTypes}
         onClose={onClose}
-        onChange={this.handleChange}
-        onDecline={this.handleDecline}
-        onApprove={this.handleApprove}
-        onCoordinatesChange={this.handleCoordinatesChange}
+        onReset={this.handleDecline}
+        onSubmit={this.handleApprove}
       />
     );
   }

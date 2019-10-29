@@ -61,6 +61,9 @@ export const approveFeedback = feedback => async (dispatch) => {
   dispatch(approveFeedbackRequest());
 
   try {
+    if (typeof feedback.type === 'number') {
+      feedback.type = [feedback.type.toString()];
+    }
     await feedbackService.approveFeedback(feedback);
 
     dispatch(approveFeedbackSuccess(feedback));

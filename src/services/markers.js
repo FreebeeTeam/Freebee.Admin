@@ -1,5 +1,7 @@
 import http from './http';
-import { markerTypes, sockets, toilets, water, wifi, } from './endpoints';
+import {
+  markerTypes, sockets, toilets, water, wifi,
+} from './endpoints';
 
 export const getWifi = () => http.get(wifi.get());
 export const createWifi = (createdWifi) => http.post(wifi.create(), createdWifi);

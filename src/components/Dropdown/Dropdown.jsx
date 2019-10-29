@@ -1,17 +1,21 @@
 import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select, } from '@material-ui/core';
+import {
+  FormControl, InputLabel, MenuItem, Select,
+} from '@material-ui/core';
 
-const Dropdown = ({ value, onChange, types }) => {
+const Dropdown = ({
+  title, name, value, onChange, items,
+}) => {
   return (
     <FormControl fullWidth>
-      <InputLabel htmlFor="type">Type</InputLabel>
+      <InputLabel htmlFor={name}>{title}</InputLabel>
       <Select
         value={value}
-        name="type"
+        name={name}
         onChange={onChange}
         fullWidth
       >
-        {types.map(type => (
+        {items.map((type) => (
           <MenuItem key={type.value} value={type.value}>
             {type.label}
           </MenuItem>

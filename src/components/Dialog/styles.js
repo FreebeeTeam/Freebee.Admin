@@ -1,5 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  root: {},
+  form: {
+
+  },
+  content: {
+    overflowY: 'hidden',
+  },
 }));
