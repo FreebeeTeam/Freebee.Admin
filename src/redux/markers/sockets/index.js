@@ -1,10 +1,12 @@
-import * as actions from './actions';
-import * as thunks from './thunks';
+import * as socketsActions from './actions';
+import * as socketsThunks from './thunks';
+import * as socketsSelectors from './selectors';
 import reducer from './reducer';
 
 export {
-  actions,
-  thunks,
+  socketsActions,
+  socketsThunks,
+  socketsSelectors,
 };
 
 export default reducer;

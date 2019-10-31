@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Popup, TileLayer } from 'react-leaflet';
-import { MapMarker } from 'components';
+import MapMarker from '../MapMarker';
 import { INITIAL_POSITION, INITIAL_ZOOM } from '../../config/geolocation';
 import useStyles from './styles';
 

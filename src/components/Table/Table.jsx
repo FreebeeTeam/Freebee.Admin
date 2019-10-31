@@ -61,7 +61,6 @@ export default function Table({
       columns={columnsWithAction}
       data={data}
       options={fullOptions}
-      selectableRows="multiple"
     />
   );
 }

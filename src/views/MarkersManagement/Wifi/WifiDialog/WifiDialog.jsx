@@ -1,22 +1,20 @@
 import React from 'react';
-import { useFormik } from 'formik';
 import {
-  Grid, TextField,
+  Grid,
+  TextField,
 } from '@material-ui/core';
-import { Dropdown, MapField, Dialog as EditDialog } from 'components';
-import { feedbackValidationSchema } from './helpers';
+import { useFormik } from 'formik';
+import { MapField, Dialog as EditDialog } from 'components';
+import { wifiValidationSchema } from './helpers';
 
-export default function (props) {
-  const {
-    title,
-    isOpen,
-    feedback,
-    markerTypes,
-    onSubmit,
-    onReset,
-    onClose,
-  } = props;
-
+export default function ({
+  title,
+  isOpen,
+  wifi = {},
+  onClose,
+  onSubmit,
+  onReset,
+}) {
   const {
     handleSubmit, handleReset, handleChange, handleBlur,
     setFieldValue,
@@ -26,9 +24,11 @@ export default function (props) {
       title: '',
       address: '',
       author: '',
-      ...feedback,
+      password: '',
+      description: '',
+      ...wifi,
     },
-    validationSchema: feedbackValidationSchema,
+    validationSchema: wifiValidationSchema,
     onSubmit: (formValues) => {
       onSubmit(formValues);
     },
@@ -44,12 +44,12 @@ export default function (props) {
   return (
     <EditDialog
       title={title}
-      submitLabel="Approve"
-      resetLabel="Decline"
       isOpen={isOpen}
       onClose={onClose}
       onReset={handleReset}
       onSubmit={handleSubmit}
+      resetLabel="Cancel"
+      submitLabel="Submit"
     >
       <Grid container spacing={4}>
         <Grid item xs={6}>
@@ -84,23 +84,12 @@ export default function (props) {
           <TextField
             id="author"
             name="author"
-            required
             onChange={handleChange}
             onBlur={handleBlur}
             error={!!errors.author && touched.author}
             label={errors.author || 'Author'}
             value={values.author}
             fullWidth
-          />
-        </Grid>
-
-        <Grid item xs={6}>
-          <Dropdown
-            title="Marker type"
-            name="type"
-            onChange={handleChange}
-            value={values.type}
-            items={markerTypes}
           />
         </Grid>
 
@@ -138,7 +127,6 @@ export default function (props) {
             value={values.location}
           />
         </Grid>
-
       </Grid>
     </EditDialog>
   );

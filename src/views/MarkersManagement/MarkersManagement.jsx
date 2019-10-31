@@ -12,24 +12,23 @@ import {
   Link, Redirect, Route, Switch,
 } from 'react-router-dom';
 import routes from 'routes';
-import AddDialog from './AddDialog';
-import EditDialog from './EditDialog';
-import ToiletsTable from './ToiletsTable';
-import WifiTable from './WifiTable';
-import SocketsTable from './SocketsTable';
-import WaterTable from './WaterTable';
+import { WifiTable, WifiDialog } from './Wifi';
+import { ToiletsTable, ToiletsDialog } from './Toilets';
+import { SocketsTable, SocketsDialog } from './Sockets';
+import { WaterTable, WaterDialog } from './Water';
 import { MODAL_TYPES, TABLE_TYPES } from './const';
 import useStyles from './styles';
 
 const MarkersManagement = ({
   wifi, toilets, sockets, water,
   getWifi, getToilets, getSockets, getWater,
-                             tableType, onTabChange,
+  tableType, onTabChange,
   openAddModal, openEditModal, resetModal, modalType,
   deleteEntities,
   match, location,
 }) => {
   const classes = useStyles();
+  const isModalOpen = modalType === MODAL_TYPES.edit.value || modalType === MODAL_TYPES.add.value;
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -80,6 +79,7 @@ const MarkersManagement = ({
           path={`${match.path}${routes.wifi()}`}
           render={() => {
             return (
+              <>
                 <WifiTable
                   data={wifi}
                   loadData={getWifi}
@@ -87,6 +87,14 @@ const MarkersManagement = ({
                   onActionButtonClick={openEditModal}
                   deleteEntities={deleteEntities}
                 />
+                {isModalOpen
+                  && (
+                  <WifiDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                  )}
+              </>
             );
           }}
         />
@@ -94,6 +102,7 @@ const MarkersManagement = ({
           path={`${match.path}${routes.toilets()}`}
           render={() => {
             return (
+              <>
                 <ToiletsTable
                   data={toilets}
                   loadData={getToilets}
@@ -101,6 +110,14 @@ const MarkersManagement = ({
                   onActionButtonClick={openEditModal}
                   deleteEntities={deleteEntities}
                 />
+                {isModalOpen
+                && (
+                  <ToiletsDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
@@ -108,6 +125,7 @@ const MarkersManagement = ({
           path={`${match.path}${routes.sockets()}`}
           render={() => {
             return (
+              <>
                 <SocketsTable
                   data={sockets}
                   loadData={getSockets}
@@ -115,6 +133,14 @@ const MarkersManagement = ({
                   onActionButtonClick={openEditModal}
                   deleteEntities={deleteEntities}
                 />
+                {isModalOpen
+                && (
+                  <SocketsDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
@@ -122,34 +148,26 @@ const MarkersManagement = ({
           path={`${match.path}${routes.water()}`}
           render={() => {
             return (
-              <WaterTable
-                data={water}
-                loadData={getWater}
-                onAddClick={openAddModal}
-                onActionButtonClick={openEditModal}
-                deleteEntities={deleteEntities}
-              />
+              <>
+                <WaterTable
+                  data={water}
+                  loadData={getWater}
+                  onAddClick={openAddModal}
+                  onActionButtonClick={openEditModal}
+                  deleteEntities={deleteEntities}
+                />
+                {isModalOpen
+                && (
+                  <WaterDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
       </Switch>
-
-      {/* MODALS */}
-      {modalType === MODAL_TYPES.add.value && (
-      <AddDialog
-        isOpen={modalType === MODAL_TYPES.add.value}
-        close={resetModal}
-        type={tableType}
-      />
-      )}
-
-      {modalType === MODAL_TYPES.edit.value && (
-      <EditDialog
-        isOpen={modalType === MODAL_TYPES.edit.value}
-        close={resetModal}
-        type={tableType}
-      />
-      )}
 
     </div>
   );

@@ -49,11 +49,17 @@ class MarkersManagementContainer extends Component {
   };
 
   resetModal = () => {
+    const { setMarkerIdToEdit } = this.props;
+
     this.setState({ modalType: null });
+    setMarkerIdToEdit(null);
   };
 
   handleTabChange = (event, value) => {
+    const { setMarkerIdToEdit } = this.props;
+
     this.setState({ tableType: value });
+    setMarkerIdToEdit(null);
   };
 
   deleteEntities = (ids) => {

@@ -9,6 +9,7 @@ export default function ({
   title,
   isOpen, onClose,
   onSubmit, onReset,
+  resetLabel = 'Cancel', submitLabel = 'Submit',
 }) {
   const classes = useStyles();
 
@@ -21,8 +22,8 @@ export default function ({
         </DialogContent>
 
         <DialogActions>
-          <Button color="primary" type="reset" onClick={onReset}>Decline</Button>
-          <Button color="secondary" type="submit" onClick={onSubmit}>Approve</Button>
+          <Button color="primary" type="reset" onClick={onReset}>{resetLabel}</Button>
+          <Button color="secondary" type="submit" onClick={onSubmit}>{submitLabel}</Button>
         </DialogActions>
       </form>
     </Dialog>
