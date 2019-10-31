@@ -19,6 +19,7 @@ export const columns = [
     name: 'Location',
     field: 'location',
     options: {
+      display: false,
       filter: true,
     },
   },
