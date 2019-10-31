@@ -1,17 +1,17 @@
 import React from 'react';
-import { CircularProgress, withStyles } from '@material-ui/core';
-import styles from './styles';
+import { CircularProgress } from '@material-ui/core';
+import useStyles from './styles';
 
-const Spinner = ({ classes, size }) => {
+export default function Spinner({ size }) {
+  const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <CircularProgress size={size} />
     </div>
   );
-};
+}
 
 Spinner.defaultProps = {
   size: 150,
 };
-
-export default withStyles(styles)(Spinner);

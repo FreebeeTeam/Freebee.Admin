@@ -1,13 +1,13 @@
-import * as actions from './actions';
-import reducer from './reducer';
-import * as selectors from './selectors';
-import * as thunks from './thunks';
+import * as feedbackActions from './actions';
+import feedbackReducer from './reducer';
+import * as feedbackSelectors from './selectors';
+import * as feedbackThunks from './thunks';
 
 export {
-  actions,
-  reducer,
-  selectors,
-  thunks,
+  feedbackActions,
+  feedbackReducer,
+  feedbackSelectors,
+  feedbackThunks,
 };
 
-export default reducer;
+export default feedbackReducer;

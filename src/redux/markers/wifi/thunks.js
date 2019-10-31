@@ -1,20 +1,17 @@
 import { markersService } from '../../../services';
 import {
-  getWifiRequest,
-  getWifiSuccess,
-  getWifiFailure,
-
+  createWifiFailure,
   createWifiRequest,
   createWifiSuccess,
-  createWifiFailure,
-
-  updateWifiRequest,
-  updateWifiSuccess,
-  updateWifiFailure,
-
+  getWifiFailure,
+  getWifiRequest,
+  getWifiSuccess,
+  removeWifiFailure,
   removeWifiRequest,
   removeWifiSuccess,
-  removeWifiFailure,
+  updateWifiFailure,
+  updateWifiRequest,
+  updateWifiSuccess,
 } from './actions';
 
 export const getWifi = () => async (dispatch) => {

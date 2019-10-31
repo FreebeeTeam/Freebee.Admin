@@ -1,10 +1,12 @@
-import * as actions from './actions';
-import * as thunks from './thunks';
+import * as toiletsActions from './actions';
+import * as toiletsThunks from './thunks';
+import * as toiletsSelectors from './selectors';
 import reducer from './reducer';
 
 export {
-  actions,
-  thunks,
+  toiletsActions,
+  toiletsThunks,
+  toiletsSelectors,
 };
 
 export default reducer;

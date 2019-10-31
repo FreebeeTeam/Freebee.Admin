@@ -1,21 +1,18 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import {
-  getWifiRequest,
-  getWifiSuccess,
-  getWifiFailure,
-
+  createWifiFailure,
   createWifiRequest,
   createWifiSuccess,
-  createWifiFailure,
-
-  updateWifiRequest,
-  updateWifiSuccess,
-  updateWifiFailure,
-
+  getWifiFailure,
+  getWifiRequest,
+  getWifiSuccess,
+  removeWifiFailure,
   removeWifiRequest,
   removeWifiSuccess,
-  removeWifiFailure,
+  updateWifiFailure,
+  updateWifiRequest,
+  updateWifiSuccess,
 } from './actions';
 
 const defaultState = {

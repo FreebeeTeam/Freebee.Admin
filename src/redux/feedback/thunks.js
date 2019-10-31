@@ -1,19 +1,16 @@
 import {
-  getFeedbackRequest,
-  getFeedbackSuccess,
-  getFeedbackFailure,
-
-  updateFeedbackRequest,
-  updateFeedbackSuccess,
-  updateFeedbackFailure,
-
-  removeFeedbackRequest,
-  removeFeedbackSuccess,
-  removeFeedbackFailure,
-
+  approveFeedbackFailure,
   approveFeedbackRequest,
   approveFeedbackSuccess,
-  approveFeedbackFailure,
+  getFeedbackFailure,
+  getFeedbackRequest,
+  getFeedbackSuccess,
+  removeFeedbackFailure,
+  removeFeedbackRequest,
+  removeFeedbackSuccess,
+  updateFeedbackFailure,
+  updateFeedbackRequest,
+  updateFeedbackSuccess,
 } from './actions';
 
 import { feedbackService } from '../../services';
@@ -64,6 +61,9 @@ export const approveFeedback = feedback => async (dispatch) => {
   dispatch(approveFeedbackRequest());
 
   try {
+    if (typeof feedback.type === 'number') {
+      feedback.type = [feedback.type.toString()];
+    }
     await feedbackService.approveFeedback(feedback);
 
     dispatch(approveFeedbackSuccess(feedback));

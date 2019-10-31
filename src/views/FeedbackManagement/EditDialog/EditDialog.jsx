@@ -1,154 +1,145 @@
 import React from 'react';
-import { Map, Popup, TileLayer } from 'react-leaflet';
-import { Formik, Form } from 'formik';
+import { useFormik } from 'formik';
 import {
-  Dialog, DialogActions, DialogTitle, DialogContent,
-  Button, TextField,
-  Grid,
-  withStyles,
+  Grid, TextField,
 } from '@material-ui/core';
+import { Dropdown, MapField, Dialog as EditDialog } from 'components';
+import { feedbackValidationSchema } from './helpers';
 
-import { MapMarker, FreeOpportunityTypeDropdown } from '../../../components';
-import { INITIAL_ZOOM, INITIAL_POSITION } from '../../../config/geolocation';
-
-import styles from './styles';
-
-const EditDialog = (props) => {
+export default function (props) {
   const {
+    title,
     isOpen,
     feedback,
     markerTypes,
-    handleApprove,
-    handleDecline,
-    handleClose,
-    handleChange,
-    handleCoordinatesChange,
-    classes,
+    onSubmit,
+    onReset,
+    onClose,
   } = props;
 
+  const {
+    handleSubmit, handleReset, handleChange, handleBlur,
+    setFieldValue,
+    errors, touched, values,
+  } = useFormik({
+    initialValues: {
+      title: '',
+      address: '',
+      author: '',
+      ...feedback,
+    },
+    validationSchema: feedbackValidationSchema,
+    onSubmit: (formValues) => {
+      onSubmit(formValues);
+    },
+    onReset: ({ id }) => {
+      onReset(id);
+    },
+  });
+
+  const handleLocationChange = (location) => {
+    setFieldValue('location', location);
+  };
+
   return (
-    <Formik
-      initialValues={{ ...feedback }}
-      onSubmit={(values, actions) => {
-        console.log('submit');
-        console.log(values);
-        console.log(actions);
-      }}
-      render={({
-        errors, status, touched, isSubmitting,
-      }) => {
-        console.log('render');
-        console.log('errors');
-        console.log(errors);
-        console.log('status');
-        console.log(status);
-        console.log('touched');
-        console.log(touched);
+    <EditDialog
+      title={title}
+      submitLabel="Approve"
+      resetLabel="Decline"
+      isOpen={isOpen}
+      onClose={onClose}
+      onReset={handleReset}
+      onSubmit={handleSubmit}
+    >
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <TextField
+            id="title"
+            name="title"
+            required
+            onChange={handleChange}
+            onBlur={handleBlur}
+            label={errors.title || 'Title'}
+            value={values.title}
+            error={!!errors.title && touched.title}
+            fullWidth
+          />
+        </Grid>
 
-        return (
-          <Form>
-            <Dialog open={isOpen} onClose={handleClose}>
+        <Grid item xs={6}>
+          <TextField
+            id="address"
+            name="address"
+            required
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.address && touched.address}
+            label={errors.address || 'Address'}
+            value={values.address}
+            fullWidth
+          />
+        </Grid>
 
-              <DialogTitle> Edit feedback </DialogTitle>
+        <Grid item xs={6}>
+          <TextField
+            id="author"
+            name="author"
+            required
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.author && touched.author}
+            label={errors.author || 'Author'}
+            value={values.author}
+            fullWidth
+          />
+        </Grid>
 
-              <DialogContent>
-                <Grid container spacing={24}>
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      onChange={handleChange('title')}
-                      id="created-title"
-                      label="Title"
-                      value={feedback.title}
-                      fullWidth
-                    />
-                  </Grid>
+        <Grid item xs={6}>
+          <Dropdown
+            title="Marker type"
+            name="type"
+            onChange={handleChange}
+            value={values.type}
+            items={markerTypes}
+          />
+        </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      required
-                      onChange={handleChange('address')}
-                      id="created-address"
-                      label="Address"
-                      value={feedback.address}
-                      fullWidth
-                    />
-                  </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.password && touched.password}
+            label={errors.password || 'Password'}
+            value={values.password}
+            fullWidth
+          />
+        </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      onChange={handleChange('author')}
-                      id="created-author"
-                      label="Author"
-                      value={feedback.author}
-                      fullWidth
-                    />
-                  </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="description"
+            name="description"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={!!errors.description && touched.description}
+            label={errors.description || 'Description'}
+            value={values.description}
+            fullWidth
+            multiline
+          />
+        </Grid>
 
-                  <Grid item xs={6}>
-                    <FreeOpportunityTypeDropdown
-                      onChange={handleChange('type')}
-                      value={feedback.type}
-                      types={markerTypes}
-                    />
-                  </Grid>
+        <Grid item xs={12}>
+          <MapField
+            name="location"
+            onChange={handleLocationChange}
+            value={values.location}
+          />
+        </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      onChange={handleChange('password')}
-                      id="created-password"
-                      label="Password"
-                      value={feedback.password}
-                      fullWidth
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField
-                      onChange={handleChange('description')}
-                      id="created-description"
-                      label="Description"
-                      multiline
-                      value={feedback.description}
-                      fullWidth
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Map
-                      center={INITIAL_POSITION}
-                      zoom={INITIAL_ZOOM}
-                      className={classes.map}
-                      onDblClick={handleCoordinatesChange}
-                      doubleClickZoom={false}
-                    >
-                      <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                      />
-                      {feedback.location && (
-                      <MapMarker position={feedback.location}>
-                        <Popup>New marker</Popup>
-                      </MapMarker>
-                      )}
-                    </Map>
-                  </Grid>
-
-                </Grid>
-              </DialogContent>
-
-              <DialogActions>
-                <Button color="primary" onClick={handleDecline}>Decline</Button>
-                <Button color="secondary" onClick={handleApprove}>Approve</Button>
-              </DialogActions>
-
-            </Dialog>
-          </Form>
-        );
-      }
-      }
-    />
+      </Grid>
+    </EditDialog>
   );
-};
-
-export default withStyles(styles)(EditDialog);
+}

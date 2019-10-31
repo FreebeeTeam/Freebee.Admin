@@ -4,7 +4,7 @@ import { DATE_FORMAT } from '../../config/format';
 import { selectMarkerTypes } from '../markers/selectors';
 import { columns } from '../../views/FeedbackManagement/FeedbackTable/columns';
 
-const selectFeedbackList = state => state.feedback.list;
+const selectFeedbackList = (state) => state.feedback.list;
 export const selectFeedbackAsArray = createSelector(
   [selectFeedbackList, selectMarkerTypes],
   (list, markerTypes) => {
@@ -24,7 +24,7 @@ export const selectFeedbackAsArray = createSelector(
 
         if (col.field === 'type') {
           const convertedType = markerTypes.find(
-            type => type.value.toString() === item[col.field][0],
+            (type) => type.value.toString() === item[col.field][0],
           );
 
           return convertedType ? convertedType.label : 'None';
@@ -36,12 +36,12 @@ export const selectFeedbackAsArray = createSelector(
   },
 );
 
-const selectSelectedToEditId = state => state.feedback.selectedFeedbackToEdit;
-const selectFeedback = state => state.feedback.list;
+const selectSelectedToEditId = (state) => state.feedback.selectedFeedbackToEdit;
+const selectFeedback = (state) => state.feedback.list;
 export const selectSelectedToEditFeedback = createSelector(
   [selectSelectedToEditId, selectFeedback],
   (id, feedback) => {
-    const entity = feedback.find(e => e.id === id);
+    const entity = feedback.find((e) => e.id === id);
 
     if (!entity) {
       return null;

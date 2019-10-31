@@ -1,20 +1,17 @@
 import { markersService } from '../../../services';
 import {
-  getSocketsRequest,
-  getSocketsSuccess,
-  getSocketsFailure,
-
+  createSocketFailure,
   createSocketRequest,
   createSocketSuccess,
-  createSocketFailure,
-
-  updateSocketRequest,
-  updateSocketSuccess,
-  updateSocketFailure,
-
+  getSocketsFailure,
+  getSocketsRequest,
+  getSocketsSuccess,
+  removeSocketsFailure,
   removeSocketsRequest,
   removeSocketsSuccess,
-  removeSocketsFailure,
+  updateSocketFailure,
+  updateSocketRequest,
+  updateSocketSuccess,
 } from './actions';
 
 // eslint-disable-next-line import/prefer-default-export

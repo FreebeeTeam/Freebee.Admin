@@ -1,18 +1,14 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { thunks as userThunks } from '../../redux/user';
+import { userThunks } from '../../redux/user';
 
-class Login extends React.Component {
-  componentDidMount() {
-    const { login } = this.props;
-
+const Login = ({ login }) => {
+  useEffect(() => {
     login();
-  }
+  }, []);
 
-  render() {
-    return null;
-  }
-}
+  return null;
+};
 
 const mapDispatch = {
   login: userThunks.userLogin,

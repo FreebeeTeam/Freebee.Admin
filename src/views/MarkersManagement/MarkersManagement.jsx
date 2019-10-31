@@ -1,45 +1,36 @@
 import React from 'react';
 import {
-  withStyles,
-  AppBar,
-  Tabs,
-  Tab,
+  AppBar, Tab, Tabs,
 } from '@material-ui/core';
 import {
-  Wifi as WifiIcon,
-  Wc as ToiletIcon,
   BatteryCharging20 as BatteryIcon,
   Waves as WaterIcon,
+  Wc as ToiletIcon,
+  Wifi as WifiIcon,
 } from '@material-ui/icons';
 import {
-  Link, Switch, Route, Redirect,
+  Link, Redirect, Route, Switch,
 } from 'react-router-dom';
-import TabContainer from './TabContainer';
-import { routes } from '../../routes';
-
-import AddDialog from './AddDialog';
-import EditDialog from './EditDialog';
-
-import ToiletsTable from './ToiletsTable';
-import WifiTable from './WifiTable';
-import SocketsTable from './SocketsTable';
-import WaterTable from './WaterTable';
-
+import routes from 'routes';
+import { WifiTable, WifiDialog } from './Wifi';
+import { ToiletsTable, ToiletsDialog } from './Toilets';
+import { SocketsTable, SocketsDialog } from './Sockets';
+import { WaterTable, WaterDialog } from './Water';
 import { MODAL_TYPES, TABLE_TYPES } from './const';
-
-import styles from './styles';
+import useStyles from './styles';
 
 const MarkersManagement = ({
-  classes,
   wifi, toilets, sockets, water,
+  getWifi, getToilets, getSockets, getWater,
   tableType, onTabChange,
   openAddModal, openEditModal, resetModal, modalType,
   deleteEntities,
   match, location,
 }) => {
+  const classes = useStyles();
+  const isModalOpen = modalType === MODAL_TYPES.edit.value || modalType === MODAL_TYPES.add.value;
   return (
     <div className={classes.root}>
-
       <AppBar position="static" color="default">
         <Tabs
           value={tableType}
@@ -88,15 +79,22 @@ const MarkersManagement = ({
           path={`${match.path}${routes.wifi()}`}
           render={() => {
             return (
-              <TabContainer>
+              <>
                 <WifiTable
-                  openAddModal={openAddModal}
-                  openEditModal={openEditModal}
-                  deleteEntities={deleteEntities}
-                  title={TABLE_TYPES.wifi.label}
                   data={wifi}
+                  loadData={getWifi}
+                  onAddClick={openAddModal}
+                  onActionButtonClick={openEditModal}
+                  deleteEntities={deleteEntities}
                 />
-              </TabContainer>
+                {isModalOpen
+                  && (
+                  <WifiDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                  )}
+              </>
             );
           }}
         />
@@ -104,15 +102,22 @@ const MarkersManagement = ({
           path={`${match.path}${routes.toilets()}`}
           render={() => {
             return (
-              <TabContainer>
+              <>
                 <ToiletsTable
-                  openAddModal={openAddModal}
-                  openEditModal={openEditModal}
-                  deleteEntities={deleteEntities}
-                  title={TABLE_TYPES.toilets.label}
                   data={toilets}
+                  loadData={getToilets}
+                  onAddClick={openAddModal}
+                  onActionButtonClick={openEditModal}
+                  deleteEntities={deleteEntities}
                 />
-              </TabContainer>
+                {isModalOpen
+                && (
+                  <ToiletsDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
@@ -120,15 +125,22 @@ const MarkersManagement = ({
           path={`${match.path}${routes.sockets()}`}
           render={() => {
             return (
-              <TabContainer>
+              <>
                 <SocketsTable
-                  openAddModal={openAddModal}
-                  openEditModal={openEditModal}
-                  deleteEntities={deleteEntities}
-                  title={TABLE_TYPES.sockets.label}
                   data={sockets}
+                  loadData={getSockets}
+                  onAddClick={openAddModal}
+                  onActionButtonClick={openEditModal}
+                  deleteEntities={deleteEntities}
                 />
-              </TabContainer>
+                {isModalOpen
+                && (
+                  <SocketsDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
@@ -136,41 +148,29 @@ const MarkersManagement = ({
           path={`${match.path}${routes.water()}`}
           render={() => {
             return (
-              <TabContainer>
+              <>
                 <WaterTable
-                  openAddModal={openAddModal}
-                  openEditModal={openEditModal}
-                  deleteEntities={deleteEntities}
-                  title={TABLE_TYPES.water.label}
                   data={water}
+                  loadData={getWater}
+                  onAddClick={openAddModal}
+                  onActionButtonClick={openEditModal}
+                  deleteEntities={deleteEntities}
                 />
-              </TabContainer>
+                {isModalOpen
+                && (
+                  <WaterDialog
+                    isOpen={isModalOpen}
+                    onClose={resetModal}
+                  />
+                )}
+              </>
             );
           }}
         />
       </Switch>
 
-      {/* MODALS */}
-      {modalType === MODAL_TYPES.add.value
-        && (
-          <AddDialog
-            isOpen={modalType === MODAL_TYPES.add.value}
-            close={resetModal}
-            type={tableType}
-          />
-        )
-        }
-
-      {modalType === MODAL_TYPES.edit.value && (
-      <EditDialog
-        isOpen={modalType === MODAL_TYPES.edit.value}
-        close={resetModal}
-        type={tableType}
-      />
-      )}
-
     </div>
   );
 };
 
-export default withStyles(styles)(MarkersManagement);
+export default MarkersManagement;

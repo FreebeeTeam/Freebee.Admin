@@ -1,8 +1,8 @@
 import { createActions } from 'redux-actions';
-import { actions as toiletsActions } from './toilets';
-import { actions as wifiActions } from './wifi';
-import { actions as socketsActions } from './sockets';
-import { actions as waterActions } from './water';
+import { toiletsActions } from './toilets';
+import { wifiActions } from './wifi';
+import { socketsActions } from './sockets';
+import { waterActions } from './water';
 
 const {
   markers: {
@@ -14,10 +14,10 @@ const {
   },
 } = createActions({
   MARKERS: {
-    SET_MARKER_ID_TO_EDIT: id => ({ id }),
+    SET_MARKER_ID_TO_EDIT: (id) => ({ id }),
 
     GET_MARKER_TYPES_REQUEST: () => {},
-    GET_MARKER_TYPES_SUCCESS: types => ({ types }),
+    GET_MARKER_TYPES_SUCCESS: (types) => ({ types }),
     GET_MARKER_TYPES_FAILURE: () => {},
   },
 });

@@ -1,26 +1,12 @@
-const drawerWidth = 240;
-const sideMargin = 12;
+import { makeStyles } from '@material-ui/core';
 
-export default theme => ({
+const drawerWidth = 240;
+
+export default makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexFlow: 'column',
     height: '100%',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  profile: {
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: sideMargin * 2,
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -30,43 +16,9 @@ export default theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  menuButton: {
-    marginLeft: sideMargin,
-    marginRight: sideMargin * 3,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing.unit * 7,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
   inner: {
   },
   content: {
     flexGrow: 1,
   },
-});
+}));

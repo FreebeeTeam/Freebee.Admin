@@ -1,9 +1,10 @@
 import {
+  getUserProfileFailure,
   getUserProfileRequest,
   getUserProfileSuccess,
-  getUserProfileFailure,
-
-  logout, login, handleAuthentication,
+  handleAuthentication,
+  login,
+  logout,
 } from './actions';
 import Auth from '../../services/auth';
 

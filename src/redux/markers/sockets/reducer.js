@@ -1,21 +1,18 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import {
-  getSocketsRequest,
-  getSocketsSuccess,
-  getSocketsFailure,
-
+  createSocketFailure,
   createSocketRequest,
   createSocketSuccess,
-  createSocketFailure,
-
-  updateSocketRequest,
-  updateSocketSuccess,
-  updateSocketFailure,
-
+  getSocketsFailure,
+  getSocketsRequest,
+  getSocketsSuccess,
+  removeSocketsFailure,
   removeSocketsRequest,
   removeSocketsSuccess,
-  removeSocketsFailure,
+  updateSocketFailure,
+  updateSocketRequest,
+  updateSocketSuccess,
 } from './actions';
 
 const defaultState = {

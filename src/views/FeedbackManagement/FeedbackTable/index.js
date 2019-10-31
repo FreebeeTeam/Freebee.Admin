@@ -1,3 +1,3 @@
-import Table from './container';
+import Table from './FeedbackTable';
 
 export default Table;

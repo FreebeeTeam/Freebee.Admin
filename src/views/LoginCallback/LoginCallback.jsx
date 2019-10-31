@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from '../../components';
+import { Spinner } from 'components';
+import { userThunks } from 'redux/user';
+import routes from 'routes';
 
-import { thunks as userThunks } from '../../redux/user';
-import { routes } from '../../routes';
+const LoginCallback = ({ location, history, handleAuth }) => {
+  const [isSuccess, setSuccess] = useState(null);
 
-class LoginCallback extends React.Component {
-  state = {
-    success: null,
-  };
-
-  componentDidMount() {
-    const { location, history, handleAuth } = this.props;
-
+  useEffect(() => {
     if (/access_token|id_token|error/.test(location.hash)) {
       handleAuth(() => {
         history.replace(routes.index());
@@ -20,22 +15,16 @@ class LoginCallback extends React.Component {
         history.replace(routes.login());
       });
 
-      this.setState({
-        success: true,
-      });
+      setSuccess(true);
     } else {
-      this.setState({ success: false });
+      setSuccess(false);
     }
-  }
+  }, []);
 
-  render() {
-    const { success } = this.state;
-
-    return success === null || success === true
-      ? <Spinner />
-      : <div>ERROR</div>;
-  }
-}
+  return isSuccess === null || isSuccess
+    ? <Spinner />
+    : <div>Login failed</div>;
+};
 
 const mapDispatch = {
   handleAuth: userThunks.handleUserAuthentication,

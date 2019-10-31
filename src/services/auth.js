@@ -1,14 +1,13 @@
 import auth0 from 'auth0-js';
 import {
-  domain,
-  clientID,
-  callbackUrl,
-  responseType,
-  scope,
   audience,
+  callbackUrl,
+  clientID,
+  domain,
+  responseType,
   returnAfterLogoutUrl,
-} from '../config/auth0Config';
-import { appendTokenToRequests } from './http';
+  scope,
+} from 'config/auth0Config';
 
 const options = {
   domain,
@@ -32,30 +31,31 @@ export default class Auth {
     this.auth0.authorize();
   };
 
-  handleAuthentication = (successCb, failureCb) => {
+  handleAuthentication = (success, failure) => {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        successCb();
+        success();
       } else if (err) {
-        failureCb();
+        failure();
       }
     });
   };
 
-  getUserProfile = (resolve, reject) => {
+  getUserProfile = (success, failure) => {
     const accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (err) {
-        reject(err);
+        failure(err);
       } else {
-        resolve(profile);
+        success(profile);
       }
     });
   };
 
   getAccessToken = () => {
     const accessToken = localStorage.getItem('access_token');
+
     if (!accessToken) {
       throw new Error('No access token found');
     }
@@ -64,10 +64,10 @@ export default class Auth {
 
   setSession = (authResult) => {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    appendTokenToRequests();
   };
 
   logout = () => {

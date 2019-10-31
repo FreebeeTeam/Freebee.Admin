@@ -1,34 +1,36 @@
-import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core';
+import React, { useState } from 'react';
 import FeedbackTable from './FeedbackTable';
 import EditDialog from './EditDialog';
+import useStyles from './styles';
 
-import styles from './styles';
+export default function FeedbackManagement({
+  data,
+  deleteFeedback,
+  setFeedbackToEdit,
+}) {
+  const classes = useStyles();
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
-class FeedbackManagement extends PureComponent {
-  render() {
-    const {
-      classes,
-      data,
-      isOpen,
-      handleOpen,
-      handleClose,
-      deleteFeedback,
-      setFeedbackToEdit,
-    } = this.props;
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
 
-    return (
-      <div className={classes.root}>
-        <FeedbackTable
-          setFeedbackToEdit={setFeedbackToEdit}
-          data={data}
-          handleOpen={handleOpen}
-          deleteFeedback={deleteFeedback}
-        />
-        <EditDialog isOpen={isOpen} handleClose={handleClose} />
-      </div>
-    );
-  }
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  return (
+    <div className={classes.root}>
+      <FeedbackTable
+        setFeedbackToEdit={setFeedbackToEdit}
+        data={data}
+        onDialogOpen={handleDialogOpen}
+        deleteFeedback={deleteFeedback}
+      />
+      <EditDialog
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+      />
+    </div>
+  );
 }
-
-export default withStyles(styles)(FeedbackManagement);

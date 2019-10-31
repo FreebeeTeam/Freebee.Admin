@@ -1,19 +1,14 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { userThunks } from '../../redux/user';
 
-import { thunks as userThunks } from '../../redux/user';
-
-class Logout extends React.Component {
-  componentDidMount() {
-    const { logout } = this.props;
-
+const Logout = ({ logout }) => {
+  useEffect(() => {
     logout();
-  }
+  }, []);
 
-  render() {
-    return null;
-  }
-}
+  return null;
+};
 
 const mapDispatch = {
   logout: userThunks.userLogout,

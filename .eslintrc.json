@@ -13,13 +13,21 @@
     "jsx-a11y",
     "react"
   ],
-  "rules": {
-    "linebreak-style": "off",
-    "jsx-a11y/label-has-for": "off",
-    "arrow-body-style": "off"
-  },
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "rules": {
+    "linebreak-style": "off",
+    "jsx-a11y/label-has-for": "off",
+    "arrow-body-style": "off",
+    "import/no-absolute-path": "off"
   }
 }

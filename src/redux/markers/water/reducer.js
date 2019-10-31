@@ -1,21 +1,18 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import {
-  getWaterRequest,
-  getWaterSuccess,
-  getWaterFailure,
-
+  createWaterFailure,
   createWaterRequest,
   createWaterSuccess,
-  createWaterFailure,
-
-  updateWaterRequest,
-  updateWaterSuccess,
-  updateWaterFailure,
-
+  getWaterFailure,
+  getWaterRequest,
+  getWaterSuccess,
+  removeWaterFailure,
   removeWaterRequest,
   removeWaterSuccess,
-  removeWaterFailure,
+  updateWaterFailure,
+  updateWaterRequest,
+  updateWaterSuccess,
 } from './actions';
 
 const defaultState = {

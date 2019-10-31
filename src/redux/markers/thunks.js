@@ -1,14 +1,10 @@
-import { thunks as toiletsThunks } from './toilets';
-import { thunks as wifiThunks } from './wifi';
-import { thunks as socketsThunks } from './sockets';
-import { thunks as waterThunks } from './water';
+import { toiletsThunks } from './toilets';
+import { wifiThunks } from './wifi';
+import { socketsThunks } from './sockets';
+import { waterThunks } from './water';
 import * as markersService from '../../services/markers';
 
-import {
-  getMarkerTypesRequest,
-  getMarkerTypesSuccess,
-  getMarkerTypesFailure,
-} from './actions';
+import { getMarkerTypesFailure, getMarkerTypesRequest, getMarkerTypesSuccess, } from './actions';
 
 const { getWifi } = wifiThunks;
 const { getToilets } = toiletsThunks;

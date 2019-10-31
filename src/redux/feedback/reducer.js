@@ -1,23 +1,19 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import {
-  getFeedbackRequest,
-  getFeedbackSuccess,
-  getFeedbackFailure,
-
-  updateFeedbackRequest,
-  updateFeedbackSuccess,
-  updateFeedbackFailure,
-
-  removeFeedbackRequest,
-  removeFeedbackSuccess,
-  removeFeedbackFailure,
-
+  approveFeedbackFailure,
   approveFeedbackRequest,
   approveFeedbackSuccess,
-  approveFeedbackFailure,
-
+  getFeedbackFailure,
+  getFeedbackRequest,
+  getFeedbackSuccess,
+  removeFeedbackFailure,
+  removeFeedbackRequest,
+  removeFeedbackSuccess,
   setFeedbackToEdit,
+  updateFeedbackFailure,
+  updateFeedbackRequest,
+  updateFeedbackSuccess,
 } from './actions';
 
 
