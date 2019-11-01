@@ -1,12 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Redirect, Route, Switch,
+} from 'react-router-dom';
 
 import Dashboard from './views/Dashboard';
 import Logout from './views/Logout';
 import Login from './views/Login';
 
-import { callback, dashboard, index, login, logout, } from './routes/routes';
+import {
+  callback, dashboard, index, login, logout,
+} from './routes/routes';
 import { isAuthenticated } from './services/auth';
 import { createStore } from './redux';
 
@@ -58,7 +62,16 @@ const App = () => {
                   );
                 }}
               />
-              <Route path={dashboard()} component={Dashboard} />
+              <Route
+                path={dashboard()}
+                render={() => {
+                  if (!isAuthenticated()) {
+                    return <Redirect to={login()} />;
+                  }
+
+                  return <Dashboard />;
+                }}
+              />
             </Switch>
           </>
         </Router>

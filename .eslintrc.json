@@ -11,7 +11,8 @@
   "plugins": [
     "jest",
     "jsx-a11y",
-    "react"
+    "react",
+    "react-hooks"
   ],
   "parserOptions": {
     "ecmaVersion": 2017,
@@ -28,6 +29,8 @@
     "linebreak-style": "off",
     "jsx-a11y/label-has-for": "off",
     "arrow-body-style": "off",
-    "import/no-absolute-path": "off"
+    "import/no-absolute-path": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
