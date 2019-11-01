@@ -5,6 +5,7 @@ import { Header, SideNavBar } from 'components';
 import routes from 'routes';
 import FeedbackManagement from '../FeedbackManagement';
 import MarkersManagement from '../MarkersManagement';
+import EventsManagement from '../EventsManagement';
 import useStyles from './styles';
 
 export default function Dashboard({
@@ -52,6 +53,12 @@ export default function Dashboard({
                 path={`${match.path}${routes.feedback()}`}
                 render={() => {
                   return <FeedbackManagement />;
+                }}
+              />
+              <Route
+                path={`${match.path}${routes.events()}`}
+                render={() => {
+                  return <EventsManagement />;
                 }}
               />
               <Route

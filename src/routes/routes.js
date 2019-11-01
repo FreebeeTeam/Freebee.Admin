@@ -5,6 +5,8 @@ export const dashboard = () => '/dashboard';
 
 export const feedback = () => '/feedback';
 
+export const events = () => '/events';
+
 export const markers = () => '/markers';
 export const wifi = () => '/wifi';
 export const toilets = () => '/toilets';

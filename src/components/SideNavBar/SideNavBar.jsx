@@ -11,10 +11,9 @@ import {
   SwipeableDrawer as Drawer,
 } from '@material-ui/core';
 import {
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
+  ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon,
+  Map as MapIcon, Event as EventIcon,
   Comment as CommentIcon,
-  Map as MapIcon,
 } from '@material-ui/icons';
 import routes from 'routes';
 import useStyles from './styles';
@@ -67,6 +66,17 @@ export default function SideNavBar({
             <MapIcon />
           </ListItemIcon>
           <ListItemText primary="Markers" />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to={`${match.url}${routes.events()}`}
+          button
+          key="Events"
+        >
+          <ListItemIcon>
+            <EventIcon />
+          </ListItemIcon>
+          <ListItemText primary="Events" />
         </ListItem>
       </List>
     </Drawer>
